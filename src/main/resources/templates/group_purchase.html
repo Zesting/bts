@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <title>BTS</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+</head>
+
+<body>
+    <header>header</header>
+    <div class="body">
+        <nav>side nav</nav>
+        <div id="container">
+            <table id="table-group-purchase">
+                <thead>
+                    <tr>
+                        <th>공동구매</th>
+                        <th>상품id</th>
+                        <th>판매시작</th>
+                        <th>판매종료</th>
+                        <th>정보</th>
+                        <th>최소인원수</th>
+                        <th>기업요청id</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="gp : ${grouppurchases}">
+                        <td th:text="${gp.id}"></td>
+                        <td th:text="${gp.productId}"></td>
+                        <td th:text="${gp.saleStart}"></td>
+                        <td th:text="${gp.saleEnd}"></td>
+                        <td th:text="${gp.information}"></td>
+                        <td th:text="${gp.minQuantity}"></td>
+                        <td th:text="${gp.saleRequestId}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table id="table-category">
+                <thead>
+                    <tr>
+                        <th>카테고리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="ca : ${category}">
+                        <td th:text="${ca}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table id="table-product">
+                <thead>
+                    <tr>
+                        <th>상품</th>
+                        <th>상품명</th>
+                        <th>브랜드</th>
+                        <th>설명</th>
+                        <th>카테고리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p : ${products}">
+                        <td th:text="${p.id}"></td>
+                        <td th:text="${p.name}"></td>
+                        <td th:text="${p.brand}"></td>
+                        <td th:text="${p.description}"></td>
+                        <td th:text="${p.category}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table id="table-product-option">
+                <thead>
+                    <tr>
+                        <th>상품옵션</th>
+                        <th>상품id</th>
+                        <th>사이즈</th>
+                        <th>색상</th>
+                        <th>재고수량</th>
+                        <th>가격</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="po : ${options}">
+                        <td th:text="${po.id}"></td>
+                        <td th:text="${po.productId}"></td>
+                        <td th:text="${po.size}"></td>
+                        <td th:text="${po.color}"></td>
+                        <td th:text="${po.quantity}"></td>
+                        <td th:text="${po.price}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table id="table-product-image">
+                <thead>
+                    <tr>
+                        <th>상품이미지</th>
+                        <th>상품id</th>
+                        <th>색상</th>
+                        <th>이미지</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="pi : ${images}">
+                        <td th:text="${pi.id}"></td>
+                        <td th:text="${pi.productId}"></td>
+                        <td th:text="${pi.color}"></td>
+                        <td><img th:src="${pi.imagePath}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+</body>
+
+</html>
