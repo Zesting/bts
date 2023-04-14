@@ -9,4 +9,5 @@ public class Product {
     private String brand;
     private String description;
     private String category;
+    
 }
