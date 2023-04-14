@@ -1,10 +1,10 @@
-package project.study.repository;
+package ezenstudy.bts.repository;
 
 import java.util.List;
 import java.util.Optional;
 
-import project.study.domain.Member;
-import project.study.domain.Order;
+import ezenstudy.bts.domain.Member;
+import ezenstudy.bts.domain.Order;
 
 public interface OrderRepository {
     /** 어느 하나의 주문 정보 저장 */

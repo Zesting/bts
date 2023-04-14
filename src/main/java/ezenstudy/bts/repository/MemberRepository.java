@@ -1,10 +1,10 @@
-package project.study.repository;
+package ezenstudy.bts.repository;
 
 import java.util.List;
 import java.util.Optional;
 
-import project.study.domain.Addr;
-import project.study.domain.Member;
+import ezenstudy.bts.domain.Addr;
+import ezenstudy.bts.domain.Member;
 
 public interface MemberRepository {
 

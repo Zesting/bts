@@ -1,9 +1,9 @@
-package project.study.repository;
+package ezenstudy.bts.repository;
 
 import java.util.List;
 import java.util.Optional;
 
-import project.study.domain.Addr;
+import ezenstudy.bts.domain.Addr;
 
 public interface AddrRepository {
     /** 어느 하나의 주소 저장 */

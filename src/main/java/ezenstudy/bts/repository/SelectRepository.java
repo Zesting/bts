@@ -1,9 +1,9 @@
-package project.study.repository;
+package ezenstudy.bts.repository;
 
 import java.util.List;
 import java.util.Optional;
 
-import project.study.domain.Select;
+import ezenstudy.bts.domain.Select;
 
 public interface SelectRepository {
 

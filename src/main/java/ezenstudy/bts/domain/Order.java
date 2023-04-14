@@ -1,4 +1,4 @@
-package project.study.domain;
+package ezenstudy.bts.domain;
 
 import lombok.Data;
 
