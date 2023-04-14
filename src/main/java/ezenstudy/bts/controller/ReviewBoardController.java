@@ -1,7 +1,6 @@
 package ezenstudy.bts.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,6 @@ import ezenstudy.bts.service.ReviewBoardService;
 public class ReviewBoardController {
     private final ReviewBoardService reviewBoardService;
     
-    @Autowired
     public ReviewBoardController(ReviewBoardService reviewBoardService) {
         this.reviewBoardService = reviewBoardService;
     }
