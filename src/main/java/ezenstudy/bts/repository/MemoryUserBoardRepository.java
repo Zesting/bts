@@ -31,13 +31,11 @@ public class MemoryUserBoardRepository implements UserBoardRepository {
 
   @Override
   public List<UserBoard> listAll() {
-    // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'listAll'");
   }
 
   @Override
   public Optional<UserBoard> findById(Long id) {
-    // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'findById'");
   }
 
