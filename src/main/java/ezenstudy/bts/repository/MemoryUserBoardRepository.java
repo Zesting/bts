@@ -15,7 +15,7 @@ public class MemoryUserBoardRepository implements UserBoardRepository {
   @Override
   public UserBoard save(UserBoard board) {
     board.setUserBoardNumber(++userBoardNumber);
-    store.put(board.getUserBoardNumber(),board);
+    store.put(board.getUserBoardNumber(), board);
     return board;
   }
 
@@ -39,6 +39,4 @@ public class MemoryUserBoardRepository implements UserBoardRepository {
     throw new UnsupportedOperationException("Unimplemented method 'findById'");
   }
 
-
-  
 }
