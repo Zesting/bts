@@ -8,13 +8,16 @@ import ezenstudy.bts.repository.MemoryGroupPurchaseRepository;
 import ezenstudy.bts.repository.MemoryProductImageRepository;
 import ezenstudy.bts.repository.MemoryProductOptionRepository;
 import ezenstudy.bts.repository.MemoryProductRepository;
+import ezenstudy.bts.repository.MemoryUserBoardRepository;
 import ezenstudy.bts.repository.ProductImageRepository;
 import ezenstudy.bts.repository.ProductOptionRepository;
 import ezenstudy.bts.repository.ProductRepository;
+import ezenstudy.bts.repository.UserBoardRepository;
 import ezenstudy.bts.service.GroupPurchaseService;
 import ezenstudy.bts.service.ProductImageService;
 import ezenstudy.bts.service.ProductOptionService;
 import ezenstudy.bts.service.ProductService;
+import ezenstudy.bts.service.UserBoardService;
 
 @Configuration
 public class SpringConfig {
@@ -51,4 +54,13 @@ public class SpringConfig {
     public ProductImageRepository productImageRepository(){
         return new MemoryProductImageRepository();
     }
+    @Bean
+  public UserBoardService userBoardService() {
+    return new UserBoardService(userBoardRepository());
+  }
+
+  @Bean
+  public UserBoardRepository userBoardRepository() {
+    return new MemoryUserBoardRepository();
+  }
 }

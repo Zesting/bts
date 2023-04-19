@@ -2,88 +2,29 @@ package ezenstudy.bts.domain;
 
 import java.time.LocalDateTime;
 
+import lombok.Data;
+
+@Data
 public class UserBoard {
-  private long userBoardNumber;
-  private String member_ID;
-  private String newProductID;
-  private String writer;
-  private LocalDateTime boardDate;
-  private long offerCount;
-  private String boardTitle;
-  private String boardContent;
-  private String category;
+  private long userBoardNumber;   //게시물번호
+  private String member_ID;       //회원ID
+  private String newProductID;    //상품명
+  private String writer;          //작성자
+  private LocalDateTime userBoardDateTime;//작성일
+  private long offerCount;        //상품 추천수
+  private String userBoardTitle;      //게시물 제목
+  private String userBoardContent;    //게시물 본문
+  private String category;        //카테고리
 
 
-  public long getUserBoardNumber() {
-    return this.userBoardNumber;
+  public UserBoard() {
+    // 기본 생성자 구현
   }
 
-  public void setUserBoardNumber(long userBoardNumber) {
-    this.userBoardNumber = userBoardNumber;
-  }
 
-  public String getMember_ID() {
-    return this.member_ID;
-  }
-
-  public void setMember_ID(String member_ID) {
-    this.member_ID = member_ID;
-  }
-
-  public String getNewProductName() {
-    return this.newProductID;
-  }
-
-  public void setNewProductName(String newProductName) {
-    this.newProductID = newProductName;
-  }
-
-  public String getWriter() {
-    return this.writer;
-  }
-
-  public void setWriter(String writer) {
-    this.writer = writer;
-  }
-
-  public LocalDateTime getBoardDate() {
-    return this.boardDate;
-  }
-
-  public void setBoardDate(LocalDateTime boardDate) {
-    this.boardDate = boardDate;
-  }
-
-  public long getOfferCount() {
-    return this.offerCount;
-  }
-
-  public void setOfferCount(int offerCount) {
-    this.offerCount = offerCount;
-  }
-
-  public String getBoardTitle() {
-    return this.boardTitle;
-  }
-
-  public void setBoardTitle(String boardTitle) {
-    this.boardTitle = boardTitle;
-  }
-
-  public String getBoardContent() {
-    return this.boardContent;
-  }
-
-  public void setBoardContent(String boardContent) {
-    this.boardContent = boardContent;
-  }
-
-  public String getCategory() {
-    return this.category;
-  }
-
-  public void setCategory(String category) {
-    this.category = category;
+  public UserBoard(String userBoardTitle, String userBoardContent) {
+    this.userBoardTitle = userBoardTitle;
+    this.userBoardContent = userBoardContent;
   }
 
 }

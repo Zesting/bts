@@ -36,8 +36,20 @@ public class MemoryMemberRepository implements MemberRepository {
 
     /* 멤버 레파지토리에 존재하는 멤버 조회(파라미터 = 멤버 이름) 구현 객체 */
     @Override
-    public Optional<Member> findName(String memberName) {
-        return store.values().stream().filter(m -> m.getName().equals(memberName)).findAny();
+    public List<Member> findName(String memberName) {
+        List<Member> memberList = new ArrayList<>();
+        for (Member member : store.values()) {
+            if (member.getName().equals(memberName)) {
+                memberList.add(member);
+            }
+        }
+        return memberList;
+    }
+
+    /** 멤버 레파지토리에 존재하는 멤버 조회(파라미터 = 멤버 로그인 아이디) 구현 객체 */
+    @Override
+    public Optional<Member> findLogId(String memberLogId) {
+        return store.values().stream().filter(m -> m.getLogId().equals(memberLogId)).findAny();
     }
 
     /** 회원 정보 수정(업데이트) 구현 객체 */

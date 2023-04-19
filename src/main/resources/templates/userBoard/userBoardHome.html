@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BTS</title>
+</head>
+<body>
+  <h1>User Board Home</h1>
+  <p>게시물 리스트</p>
+    <form action="/userBoard/Create" method="post">
+      <input type="submit" value="등록">
+    </form>
+<!-- home.html 뷰에서 userBoardTitle 데이터 사용 -->
+<h1 th:text="${userBoardTitle}">Title</h1><h1 th:text="${userBoardContent}">Content</h1>
+
+
+    <!-- userBoardList를 이용하여 리스트 출력하려 했으나 타임리프를 이용하여 출력 -->
+<!-- <ul>
+  <li th:each="userBoard : ${userBoardList}">
+    <p th:text="${userBoard.userBoardTitle}"></p>
+    <p th:text="${userBoard.userBoardContent}"></p>
+  </li>
+</ul> -->
+<!-- home.html 뷰에서 userBoardDateTime 데이터 사용 -->
+<!--  Thymeleaf에서 제공하는 #temporals 객체를 사용해야한다.  -->
+<h1 th:text="${#temporals.format(userBoardDateTime, 'yyyy-MM-dd HH:mm:ss')}"></h1>
+
+</body>
+
+</html>
