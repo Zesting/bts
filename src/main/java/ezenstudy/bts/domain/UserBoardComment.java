@@ -1,25 +1,16 @@
 package ezenstudy.bts.domain;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
+import lombok.Data;
+
+@Data
 public class UserBoardComment {
-  private String commentWriter;
-  private Date commentDate;
+  private Long commentID;         // 댓글 ID (댓글 순서)
+  private Long postID;            // 게시글 번호(외래키)
+  private String commentContent;  // 댓글 내용
+  private String commentWriter;   //댓글 작성자
+  private LocalDateTime commentDate;       //댓글 작성일
+  private LocalDateTime updateDate;        //댓글 수정일
 
-  public Date getCommentDate() {
-    return this.commentDate;
-  }
-
-  public void setCommentDate(Date commentDate) {
-    this.commentDate = commentDate;
-  }
-
-  public String getCommentWriter() {
-    return this.commentWriter;
-  }
-
-  public void setCommentWriter(String commentWriter) {
-    this.commentWriter = commentWriter;
-  }
-  
 }
