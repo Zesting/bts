@@ -14,11 +14,14 @@ public interface MemberRepository {
     /** 멤버 레파지토리에 존재하는 모든 멤버 조회 */
     List<Member> findAll();
 
-    /* 멤버 레파지토리에 존재하는 멤버 조회(파라미터 = 멤버 고유번호) */
+    /** 멤버 레파지토리에 존재하는 멤버 조회(파라미터 = 멤버 고유번호) */
     Optional<Member> findId(Long memberId);
 
-    /* 멤버 레파지토리에 존재하는 멤버 조회(파라미터 = 멤버 이름) */
-    Optional<Member> findName(String memberName);
+    /** 멤버 레파지토리에 존재하는 멤버 조회(파라미터 = 멤버 이름) */
+    List<Member> findName(String memberName);
+
+    /** 멤버 레파지토리에 존재하는 멤버 조회(파라미터 = 멤버 로그인 아이디) */
+    Optional<Member> findLogId(String memberLogId);
 
     /** 회원 정보 수정(업데이트) */
     Optional<Member> update(Long memberId, Member member);
