@@ -11,7 +11,7 @@ public class AddrService {
     private AddrRepository addrRepository;
     private MemberRepository memberRepository;
 
-    public AddrService(AddrRepository addrRepository) {
+    public AddrService(AddrRepository addrRepository, MemberRepository memberRepository) {
         this.addrRepository = addrRepository;
         this.memberRepository = memberRepository;
     }
