@@ -20,8 +20,8 @@ public interface SelectRepository {
     List<Select> findSelectList(Long memberId);
 
     /** 찜 정보 수정 */
-    Select update(Select select);
+    Optional<Select> update(Long selectId, Select select);
 
     /* 입력된 상품 고유 번호에 해당하는 찜 정보 삭제 */
-    Optional<Integer> deleteOne(Long productId);
+    Long deleteOne(Long orderId);
 }

@@ -27,6 +27,6 @@ public class Member {
     /** 회원 가입한 날짜 */
     private Date innerDate;
     /** 로그인 한 날짜 */
-    private Date lonTime;
+    private Date logTime;
 
 }

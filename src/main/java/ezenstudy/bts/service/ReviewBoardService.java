@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ezenstudy.bts.domain.ReviewBoard;
@@ -14,7 +13,6 @@ import ezenstudy.bts.repository.ReviewBoardRepository;
 public class ReviewBoardService {
     private final ReviewBoardRepository boardRepository;
 
-    @Autowired
     public ReviewBoardService(ReviewBoardRepository boardRepository){
         this.boardRepository = boardRepository;
     }
