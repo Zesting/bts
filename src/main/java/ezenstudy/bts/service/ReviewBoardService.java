@@ -1,5 +1,6 @@
 package ezenstudy.bts.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,10 +20,12 @@ public class ReviewBoardService {
     }
 
     public void save(ReviewBoard reviewBoard){
+        reviewBoard.setcDate(LocalDateTime.now()); // 작성날짜
         boardRepository.save(reviewBoard);
     }
 
     public void update(ReviewBoard reviewBoard){
+        reviewBoard.setuDate(LocalDateTime.now()); // 수정날짜
         boardRepository.update(reviewBoard);
     }
 
