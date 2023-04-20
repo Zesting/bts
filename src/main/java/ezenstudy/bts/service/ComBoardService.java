@@ -2,19 +2,17 @@ package ezenstudy.bts.service;
 
 
 
-import ezenstudy.bts.domain.ComBoard;
-import ezenstudy.bts.repository.ComBoardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-@Service
+import ezenstudy.bts.domain.ComBoard;
+import ezenstudy.bts.repository.ComBoardRepository;
+
+
 public class ComBoardService {
 
     private final ComBoardRepository comBoardRepository;
 
-    @Autowired
+   
     public ComBoardService(ComBoardRepository comBoardRepository) {
         this.comBoardRepository = comBoardRepository;
     }

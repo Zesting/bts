@@ -19,7 +19,7 @@ public class ReviewBoardController {
 
 
     @PostMapping("/reviewboard")
-    public String reviewBoardPost(ReviewBoard reviewBoard){
+    public String reviewBoardPost(ReviewBoard reviewBoard)throws Exception{
         reviewBoardService.save(reviewBoard);
         return "redirect:/reviewboard";
     }

@@ -1,10 +1,13 @@
 package ezenstudy.bts.service;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import ezenstudy.bts.domain.ReviewBoard;
 import ezenstudy.bts.repository.ReviewBoardRepository;
@@ -17,13 +20,24 @@ public class ReviewBoardService {
         this.boardRepository = boardRepository;
     }
 
-    public void save(ReviewBoard reviewBoard){
-        reviewBoard.setcDate(LocalDateTime.now()); // 작성날짜
+    public void save(ReviewBoard reviewBoard) throws Exception{
+        //작성날짜
+        reviewBoard.setCDate(LocalDateTime.now());
+        //파일경로 설정 (user.dir = 현재 디렉토리)
+        String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+        //랜덤 파일명(중복안되게)
+        UUID uuid = UUID.randomUUID();
+        MultipartFile file = reviewBoard.getFile();
+        //저장될 파일 이름
+        String fileName = uuid + "_" + file.getOriginalFilename();
+        //파일 저장 경로,이름
+        File saveFile = new File(filePath,fileName);
+        file.transferTo(saveFile);
         boardRepository.save(reviewBoard);
     }
 
     public void update(ReviewBoard reviewBoard){
-        reviewBoard.setuDate(LocalDateTime.now()); // 수정날짜
+        reviewBoard.setUDate(LocalDateTime.now()); // 수정날짜
         boardRepository.update(reviewBoard);
     }
 
@@ -35,15 +49,18 @@ public class ReviewBoardService {
         return boardRepository.findAll();
     }
 
-    public Optional<ReviewBoard> findOne(Long boardid){
-        return boardRepository.findById(boardid);
+    public Optional<ReviewBoard> findOne(Long boardId){
+        return boardRepository.findById(boardId);
     }
-    public ReviewBoard getBoard(Long id) {
-        ReviewBoard reviewBoard = boardRepository.findById(id).get();
-        if(reviewBoard!= null){
+    
+    public Optional<ReviewBoard> CountBoard(Long id) {
+        Optional<ReviewBoard> reviewBoard = boardRepository.findById(id);
+        if(reviewBoard.isPresent()){
+            ReviewBoard rb = reviewBoard.get();
             //조회수 증가
-            reviewBoard.setViewCount(reviewBoard.getViewCount()+1);
+            rb.setViewCount(rb.getViewCount()+1);
         }
         return reviewBoard;
     }
+
 }

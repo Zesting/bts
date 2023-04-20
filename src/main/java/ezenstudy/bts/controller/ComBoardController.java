@@ -3,21 +3,20 @@ package ezenstudy.bts.controller;
 
 
 
-import ezenstudy.bts.domain.ComBoard;
-import ezenstudy.bts.service.ComBoardService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import java.util.List;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
+import ezenstudy.bts.domain.ComBoard;
+import ezenstudy.bts.service.ComBoardService;
 
-@Controller
+
 public class ComBoardController {
 
     private final ComBoardService comBoardService;
 
-    @Autowired
+    
     public ComBoardController(ComBoardService comBoardService) {
         this.comBoardService = comBoardService;
     }
