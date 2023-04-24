@@ -1,27 +1,29 @@
 package ezenstudy.bts.domain;
 
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
+@Data
 public class ComBoard {
 
-    private String title; // 제목
-    private String content; // 내용
-    private LocalDateTime createAt; // 생성일자
-    private String createdBy; // 생성자
     private Long id; // 아이디
-    private String BN; // 사업자 번호
+    private String title;  // 제목
+    private String content; // 내용
+    private LocalDateTime createAt;  // 생성일자
+    private String createdBy;  // 생성자
+    private String BN;  // 사업자 번호
+    private boolean filled; // new property
 
-    public ComBoard(String title, String content, LocalDateTime createAt, String createdBy, Long id, String BN) {
-        this.title = title;
-        this.content = content;
-        this.createAt = createAt;
-        this.createdBy = createdBy;
-        this.id = id;
-        this.BN = BN;
+    public Long getId() {
+        return id;
     }
 
-    // Getters and Setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -54,14 +56,6 @@ public class ComBoard {
         this.createdBy = createdBy;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getBN() {
         return BN;
     }
@@ -70,15 +64,11 @@ public class ComBoard {
         this.BN = BN;
     }
 
-    @Override
-    public String toString() {
-        return "ComBoard{" +
-                "title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", createAt=" + createAt +
-                ", createdBy='" + createdBy + '\'' +
-                ", id=" + id +
-                ", BN='" + BN + '\'' +
-                '}';
+    public boolean isFilled() {
+        return filled;
+    }
+
+    public void setFilled(boolean filled) {
+        this.filled = filled;
     }
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <title>ComBoard List</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<h1>ComBoard List</h1>
+<table>
+  <thead>
+  <tr>
+    <th>번호</th>
+    <th>제목</th>
+    <th>작성자</th>
+    <th>날짜</th>
+    <th>조회수</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="comBoard : ${comBoardList}">
+    <td th:text="${comBoard.id}"></td>
+    <td>
+      <a th:href="@{/comboard/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a>
+    </td>
+    <td th:text="${comBoard.createdBy}"></td>
+    <td th:text="${comBoard.createAt}"></td>
+    <td th:text="${comBoard.views}"></td>
+  </tr>
+  </tbody>
+</table>
+<a th:href="@{/comboard/create}">create</a>
+</body>
+</html>
