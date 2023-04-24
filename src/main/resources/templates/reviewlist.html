@@ -18,8 +18,8 @@
         </tr>
         <tr th:each="board : ${boardAllList}">
             <td th:text="${board.id}"></td>
-            <td><a th:href="@{|/board/${board.id}|}" th:text="${board.title}"></a></td>
-            <td><a th:href="@{/board/${board.id}}" th:text="${board.title}"></a></td>
+            <td><a th:href="@{|/reviewboard/${board.id}|}" th:text="${board.title}"></a></td>
+            <td><a th:href="@{/reviewboard/${board.id}}" th:text="${board.title}"></a></td>
             <td th:text="${board.writer}"></td>
             <td th:text="*{#temporals.format(board.cDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
             <td th:text="${board.viewCount}"></td>
