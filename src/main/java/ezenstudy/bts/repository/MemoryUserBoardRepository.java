@@ -11,29 +11,23 @@ import ezenstudy.bts.domain.UserBoard;
 public class MemoryUserBoardRepository implements UserBoardRepository {
 
   private static Map<Long, UserBoard> store = new HashMap<>();
-  private static long userBoardNumber = 0L;   //sequence와 같다.
+  private static long sequence = 0L;   //sequence와 같다.
 
   @Override
-  public UserBoard save(UserBoard board) {
-    board.setUserBoardNumber(++userBoardNumber);
-    store.put(board.getUserBoardNumber(),board);
-    System.out.println(board); //터미널에서 데이터가 입력되는지 확인하기 위한 프린트문
-    return board;
+  public UserBoard save(UserBoard userBoard) {
+    userBoard.setUserBoardNumber(++sequence);
+    store.put(userBoard.getUserBoardNumber(),userBoard);
+    return userBoard;
   }
 
   @Override
-  public UserBoard update(UserBoard board) {
-    UserBoard newBoard = store.get(board.getUserBoardNumber());//객체 가져와서 저장
-    newBoard.setUserBoardTitle(board.getUserBoardTitle());//변경하여 저장
-    newBoard.setUserBoardContent(board.getUserBoardContent());//변경하여 저장
-    return newBoard;//변경된 객체 반환
-  } //확인 필요
-
+  public UserBoard update(UserBoard userBoard) {    
+    return store.put(userBoard.getUserBoardNumber(), userBoard);
+  } 
+ 
   @Override
-  public  Optional<UserBoard> delete(UserBoard board) {
-    Long board1 = board.getUserBoardNumber();
-    UserBoard removeUserBoard = store.remove(board1);
-    return Optional.ofNullable(removeUserBoard);
+  public Optional<UserBoard> delete(Long id) {
+    return Optional.ofNullable(store.remove(id));
   }
 
   @Override
@@ -46,10 +40,5 @@ public class MemoryUserBoardRepository implements UserBoardRepository {
     return Optional.ofNullable(store.get(id));
   }
 
-  @Override
-  public Optional<UserBoard> findBynewProductID(String newProductID) {
-    return store.values().stream()
-    .filter(board ->board.getNewProductID().equals(newProductID)).findAny();
-  }
   
 }

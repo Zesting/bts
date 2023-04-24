@@ -2,12 +2,11 @@ package ezenstudy.bts.repository;
 
 
 
-import ezenstudy.bts.domain.ComBoard;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
-@Repository
+import ezenstudy.bts.domain.ComBoard;
+
+
 public interface ComBoardRepository {
     ComBoard findById(Long id);
 

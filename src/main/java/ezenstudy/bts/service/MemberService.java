@@ -7,7 +7,7 @@ import ezenstudy.bts.domain.Member;
 import ezenstudy.bts.repository.MemberRepository;
 
 public class MemberService {
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
@@ -27,16 +27,14 @@ public class MemberService {
         });
     }
 
+    public List<Member> findAllMembers() {
+        return memberRepository.findAll();
+    }
+
     /* 로그인 기능 */
+    /* 리턴이 null이면 로그인 실패 */
     public Member LonIn(String memberLogId, String memberPwd) {
-        Optional<Member> result = memberRepository.findLogId(memberLogId);
-        if (result.isPresent()) {
-            Member member = result.get();
-            if (member.getLogPwd().equals(memberPwd)) {
-                return member;
-            }
-        }
-        return null;
+        return memberRepository.findLogId(memberLogId).filter(m -> m.getLogPwd().equals(memberPwd)).orElse(null);
     }
 
     /** 회원 정보 수정 기능 로그인 유지 기능 만들고 만들 것 */
@@ -49,23 +47,30 @@ public class MemberService {
      */
 
     /** 회원 로그인 아이디 찾기 기능 */
-    public String FindMemberLogId(String memberName, Long memberSocialNum) {
+    // 종민이형 의견 로그인 리스트가 아예 없을 경우, members가 0인 경우 빠져나가는 거 포함.
+    public Member FindMemberLogId(String memberName, String memberSocialNum) {
         List<Member> members = memberRepository.findName(memberName);
-        for (Member member : members) {
-            if (member.getSocialNum() == memberSocialNum) {
-                return member.getLogId();
+        if (members.size() == 0) {
+            return null;
+        } else {
+            for (Member member : members) {
+                if (member.getSocialNum().equals(memberSocialNum)) {
+                    return member;
+                }
             }
         }
-        return "존재하지 않는 회원입니다.";
+        return null;
+
     }
 
     /** 회원 로그인 비밀번호 찾기 기능 */
-    public String FindMemberLogPwd(String memberLogId, Long memberSocialNum) {
+    public String FindMemberLogPwd(String memberLogId, String memberSocialNum) {
         Optional<Member> result = memberRepository.findLogId(memberLogId);
         if (result.isPresent()) {
             Member member = result.get();
-            if (member.getSocialNum() == memberSocialNum) {
+            if (member.getSocialNum().equals(memberSocialNum)) {
                 memberRepository.update(member.getId(), member);
+                // 주민번호가 일치하는 메서드 1개.-> true 나오면 수정 페이지로 넘어가겠음.(수정 페이지에서 변경 메서드 따로 작성)
                 return member.getName() + "님의 비밀번호 변경이 완료되었습니다.";
             } else {
                 return "회원님의 주민등록번호가 다릅니다.";
@@ -76,22 +81,25 @@ public class MemberService {
     }
 
     /** 회원 탈퇴 기능 */
-    public String DropMember(String memberName, String memberLogId, String memberLogPwd) {
+    // 1. 검증 + 드랍 기능을 나눌 것 2. 컨트롤러에서 객체가져와서 검증하고 서비스는 드랍만.
+    public void DropMember(Member member) {
+        memberRepository.delete(member.getId());
+    }
+
+    /** 회원 탈퇴에 필요한 회원 검증 */
+    public Optional<Member> VerificationMember(String memberName, String memberLogId, String memberLogPwd) {
         List<Member> members = memberRepository.findName(memberName);
         for (Member member : members) {
             if (member.getLogId().equals(memberLogId)) {
                 if (member.getLogPwd().equals(memberLogPwd)) {
-                    memberRepository.delete(member.getId());
-                    return "회원 탈퇴가 정상적으로 수행되었습니다.";
+                    return Optional.of(member);
                 } else {
-                    return "회원님의 비밀번호가 정확하지 않습니다.";
+                    return Optional.empty();
                 }
-            } else {
-                return "회원님의 아이디가 정확하지 않습니다.";
             }
-
+            return Optional.empty();
         }
-        return "존재하지 않는 회원입니다.";
-    }
+        return Optional.empty();
 
+    };
 }

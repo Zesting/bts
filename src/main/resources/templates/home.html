@@ -1,24 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        button{
-            height:200px;
-            width:400px;
-            background-color: rgb(200,200,200);
-            border:10px outset gray;
-            margin:300px auto 0;
-        }
-        button>a{
-            font-size:40px;
-        }
+      button {
+        height: 200px;
+        width: 400px;
+        background-color: rgb(200, 200, 200);
+        border: 10px outset gray;
+        margin: 300px auto 0;
+      }
+      button > a {
+        font-size: 40px;
+      }
+      p > a {
+        box-sizing: border-box;
+        float: left;
+        border: 3px solid hotpink;
+        background-color: black;
+        color: wheat;
+        font-size: large;
+        text-align: center;
+        margin-left: 3px;
+      }
     </style>
-</head>
-<body>
-    <button><a href="grouppurchase">공동구매</a></button>
-</body>
+  </head>
+  <body>
+    <button><a href="/grouppurchase">공동구매</a></button>
+    <p><a href="/members/new">회원가입</a></p>
+    <p><a href="/members">회원 리스트</a></p>
+    <p><a href="/members/logIn">로그인</a></p>
+    <p><a href="/members/findId">아이디 찾기</a></p>
+    <p><a href="/members/dropMember">회원 탈퇴</a></p>
+  </body>
 </html>

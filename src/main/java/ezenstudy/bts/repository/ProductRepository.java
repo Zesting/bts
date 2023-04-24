@@ -9,4 +9,5 @@ public interface ProductRepository {
     public Product save(Product product);
     public Optional<Product> findbyId(Long id);
     public List<Product> findAll();
+    public Long storageSize();
 }

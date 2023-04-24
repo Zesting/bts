@@ -1,0 +1,23 @@
+<!------------------------------------------------------------------------------------------>
+<!--href로 열지 말고 product.js에 있는 openProductRegister() 함수를 이용해 불러와야 합니다.-->
+<!------------------------------------------------------------------------------------------>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="/css/jm.css" rel="stylesheet">
+</head>
+<body style="height:500px; width:500px; background-color: aquamarine; overflow: hidden;">
+    <form action="/product/new" method="post">
+        <input type="text" id="#" name="#">
+        <button id="product-submit" onclick="submit()">서브밋</button>
+    </form>
+    <script>
+        function submit(){
+            window.opener.location.reload();
+            document.getElementById("product-submit").submit();
+        }
+    </script>
+</body>
+</html>

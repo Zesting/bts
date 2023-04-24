@@ -1,6 +1,7 @@
 package ezenstudy.bts.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import lombok.Data;
 
@@ -19,14 +20,14 @@ public class Member {
     /** 회원 나이 */
     private byte age;
     /** 회원 주민번호 앞자리 6개 */
-    private long socialNum;
+    private String socialNum;
     /** 회원 전화번호 */
     private String phonNum;
     /** 회원 이메일 */
     private String email;
     /** 회원 가입한 날짜 */
-    private Date innerDate;
+    private LocalDate innerDate;
     /** 로그인 한 날짜 */
-    private Date logTime;
+    private LocalTime logTime;
 
 }

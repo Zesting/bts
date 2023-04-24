@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      th:href="@{/css/bootstrap.min.css}"
+      href="/src/main/resources/static/css/bootstrap.min.css"
+      rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container" style="max-width: 600px">
+      <div class="pv-5 text-center" style="margin-top: 30px">
+        <h2>로그인 ID 찾기</h2>
+      </div>
+
+      <form action="/members/findId" method="post">
+        <div>
+          <label for="name">회원 이름</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="form-control"
+            placeholder="회원님의 이름을 입력해주세요." />
+        </div>
+
+        <div>
+          <label for="socialNum">회원 주민등록번호</label>
+          <input
+            type="password"
+            id="socialNum"
+            name="socialNum"
+            class="form-control"
+            placeholder="회원님의 주민등록번호를 입력해주세요." />
+        </div>
+
+        <hr class="my-4" />
+
+        <div class="row">
+          <div class="col">
+            <button class="w-100 btn btn-primary btn-lg" type="submit">
+              회원 찾기
+            </button>
+          </div>
+
+          <div class="col">
+            <button
+              class="w-100 btn btn-secondary btn-lg"
+              onclick="location.href='home'"
+              th:onclick="|location.href='@{/}'|"
+              type="button">
+              취소
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- container div -->
+
+    <script
+      th:if="${not #strings.isEmpty(errorMessage)}"
+      th:inline="javascript">
+      var errorMessage = `[[${errorMessage}]]`;
+      window.alert(errorMessage);
+    </script>
+  </body>
+</html>

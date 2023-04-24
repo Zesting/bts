@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      th:href="@{/css/bootstrap.min.css}"
+      href="/src/main/resources/static/css/bootstrap.min.css"
+      rel="stylesheet" />
+  </head>
+  <body>
+    <div>
+      <div class="py-5 text-center">
+        <h2>아이디 뷰 화면.</h2>
+      </div>
+
+      <h4
+        class="mb-3 text-center"
+        th:text="|회원님의 아이디는 [${findMember.getLogId} 입니다.]|"></h4>
+      <hr class="my-4" />
+    </div>
+  </body>
+</html>

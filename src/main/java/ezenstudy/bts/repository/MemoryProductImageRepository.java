@@ -32,6 +32,10 @@ public class MemoryProductImageRepository implements ProductImageRepository{
     public List<ProductImage> findbyProductId(Long productId) {
         return store.values().stream().filter(po -> po.getId() == productId).collect(Collectors.toList());
     }
+    @Override
+    public Long storageSize(){
+        return sequence;
+    }
     //더미파일
     public MemoryProductImageRepository(){
         ProductImage pi1 = new ProductImage();

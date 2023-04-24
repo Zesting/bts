@@ -31,5 +31,7 @@ public class ProductService {
         productRepository.findAll().forEach(p -> category.add(p.getCategory()));
         return category;
     }
-
+    public Long storageSize(){
+        return productRepository.storageSize();
+    }
 }
