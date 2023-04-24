@@ -17,5 +17,6 @@ public class ReviewBoard {
     private String fileName;        // 파일이름
     private String filePath;        // 파일경로
     private MultipartFile file;     // 파일
+    private String writer;          // 글작성자
 
 }
