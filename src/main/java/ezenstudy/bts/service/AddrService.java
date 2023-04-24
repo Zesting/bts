@@ -23,6 +23,8 @@ public class AddrService {
     }
 
     /** 주소 조회 기능 */
+    // 서비스에는 본인 레파지토리만. 섞는거는 컨트롤러.
+    // memberId;
     public Addr FindAddr(String memberName) {
         Optional<Addr> memberAddr = addrRepository.findAddrName(memberName);
         Optional<Member> members = memberRepository.findAll().stream().filter(m -> m.getName().equals(memberName))
@@ -38,6 +40,7 @@ public class AddrService {
     }
 
     /** 주소 삭제 기능 */
+    // 위와 같이 memberId;
     public String DropAddr(String memberName) {
         Optional<Addr> memberAddr = addrRepository.findAddrName(memberName);
         if (addrRepository.findAddrName(memberName).isPresent()) {

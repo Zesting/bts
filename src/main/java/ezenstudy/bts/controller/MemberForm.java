@@ -1,12 +1,11 @@
-package ezenstudy.bts.domain;
+package ezenstudy.bts.controller;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.Date;
 
 import lombok.Data;
 
 @Data
-public class Member {
+public class MemberForm {
     /** 회원 고유 번호 */
     private long id;
     /** 회원 주소 고유 번호 */
@@ -26,8 +25,7 @@ public class Member {
     /** 회원 이메일 */
     private String email;
     /** 회원 가입한 날짜 */
-    private LocalDate innerDate;
+    private Date innerDate;
     /** 로그인 한 날짜 */
-    private LocalTime logTime;
-
+    private Date logTime;
 }

@@ -9,17 +9,21 @@ public class Addr {
     /** 회원 고유 번호 */
     private long memberId;
     /** 회원 이름 = 메인 주소의 수령인 */
-    private String memberName;
+    //
+    private String ReceiverName;
     /** 메인 주소 */
     private String mainAddr;
+    /** 수령인 번호 */
+    private Long ReceiverPhonNum;
+
     /** 메인 주소의 수령인 */
-    private String mainName;
-    /** 서브 주소1 */
-    private String subAddr1;
-    /** 서브 주소1의 수령인 */
-    private String subName1;
-    /** 서브 주소2 */
-    private String subAddr2;
-    /** 서브 주소2의 수령인 */
-    private String subName2;
+    // private String mainName;
+    // /** 서브 주소1 */
+    // private String subAddr1;
+    // /** 서브 주소1의 수령인 */
+    // private String subName1;
+    // /** 서브 주소2 */
+    // private String subAddr2;
+    // /** 서브 주소2의 수령인 */
+    // private String subName2;
 }

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      th:href="@{/css/bootstrap.min.css}"
+      href="/src/main/resources/static/css/bootstrap.min.css"
+      rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container" style="max-width: 680px">
+      <div class="pv-5 text-center" style="margin-top: 20px">
+        <h4>회원 탈퇴 ㅜㅜ;;;</h4>
+      </div>
+
+      <form action="/members/dropMember" method="post">
+        <div>
+          <label for="name">회원 이름</label>
+          <input
+            type="text"
+            class="form-control text-center"
+            id="name"
+            name="name"
+            placeholder="회원 가입에 기입한 이름을 입력해주세요..." />
+        </div>
+
+        <div>
+          <label for="logId">회원 아이디</label>
+          <input
+            type="text"
+            class="form-control text-center"
+            id="logId"
+            name="logId"
+            placeholder="회원 가입에 기입한 로그인 아이디를 입력해주세요..." />
+        </div>
+
+        <div>
+          <label for="logPwd">회원 비밀번호</label>
+          <input
+            type="password"
+            class="form-control text-center"
+            id="logPwd"
+            name="logPwd"
+            placeholder="회원 가입에 기입한 로그인 비밀번호를 입력해주세요..." />
+        </div>
+
+        <hr class="my-4" />
+
+        <div class="row">
+          <div class="col">
+            <button class="w-100 btn btn-primary btn-lg" type="submit">
+              회원 탈퇴....
+            </button>
+          </div>
+
+          <div class="col">
+            <button
+              class="w-100 btn btn-secondary btn-lg"
+              onclick="location.href='home'"
+              th:onclick="|location.href='@{/}'|"
+              type="button">
+              취소
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- container -->
+
+    <!-- <script th:if="${#strings.isEmpty(dropMember)}" th:inline="javascript">
+      function submit() {
+        if ("${#strings.isEmpty(dropMember)}") {
+          alert("등록된 회원을 찾을 수 없습니다. 정보를 다시 입력해 주세요.");
+        } else {
+          alert(
+            `[[${dropMember}]]` + "님의 회원 탈퇴가 정상적으로 수행되었습니다."
+          );
+        }
+      }
+      alert(
+        "등록된 회원을 찾을 수 없습니다. 정보를 다시 입력해 주시길 바랍니다."
+      );
+    </script>
+
+    <script>
+      if (condition) {
+      }
+    </script> -->
+  </body>
+</html>

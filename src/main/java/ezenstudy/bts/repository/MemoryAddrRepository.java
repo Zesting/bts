@@ -33,10 +33,11 @@ public class MemoryAddrRepository implements AddrRepository {
     }
 
     /* 주소 레파지토리에 존재하는 주소 정보 조회(파라미터 = 메인 주소 이름) 구현 메서드 */
-    @Override
-    public Optional<Addr> findAddrName(String memberName) {
-        return store.values().stream().filter(a -> a.getMemberName().equals(memberName)).findAny();
-    }
+    // @Override
+    // public Optional<Addr> findAddrName(String memberName) {
+    // return store.values().stream().filter(a ->
+    // a.getMemberName().equals(memberName)).findAny();
+    // }
 
     /** 주소 정보 수정 구현 메서드 */
     @Override
@@ -51,6 +52,11 @@ public class MemoryAddrRepository implements AddrRepository {
     public Long deleteAll(Long addrId) {
         store.remove(addrId);
         return addrId;
+    }
+
+    @Override
+    public Optional<Addr> findAddrName(String addrName) {
+        throw new UnsupportedOperationException("Unimplemented method 'findAddrName'");
     }
 
 }
