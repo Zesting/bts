@@ -1,6 +1,5 @@
 package ezenstudy.bts.controller;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,62 +7,64 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ezenstudy.bts.domain.UserBoard;
+import ezenstudy.bts.service.UserBoardCommentService;
 import ezenstudy.bts.service.UserBoardService;
 
 @Controller
 public class UserBoardController {
-
   private final UserBoardService userBoardService;
+  private final UserBoardCommentService userBoardCommentService;
 
-  public UserBoardController(UserBoardService userBoardService) {
+  public UserBoardController(UserBoardService userBoardService, UserBoardCommentService userBoardCommentService) {
     this.userBoardService = userBoardService;
+    this.userBoardCommentService = userBoardCommentService;
   }
 
     @GetMapping("/userBoard/Home")
-    public String UserBoardHome() {
-        
+    public String UserBoardHome(Model model){
+     model.addAttribute("userBoards", userBoardService.findUserBoard());
+      
         return "userBoard/userBoardHome";
     }
     
-    @GetMapping("/userBoard/Create") 
-    public String userBoardCreate() {
-
+    @GetMapping("/userBoard/Create") //조회
+    public String userBoardCreate(Model model) {
+      //model.addAttribute("userBoardComments", userBoardCommentService.findById(id));
       return "userBoard/userBoardCreate";
     }
-    
-    @PostMapping("/userBoard/Create")
-    public String create( Model model, UserBoard userBoard) {
-     /* userBoardService.save(userBoard);
-      model.addAttribute("userBoardTitle", userBoard.getUserBoardTitle());*/
-      // 모델에 userBoardTitle 데이터 추가
-    model.addAttribute("userBoardTitle", userBoard.getUserBoardTitle());
-    // 모델에 userBoardContent 데이터 추가
-    model.addAttribute("userBoardContent", userBoard.getUserBoardContent());
+
+
+    @PostMapping("/userBoard/Create")//전송
+    public String create( Model model, UserBoard userBoard) throws Exception {
 
       return "redirect:/userBoard/Create";
     }
 
-    /*
-     *  @PostMapping("/userBoard/Create")
-    public String create(@RequestParam("userBoardTitle") String userBoardTitle,@RequestParam("userBoardContent") String userBoardContent) {
-      UserBoard userBoard = new UserBoard(userBoardTitle, userBoardContent);
-      userBoardService.save(userBoard);
-      return "redirect:/userBoard/Create";
-    }
-     * 
-     */
 
     @PostMapping("/userBoard/Home")
-    public String save(@RequestParam("userBoardTitle") String userBoardTitle, @RequestParam("userBoardContent") String userBoardContent){
+    public String save(@RequestParam("userBoardTitle") String userBoardTitle,  //입력받은 게시물 저장
+                        @RequestParam("userBoardContent") String userBoardContent) throws Exception{
       UserBoard userBoard = new UserBoard();
-      userBoard.setUserBoardTitle(userBoardTitle); // 사용자가 입력한 userBoardTitle 값을 userBoard 객체에 저장
-      userBoard.setUserBoardContent(userBoardContent); // 사용자가 입력한 userBoardContent 값을 userBoard 객체에 저장
-      // UserBoardService 클래스의 getUserBoardDateTime() 메서드 호출
-      userBoard.setUserBoardDateTime(userBoardService.getUserBoardDateTime()); 
-      userBoardService.save(userBoard); // userBoard 저장
-      return "redirect:/userBoard/Home";// Home으로 리다이렉트
+      userBoard.setUserBoardTitle(userBoardTitle); 
+      userBoard.setUserBoardContent(userBoardContent); 
+      userBoard.setUpdateDateTime(userBoardService.FormDateTime()); 
+      userBoardService.save(userBoard); 
+      return "redirect:/userBoard/Home";
     }
 
+    
+    @GetMapping("/userBoard/Update")
+    public String update(Model model) {
+      model.addAttribute("userBoardUpdates", userBoardService.findUserBoard()); 
+      model.addAttribute("userBoardCommentUpdates", userBoardCommentService.findAllUserBoardComment());
+      return "userBoard/userBoardUpdate";
+    }
+
+    @PostMapping("/userBoard/Update")
+    public String update(){
+
+      return "";
+    }
 
 }
  

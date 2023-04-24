@@ -21,8 +21,9 @@ public class UserBoardService {
 //     return userBoard.getUserBoardTitle();
 // }
 
-  // 게시판 생성
-  public UserBoard save(UserBoard userBoard) {
+  // 게시판 등록
+  public UserBoard save(UserBoard userBoard) {//넘버/ 제목/ 내용/ 멤버아이디/ 작성시간/수정시간/ 추천수
+    userBoard.setDateTime(FormDateTime());//작성 시간
     return userBoardRepository.save(userBoard);
   }
 
@@ -32,25 +33,27 @@ public class UserBoardService {
   }
 
   // 1개 찾기
-  public Optional<UserBoard> findOne(Long member_ID) {
-    return userBoardRepository.findById(member_ID);
+  public Optional<UserBoard> findOne(Long id) {
+    return userBoardRepository.findById(id);
   }
 
   // 게시판 수정
-  public void update(UserBoard board) {
-    userBoardRepository.update(board);
+  public UserBoard update(UserBoard userBoard) { 
+    userBoard.setUpdateDateTime(FormDateTime());
+    // userBoard.setUserBoardTitle(userBoard.getUserBoardTitle());
+    // userBoard.setUserBoardContent(userBoard.getUserBoardContent());
+    return userBoardRepository.update(userBoard);
   }
 
   // 게시판 삭제
-  public void delete(UserBoard board) {
-    userBoardRepository.delete(board);
+  public void delete(UserBoard board) { //삭제할때 검증해서 본인꺼만 삭제 할 수 있는기능.
+    userBoardRepository.delete(board.getId());  //아이디를 받아서 아이디랑 일치하면 삭제가능하게
   }
 
   //날짜와 시간 포멧팅(DataTimeFormatter)
-  public LocalDateTime getUserBoardDateTime() {
+  public LocalDateTime FormDateTime() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     LocalDateTime now = LocalDateTime.now();
-    String writeDateTime = now.format(formatter);
-    return LocalDateTime.parse(writeDateTime, formatter);
+    return LocalDateTime.parse(now.format(formatter), formatter);
   }
 }
