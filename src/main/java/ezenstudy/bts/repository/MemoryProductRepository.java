@@ -29,6 +29,10 @@ public class MemoryProductRepository implements ProductRepository{
     public List<Product> findAll() {
         return new ArrayList<>(store.values());
     }
+    @Override
+    public Long storageSize(){
+        return sequence;
+    }
     //더미데이터 생성자
     public MemoryProductRepository(){
         Product p1 = new Product();
@@ -43,6 +47,6 @@ public class MemoryProductRepository implements ProductRepository{
         p2.setName("마일즈");
         p2.setCategory("샌들");
         save(p2);
-        
     }
+    
 }
