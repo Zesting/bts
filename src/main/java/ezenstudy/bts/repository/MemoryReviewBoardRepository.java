@@ -17,8 +17,8 @@ public class MemoryReviewBoardRepository implements ReviewBoardRepository{
     private static long sequence = 0L;
 
     @Override
-    public Optional<ReviewBoard> delete(Long id) {
-        return Optional.ofNullable(store.remove(id));
+    public ReviewBoard delete(Long id) {
+        return store.remove(id);
     }
 
     @Override
