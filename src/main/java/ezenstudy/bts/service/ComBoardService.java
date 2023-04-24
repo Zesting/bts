@@ -1,15 +1,11 @@
 package ezenstudy.bts.service;
 
-
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import ezenstudy.bts.domain.ComBoard;
 import ezenstudy.bts.repository.ComBoardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-
 
 public class ComBoardService {
 
@@ -35,7 +31,5 @@ public class ComBoardService {
     public ComBoard save(ComBoard comBoard) {
         return comBoardRepository.save(comBoard);
     }
-
-
 
 }

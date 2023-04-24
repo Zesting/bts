@@ -1,12 +1,8 @@
 package ezenstudy.bts.controller;
 
-
-
-
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import ezenstudy.bts.domain.ComBoard;
 import ezenstudy.bts.service.ComBoardService;
 import org.springframework.web.server.ResponseStatusException;
-
 
 @Controller
 public class ComBoardController {
@@ -58,7 +53,7 @@ public class ComBoardController {
         if (comBoard.isPresent()) {
             model.addAttribute("comBoard", comBoard.get());
             return "comboard/comshow";
-        }else {
+        } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ComBoard not found");
         }
     }
