@@ -1,13 +1,10 @@
 package ezenstudy.bts.service;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import ezenstudy.bts.domain.ReviewBoard;
 import ezenstudy.bts.repository.ReviewBoardRepository;
@@ -23,6 +20,7 @@ public class ReviewBoardService {
     public void save(ReviewBoard reviewBoard) throws Exception{
         //작성날짜
         reviewBoard.setCDate(LocalDateTime.now());
+        boardRepository.save(reviewBoard);
 
         // //파일경로 설정 (user.dir = 현재 디렉토리)
         // String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
@@ -39,7 +37,6 @@ public class ReviewBoardService {
         // reviewBoard.setFileName(fileName);
         // reviewBoard.setFilePath("/files/"+filePath);
 
-        boardRepository.save(reviewBoard);
     }
 
     public void update(ReviewBoard reviewBoard){
