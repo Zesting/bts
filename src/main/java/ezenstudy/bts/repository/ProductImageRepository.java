@@ -10,4 +10,5 @@ public interface ProductImageRepository {
     public Optional<ProductImage> findbyId(Long id);
     public List<ProductImage> findAll();
     public List<ProductImage> findbyProductId(Long productId);
+    public Long storageSize();
 }

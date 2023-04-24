@@ -23,6 +23,7 @@ public class ReviewBoardService {
     public void save(ReviewBoard reviewBoard) throws Exception{
         //작성날짜
         reviewBoard.setCDate(LocalDateTime.now());
+
         //파일경로 설정 (user.dir = 현재 디렉토리)
         String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
         //랜덤 파일명(중복안되게)
@@ -32,7 +33,12 @@ public class ReviewBoardService {
         String fileName = uuid + "_" + file.getOriginalFilename();
         //파일 저장 경로,이름
         File saveFile = new File(filePath,fileName);
+        //파일 변환 후 저장
         file.transferTo(saveFile);
+        //데이
+        reviewBoard.setFileName(fileName);
+        reviewBoard.setFilePath("/files/"+filePath);
+
         boardRepository.save(reviewBoard);
     }
 
@@ -41,8 +47,8 @@ public class ReviewBoardService {
         boardRepository.update(reviewBoard);
     }
 
-    public void delete(ReviewBoard reviewBoard){
-        boardRepository.delete(reviewBoard.getId());
+    public void delete(Long id){
+        boardRepository.delete(id);
     }
 
     public List<ReviewBoard> findAll(){
@@ -53,14 +59,14 @@ public class ReviewBoardService {
         return boardRepository.findById(boardId);
     }
     
-    public Optional<ReviewBoard> CountBoard(Long id) {
-        Optional<ReviewBoard> reviewBoard = boardRepository.findById(id);
-        if(reviewBoard.isPresent()){
-            ReviewBoard rb = reviewBoard.get();
-            //조회수 증가
-            rb.setViewCount(rb.getViewCount()+1);
+    public Optional<ReviewBoard> updateCount(Long id) {
+        ReviewBoard reviewBoard = boardRepository.findById(id).get();
+        if(reviewBoard.getViewCount() == null){
+            reviewBoard.setViewCount(0);
+        }else{
+            reviewBoard.setViewCount(reviewBoard.getViewCount()+1);
         }
-        return reviewBoard;
+        return Optional.ofNullable(reviewBoard);
     }
 
 }

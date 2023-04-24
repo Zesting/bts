@@ -15,7 +15,7 @@ public class ReviewBoard {
     private Byte star;              // 상품별점
     private Integer viewCount;      // 글조회수
     private String fileName;        // 파일이름
-    private String filePath;
-    private MultipartFile file;
+    private String filePath;        // 파일경로
+    private MultipartFile file;     // 파일
 
 }

@@ -28,14 +28,17 @@ public class GroupPurchaseController {
     }
 
 
-    @GetMapping("grouppurchase")
+    @GetMapping("/grouppurchase")
     public String grouppurchase(Model model){
         model.addAttribute("grouppurchases", groupPurchaseService.findGroupPurchases());
         model.addAttribute("category",productService.findCategory());
         model.addAttribute("products", productService.findProducts());
         model.addAttribute("options", productOptionService.findProductOptions());
         model.addAttribute("images", productImageService.findProductImages());
-        return "group_purchase";
+        return "group_purchase/group_purchase";
     }
-
+    @GetMapping("/grouppurchase/new")
+    public String grouppurchaseRegister(Model model){
+        return "group_purchase/group_purchase_register";
+    }
 }

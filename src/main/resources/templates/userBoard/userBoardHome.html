@@ -5,28 +5,58 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BTS</title>
+  <style>
+    th {
+      border: 1px solid ;
+      text-align: center;
+    }
+    
+    td {
+      border: 1px solid red;
+      text-align: center;
+      width: 200px;
+      overflow: hidden;
+    }
+    
+
+  </style>
 </head>
 <body>
+
   <h1>User Board Home</h1>
   <p>게시물 리스트</p>
     <form action="/userBoard/Create" method="post">
       <input type="submit" value="등록">
     </form>
-<!-- home.html 뷰에서 userBoardTitle 데이터 사용 -->
-<h1 th:text="${userBoardTitle}">Title</h1><h1 th:text="${userBoardContent}">Content</h1>
 
 
-    <!-- userBoardList를 이용하여 리스트 출력하려 했으나 타임리프를 이용하여 출력 -->
-<!-- <ul>
-  <li th:each="userBoard : ${userBoardList}">
-    <p th:text="${userBoard.userBoardTitle}"></p>
-    <p th:text="${userBoard.userBoardContent}"></p>
-  </li>
-</ul> -->
-<!-- home.html 뷰에서 userBoardDateTime 데이터 사용 -->
-<!--  Thymeleaf에서 제공하는 #temporals 객체를 사용해야한다.  -->
-<h1 th:text="${#temporals.format(userBoardDateTime, 'yyyy-MM-dd HH:mm:ss')}"></h1>
-
+    <table>
+      <thead>
+        <tr>
+          <th class="shortText">Number</th>
+          <th class="longText" style="color: blue;">userBoardTitle</th>
+          <th class="longText">userBoardContent</th>
+          <th class="shortText">memberId</th>
+          <th class="longText">DateTime</th>
+          <th class="longText">UpdateDateTime</th>
+          <th class="shortText">offerCount</th>
+        </tr>
+      </thead>
+      <tbody>
+         <tr th:each="userBoard : ${userBoards}" class="shortText">
+          <td th:text="${userBoard.userBoardNumber} " class="shortText"></td>
+          <td th:text="${userBoard.userBoardTitle}" class="longText" 
+            onClick="location.href='http://localhost:8080/userBoard/Update'" style="cursor:pointer;"></td> 
+          <td th:text="${userBoard.userBoardContent}" class="longText"></td> 
+          <td th:text="${userBoard.id}"  class="shortText"></td> 
+          <td th:text="${userBoard.DateTime}" class="longText"></td> 
+          <td th:text="${userBoard.UpdateDateTime}" class="longText"></td> 
+          <td th:text="${userBoard.offerCount}"  class="shortText"></td> 
+        </tr>
+      </tbody>
+    </table> 
+    
+  
 </body>
 
 </html>

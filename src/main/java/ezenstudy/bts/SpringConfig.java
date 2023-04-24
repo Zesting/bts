@@ -11,16 +11,19 @@ import ezenstudy.bts.repository.MemoryProductImageRepository;
 import ezenstudy.bts.repository.MemoryProductOptionRepository;
 import ezenstudy.bts.repository.MemoryProductRepository;
 import ezenstudy.bts.repository.MemoryUserBoardRepository;
+import ezenstudy.bts.repository.MemoryUserBoardCommentRepository;
 import ezenstudy.bts.repository.ProductImageRepository;
 import ezenstudy.bts.repository.ProductOptionRepository;
 import ezenstudy.bts.repository.ProductRepository;
 import ezenstudy.bts.repository.UserBoardRepository;
+import ezenstudy.bts.repository.UserBoardCommentRepository;
 import ezenstudy.bts.service.GroupPurchaseService;
 import ezenstudy.bts.service.MemberService;
 import ezenstudy.bts.service.ProductImageService;
 import ezenstudy.bts.service.ProductOptionService;
 import ezenstudy.bts.service.ProductService;
 import ezenstudy.bts.service.UserBoardService;
+import ezenstudy.bts.service.UserBoardCommentService;
 
 @Configuration
 public class SpringConfig {
@@ -83,5 +86,15 @@ public class SpringConfig {
     @Bean
     public MemberService memberService() {
         return new MemberService(memberRepository());
+    }
+
+    @Bean
+    public UserBoardCommentService userBoardCommentService() {
+        return new UserBoardCommentService(userBoardCommentRepository());
+    }
+
+    @Bean
+    public UserBoardCommentRepository userBoardCommentRepository() {
+        return new MemoryUserBoardCommentRepository();
     }
 }

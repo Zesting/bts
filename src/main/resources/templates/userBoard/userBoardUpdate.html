@@ -17,24 +17,28 @@
 <body>
   <h1>User Board Create</h1>
   <p>게시물 작성 페이지</p>
-  <form class="container" action="/userBoard/Home" method="post">
-    <div class="mb-3">
-      <textarea name="userBoardTitle" id="userBoardTitle" cols="50" rows="1" placeholder="Title를 입력하시오."></textarea><br>
-    </div>
-    <div class="mb-3">
-      <textarea name="userBoardContent" id="userBoardContent" cols="50" rows="10"
-        placeholder="Content를 입력하시오."></textarea><br>
-    </div>
-    <input type="file" name="img" id="img"><br><br>
-    <button type="submit" class="btn btn-primary">저장</button>
-    
-  </form>
-  <br>
-    <button type="submit" class="btn btn-primary">수정</button>
-    <button type="reset" class="btn btn-primary">삭제</button>
+- 게시물 선택 후 출력<br>
+- 게시물 수정<br>
+- 게시물 삭제 <br>
+- 이미지 파일도 넣으면 나오게 하기 <br>
 
+  <div th:each="userBoard : ${userBoardUpdates}">
+    <p th:text="${userBoard.userBoardTitle}"></p>
+    <p th:text="${userBoard.userBoardContent}"></p>
   </div>
+  <button type="submit" class="btn btn-primary">수정</button>
+  <button type="reset" class="btn btn-primary">삭제</button>
+
   <a href="http://localhost:8080/userBoard/Home"><button type="button">홈</button></a>
+
+  <p style="display: block;">
+
+    <!-- 댓글은 로그인 하는사람들에게만 보이게 또는 활성화되게 설정하기-->
+    <textarea name="" id="" cols="100" rows="3" placeholder="댓글을 입력하세요."></textarea>
+    <button type="button" class="btn btn-primary" style="transform: translate(0%, -50%);">등록</button>
+  </p>
+    
+
 
 </body>
 
