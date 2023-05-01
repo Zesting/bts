@@ -25,6 +25,11 @@ public class ComcommentController {
         return ResponseEntity.ok(createdComcomment);
     }
 
+    @PostMapping("/comcomment/{id}")
+    public ResponseEntity<Comcomment> createComcomment(@PathVariable Long id, @RequestBody Comcomment comcomment) {
+        return null;
+    }
+
     @GetMapping("/comcomment/{id}")
     public ResponseEntity<Optional<Comcomment>> getComcommentById(@PathVariable Long id) {
         Optional<Comcomment> comcomment = comcommentService.getComcommentById(id);

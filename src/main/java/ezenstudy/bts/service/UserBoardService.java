@@ -21,6 +21,10 @@ public class UserBoardService {
 //     return userBoard.getUserBoardTitle();
 // }
 
+  public UserBoardService() {
+    this.userBoardRepository= null;
+  }
+
   // 게시판 등록
   public UserBoard save(UserBoard userBoard) {//넘버/ 제목/ 내용/ 멤버아이디/ 작성시간/수정시간/ 추천수
     userBoard.setDateTime(FormDateTime());//작성 시간
@@ -32,9 +36,13 @@ public class UserBoardService {
     return userBoardRepository.listAll();
   }
 
-  // 1개 찾기
+  // id로 1개 찾기
   public Optional<UserBoard> findOne(Long id) {
     return userBoardRepository.findById(id);
+  }
+
+  public Optional<UserBoard> findBoardOne(Long userBoardNumber){
+    return userBoardRepository.findBoardOne(userBoardNumber);
   }
 
   // 게시판 수정
@@ -46,8 +54,8 @@ public class UserBoardService {
   }
 
   // 게시판 삭제
-  public void delete(UserBoard board) { //삭제할때 검증해서 본인꺼만 삭제 할 수 있는기능.
-    userBoardRepository.delete(board.getId());  //아이디를 받아서 아이디랑 일치하면 삭제가능하게
+  public Optional<UserBoard> delete(Long userBoardNumber) { //삭제할때 검증해서 본인꺼만 삭제 할 수 있는기능.
+    return userBoardRepository.delete(userBoardNumber);  //아이디를 받아서 아이디랑 일치하면 삭제가능하게
   }
 
   //날짜와 시간 포멧팅(DataTimeFormatter)
@@ -56,4 +64,7 @@ public class UserBoardService {
     LocalDateTime now = LocalDateTime.now();
     return LocalDateTime.parse(now.format(formatter), formatter);
   }
+
+
 }
+ 

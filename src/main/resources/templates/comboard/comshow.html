@@ -13,13 +13,12 @@
         <p>작성자: <span th:text="${comBoard.createdBy}"></span></p>
         <p>사업자 번호: <span th:text="${comBoard.BN}"></span></p>
 
-    <form method="post">
-        <button type="submit" formaction="/comboard/list">목록</button>
-        <button type="submit" th:formaction="@{/comboard/modify/{id}(id=${comBoard.id})}" formmethod="get">수정</button>
+        <form method="post">
+            <button type="submit" formaction="/comboard/list">목록</button>
+            <button type="submit" th:formaction="@{/comboard/modify/{id}(id=${comBoard.id})}" formmethod="get">수정</button>
+        </form>
 
-    </form>
-
-        <form action="/comboard/delete/{id}" method="POST">
+        <form th:action= "@{/comboard/delete/{id}(id=${comBoard.id})}" method="POST">
             <input type="hidden" name="_method" value="DELETE">
             <button type="submit">Delete</button>
         </form>
@@ -44,7 +43,7 @@
             </li>
         </ul>
 
-        <!-- 댓글 추가 폼 -->
+        <!-- 댓글  -->
         <form th:action="@{/comcomment/{id}(id=${comBoard.id})}" method="post">
             <p>
                 <label>작성자</label> <input type="text" name="writer">

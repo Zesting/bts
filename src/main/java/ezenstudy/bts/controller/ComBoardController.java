@@ -1,8 +1,5 @@
 package ezenstudy.bts.controller;
 
-
-
-
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import ezenstudy.bts.domain.ComBoard;
 import ezenstudy.bts.service.ComBoardService;
 import org.springframework.web.server.ResponseStatusException;
-
 
 @Controller
 public class ComBoardController {
@@ -60,7 +56,7 @@ public class ComBoardController {
             model.addAttribute("comBoard", comBoard.get());
             return "comboard/comshow";
         }else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ComBoard not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ComBoard no");
         }
     }
 
@@ -72,7 +68,7 @@ public class ComBoardController {
             model.addAttribute("comBoard", comBoard.get());
             return "comboard/comupdate";
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ComBoard not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ComBoard no");
         }
     }
 
@@ -85,16 +81,11 @@ public class ComBoardController {
 
     /** 삭제 */
 
-
-    @DeleteMapping(value = "/comboard/delete/{boardId}", params = "_method=DELETE")
-    public String delete(@PathVariable("boardId") Long boardId) {
+    @PostMapping(value = "/comboard/delete/{boardId}", params = "_method=DELETE")
+    public String deletePost(@PathVariable("boardId") Long boardId) {
         comBoardService.delete(boardId);
         return "redirect:/comboard/list";
     }
 
-    @PostMapping(value = "/comboard/delete/{boardId}", params = "_method=DELETE")
-    public String deletePost(@PathVariable("boardId") Long boardId) {
-        comBoardService.delete(boardId);
-        return "redirect:/comboard/comlist";
-    }
+
 }

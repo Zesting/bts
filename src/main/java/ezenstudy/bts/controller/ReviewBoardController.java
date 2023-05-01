@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import ezenstudy.bts.DTO.ReviewBoardDTO;
 import ezenstudy.bts.domain.ReviewBoard;
 import ezenstudy.bts.service.ReviewBoardService;
 
@@ -23,15 +24,15 @@ public class ReviewBoardController {
     }
     @GetMapping("/reviewboard")
     public String index(){
-        return "reviewhome";
+        return "reviewboard/reviewhome";
     }
 
     @GetMapping("/reviewboard/save")
-    public String saveForm() {return "save";}
+    public String saveForm() {return "reviewboard/reviewsave";}
 
     @PostMapping("/reviewboard/save")
-    public String reviewBoardPost(ReviewBoard reviewBoard)throws Exception{
-        reviewBoardService.save(reviewBoard);
+    public String reviewBoardPost(ReviewBoardDTO reviewBoardDTO)throws Exception{
+        reviewBoardService.save(reviewBoardDTO);
         return "redirect:/reviewboard";
     }
 
@@ -40,7 +41,7 @@ public class ReviewBoardController {
         //db전체 게시글 데이터를 가져와서 보여줌
         List<ReviewBoard> boardList = reviewBoardService.findAll();
         model.addAttribute("boardAllList", boardList);
-        return "reviewlist";
+        return "reviewboard/reviewlist";
     }
 
     @GetMapping("/reviewboard/{id}")
@@ -49,21 +50,21 @@ public class ReviewBoardController {
         reviewBoardService.updateCount(id);
         Optional<ReviewBoard> reviewBoard = reviewBoardService.findOne(id);
         model.addAttribute("board", reviewBoard.get());
-        return "detail";
+        return "reviewboard/reviewdetail";
     }
 
     @GetMapping("/reviewboard/update/{id}")
     public String updateForm(@PathVariable Long id,Model model){
         Optional<ReviewBoard> reviewBoard = reviewBoardService.findOne(id);
         model.addAttribute("boardUpdate", reviewBoard.get());
-        return "update";
-    }
+        return "reviewboard/reviewupdate";
+    } 
 
-    @PostMapping("/reviewboard/update")
+    @PostMapping("/reviewboard/reviewupdate")
     public String update(@ModelAttribute ReviewBoard reviewBoard,Model model){
         reviewBoardService.update(reviewBoard);
         model.addAttribute("board", reviewBoard);
-        return "detail";
+        return "reviewboard/reviewdetail";
     }
 
     @GetMapping("/reviewboard/delete/{id}")
