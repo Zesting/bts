@@ -11,3 +11,4 @@ public interface UserBoardOfferRepository {
     public List<UserBoardOffer> findAll();
 
 }
+ 

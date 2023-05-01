@@ -12,3 +12,4 @@ public class UserBoardComment { //게시물에 회원들이 댓글 작성
   private String commentContent;  // 댓글 내용
   private LocalDateTime commentDate;       //댓글 작성일
 }
+ 

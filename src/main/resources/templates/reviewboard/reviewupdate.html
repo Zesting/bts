@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>update</title>
+</head>
+<body>
+    <form action="/reviewboard/reviewupdate" method="post" name="updateForm">
+        <input type="hidden" name="id" th:value="${boardUpdate.id}">
+        작성자 : <input type="text" name="writer" th:value="${boardUpdate.writer}" readonly><br>
+        글제목 : <input type="text" name="title" th:value="${boardUpdate.title}"><br>
+        글내용 : <textarea name="content" cols="30" rows="10" th:text="${boardUpdate.content}"></textarea><br>
+        <input type="hidden" name="viewCount" th:value="${boardUpdate.viewCount}">
+        <input type="button" value="글작성" onclick="boardUpdate()">
+    </form>
+</body>
+<script th:inline="javascript">
+    const boardUpdate = () => {
+        document.updateForm.submit();
+    }
+
+</script>
+</html>

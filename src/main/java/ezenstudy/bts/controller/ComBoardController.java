@@ -1,8 +1,5 @@
 package ezenstudy.bts.controller;
 
-
-
-
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import ezenstudy.bts.domain.ComBoard;
 import ezenstudy.bts.service.ComBoardService;
 import org.springframework.web.server.ResponseStatusException;
-
 
 @Controller
 public class ComBoardController {
