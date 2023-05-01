@@ -89,7 +89,7 @@ public class ComBoardController {
     @DeleteMapping(value = "/comboard/delete/{boardId}", params = "_method=DELETE")
     public String delete(@PathVariable("boardId") Long boardId) {
         comBoardService.delete(boardId);
-        return "redirect:/comboard/comlist";
+        return "redirect:/comboard/list";
     }
 
     @PostMapping(value = "/comboard/delete/{boardId}", params = "_method=DELETE")
