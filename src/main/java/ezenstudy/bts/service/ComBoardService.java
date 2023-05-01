@@ -8,8 +8,6 @@ import java.util.Optional;
 
 import ezenstudy.bts.domain.ComBoard;
 import ezenstudy.bts.repository.ComBoardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-
 
 public class ComBoardService {
 
@@ -24,7 +22,7 @@ public class ComBoardService {
         if (comBoard.isPresent()) {
             return comBoard.get();
         } else {
-            throw new NoSuchElementException("ComBoard with ID " + id + " not found");
+            throw new NoSuchElementException( id + "를 찾지못했습니다.");
         }
     }
 
@@ -36,6 +34,15 @@ public class ComBoardService {
         return comBoardRepository.save(comBoard);
     }
 
+    public ComBoard update(Long id, ComBoard updatedComBoard) {
+        ComBoard comBoard = getComBoardById(id);
+        comBoard.setTitle(updatedComBoard.getTitle());
+        comBoard.setContent(updatedComBoard.getContent());
+        comBoard.setBN(updatedComBoard.getBN());
+        return comBoardRepository.save(comBoard);
+    }
 
-
+    public void delete(Long id) {
+        comBoardRepository.delete(id);
+    }
 }
