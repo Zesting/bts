@@ -1,11 +1,11 @@
-package ezenstudy.bts.controller;
+package ezenstudy.bts.DTO;
 
 import java.util.Date;
 
 import lombok.Data;
 
 @Data
-public class MemberForm {
+public class MemberDTO {
     /** 회원 고유 번호 */
     private long id;
     /** 회원 주소 고유 번호 */
