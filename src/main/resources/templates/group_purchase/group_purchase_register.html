@@ -1,20 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div class="body">
-        <form>
+            <label for="productId">상품명</label>
+            <select id="productId" name="productId">
+                <option value="-1">선택</option>
+                <option th:each="product : ${products}" th:value="${product.id}"
+                    th:text="${product.name}+' / '+${product.brand}+' / '+${product.category}"></option>
+            </select>
             <button onclick="openProductRegister()">상품등록</button>
-            <a href="/product/new"><burron>상품등록2</burron></a>
-        </form>
+            <div id="option-form-container"></div>
+            <button type="button" onclick="controlOptionForm('new')">판매 옵션 추가</button>
+            <button type="button" onclick="controlOptionForm('remove')">판매 옵션 제거</button>
+
+
     </div>
-    <script src="/js/product.js"></script>
-    <script>
+    <script th:inline="javascript">
+        const productId = /*[[${productId}]]*/"";
+        const productSizes = /*[[${sizes}]]*/"";
+        const productColors = /*[[${colors}]]*/"";
+
+        const productSelect = document.getElementById('productId');
+
+        productSelect.addEventListener('change', (event) => {
+            const selectedId = event.target.value;
+            window.location.href = `/grouppurchase/new/${selectedId}`
+            console.log(`Selected option: ${selectedOption}`);
+        });
+
+        if(productId != ""){
+            productSelect.value = productId;
+        }
+
+        function reloadPage(){
+            location.reload();
+        }
     </script>
+    <script src="/js/group_purchase.js"></script>
+
 </body>
+
 </html>

@@ -8,8 +8,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="/css/jm.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <style>
-        form {
+        #product-form {
             display: flex;
             flex-direction: column;
         }
@@ -28,195 +29,68 @@
             width: 90px;
             height: 20px;
         }
-        #product-form span{
-            font-size:12px;
+
+        #product-form span {
+            font-size: 12px;
             margin-left: 5px;
-            color:gray;
+            color: gray;
+        }
+
+        #option-form {
+            margin-top: 30px;
+            display: flex;
+            align-self: center;
+        }
+
+        .option-head {
+            display: flex;
+        }
+
+        [id ^="option-container-"] {
+            margin: 0 20px;
+        }
+
+        [id ^="product-container-"] {
+            display: flex;
+            flex-direction: column;
         }
     </style>
 </head>
 
 <body style="height:500px; width:500px; background-color: aquamarine; overflow: hidden;">
-    <div><button onclick="switchFormPage('product')">상품등록</button><button onclick="switchFormPage('option')">옵션등록</button></div>
-    <form id = "product-form" action="/product/new" method="post" enctype="multipart/form-data">
-        <label for="product_name">상품명<span>필수</span></label>
-        <input type="text" id="product_name" name="product_name" required>
-        <label for="product_category">카테고리<span>필수</span></label>
-        <input list="categorylist" id="product_category" name="product_category" placeholder="Ex: 기타" required>
-        <label for="product_brand">브랜드<span>선택</span></label>
-        <input type="text" id="product_brand" name="product_brand" placeholder="브랜드가 없을시 빈칸으로 남겨주세요">
-        <label for="product_description">상품 설명<span>선택</span></label>
-        <textarea id="product_description" name="product_description" placeholder="Ex: 천연고무소재 100%"></textarea>
-        <label for="product_images">상품 이미지<span>1개 필수</span></label>
-        <input type="file" id="product_images" name="product_images" multiple required>
-        <button type="button" onclick="productSubmit()" style="height:25px;width:100px">서브밋</button>
-    </form>
-    <form id="option-form" class="hidden" action="/product/option/new" method="post">
+    <div><button onclick="switchFormPage('product')">상품등록</button><button
+            onclick="switchFormPage('option')">옵션등록</button></div>
+    <div id="product-container-product">
+        <form id="product-form" action="/product/new" method="post" enctype="multipart/form-data">
+            <label for="product_name">상품명<span>필수</span></label>
+            <input type="text" id="product_name" name="product_name" required>
+            <label for="product_category">카테고리<span>필수</span></label>
+            <input list="categorylist" id="product_category" name="product_category" placeholder="Ex: 기타" required>
+            <label for="product_brand">브랜드<span>선택</span></label>
+            <input type="text" id="product_brand" name="product_brand" placeholder="브랜드가 없을시 빈칸으로 남겨주세요">
+            <label for="product_description">상품 설명<span>선택</span></label>
+            <textarea id="product_description" name="product_description" placeholder="Ex: 천연고무소재 100%"></textarea>
+            <label for="product_images">상품 이미지<span>1개 필수</span></label>
+            <input type="file" id="product_images" name="product_images" multiple required>
+            <button type="button" onclick="productSubmit()" style="height:25px;width:100px">서브밋</button>
+        </form>
+    </div>
+    <div id="product-container-option">
 
-    </form>
-    <script>
-        function productSubmit() {
-            const form = document.getElementById("product-form");
-            if(form.checkValidity()){
-                alert("작성 완료");
-                form.submit();
-            }else{
-                alert("다시 확인해주세요");
-            }
-        }
-        const createSetOption = (() => {
-            const idWhereCreate = "option-form";
-            const option = document.getElementById(idWhereCreate);
-            const colorContainer = document.createElement("div");
-            const sizeContainer = document.createElement("div");
-            option.appendChild(colorContainer);
-            option.appendChild(sizeContainer);
-            const optionMenu = document.createElement("div");
-            optionMenu.setAttribute("id", "option-menu");
-            let tmpRow = document.createElement("div");
-            tmpRow.innerHTML = `<div class="option-col-0">번호</div><div class="option-col-1">색상</div>`;
-            colorContainer.appendChild(tmpRow);
-            tmpRow = document.createElement("div");
-            tmpRow.innerHTML = `<div class="option-col-0">번호</div><div class="option-col-1">사이즈</div>`;
-            sizeContainer.appendChild(tmpRow);
-
-            let colorRowNumber = 0;
-            let sizeRowNumber = 0;
-            let tmpDiv;
-            function plusRow(option){
-                switch(option){
-                    case 'color' :{
-                        tmpRow = document.createElement("div");
-                        tmpRow.setAttribute("id", "option-row-" + (++colorRowNumber));
-                        tmpRow.classList.add("option-row");
-                        tmpDiv = document.createElement("div");
-                        tmpDiv.innerHTML = ++colorRowNumber;
-                        tmpDiv.classList.add("option-col-0");
-
-                        break;
-                    }
-                    case 'size' :{
-                        break;
-                    }
-                }
-            }
-
-            return (() => {
-
-            });
-        })();
-        const switchFormPage = (()=>{
-            const productPage = document.getElementById("product-form");
-            const optionPage = document.getElementById("option-form");
-            optionPage.classList.add("hidden");
-            return ((option)=>{
-                switch(option){
-                    case 'product':{
-                        optionPage.classList.add("hidden");
-                        productPage.classList.remove("hidden");
-                        break;
-                    }
-                    case 'option':{
-                        productPage.classList.add("hidden");
-                        optionPage.classList.remove("hidden");
-                        break;
-                    }
-                }
-            });
-        })();
-
-        // const createSetOption = (() => {
-        //     const idWhereCreate = "option-field";
-        //     const option = document.getElementById(idWhereCreate);
-        //     const container = document.createElement("div");
-        //     container.setAttribute("id", "option-container");
-        //     const optionMenu = document.createElement("div");
-        //     optionMenu.setAttribute("id", "option-menu");
-
-        //     let tmpDiv; //row안의 각 칸을 반복하여 생성할 때 쓸 변수
-        //     const column = ["번호", "사이즈", "색상", "총 수량", "가격"];
-        //     const fields = ["size", "color", "quantity", "price"];
-        //     let tmpRow = document.createElement("div");
-        //     tmpRow.classList.add("option-row");
-        //     for (let i = 0; i <= 4; i++) {
-        //         tmpDiv = document.createElement("div");
-        //         tmpDiv.classList.add("option-col-" + i);
-        //         tmpDiv.innerHTML = column[i];
-        //         tmpRow.appendChild(tmpDiv);
-        //     }
-        //     container.appendChild(tmpRow);
-        //     let optionNumber = 0;
-        //     //인풋 row 생성
-        //     function createNew() {
-        //         tmpRow = document.createElement("div");
-        //         tmpRow.setAttribute("id", "option-row-" + (++optionNumber));
-        //         tmpRow.classList.add("option-row");
-        //         tmpNo = document.createElement("div");
-        //         tmpNo.innerHTML = optionNumber;
-        //         tmpNo.classList.add("option-col-0");
-        //         tmpRow.appendChild(tmpNo);
-        //         for (let i = 0; i <= 3; i++) {
-        //             tmpDiv = document.createElement("input");
-        //             tmpDiv.setAttribute("type", "text");
-        //             tmpDiv.setAttribute("id", "option_" + optionNumber + "_" + fields[i]);
-        //             tmpDiv.setAttribute("name", "option_" + optionNumber + "_" + fields[i]);
-        //             tmpDiv.setAttribute("required", "");
-        //             tmpDiv.classList.add("option-col-" + (i + 1));
-        //             tmpRow.appendChild(tmpDiv);
-        //         }
-        //         container.appendChild(tmpRow);
-        //     }
-        //     //마지막 인풋 row 제거
-        //     function remove() {
-        //         let row = document.getElementById("option-row-" + optionNumber);
-        //         container.removeChild(row);
-        //         optionNumber--;
-        //     }
-        //     //첫번째 옵션 생성
-        //     createNew();
-        //     //옵션추가버튼 생성
-        //     const createButton = document.createElement("button");
-        //     createButton.setAttribute("type", "button");
-        //     createButton.setAttribute("onclick", "createSetOption('1')");
-        //     createButton.classList.add("option-col-0");
-        //     createButton.innerHTML = "옵션 추가"
-        //     optionMenu.appendChild(createButton);
-        //     //옵션삭제버튼 생성
-        //     const removeButton = document.createElement("button");
-        //     removeButton.setAttribute("type", "button");
-        //     removeButton.setAttribute("onclick", "createSetOption('0')");
-        //     removeButton.classList.add("option-col-1");
-        //     removeButton.innerHTML = "옵션 제거"
-        //     optionMenu.appendChild(removeButton);
-        //     option.appendChild(container);
-        //     option.appendChild(optionMenu);
-        //     return ((option) => {
-        //         switch (option) {
-        //             case "1": {
-        //                 if (optionNumber <= 4) {
-        //                     createNew();
-        //                     break;
-        //                 } else {
-        //                     alert("옵션은 5개까지 지정 가능합니다.");
-        //                     break;
-        //                 }
-        //             }
-        //             case "0": {
-        //                 if (optionNumber > 1) {
-        //                     let row = document.getElementById("option-row-" + optionNumber);
-        //                     container.removeChild(row);
-        //                     optionNumber--;
-        //                     break;
-        //                 } else {
-        //                     alert("옵션은 필수로 1개 이상 작성해야 합니다.");
-        //                     break;
-        //                 }
-        //             }
-
-        //         }
-        //     });
-        // })();
+        <select id="productIdInput"></select>
+        <form id="option-form" class="hidden" action="/product/option/new" method="post"></form>
+        <div>
+            <button type="button" onclick="createSetOption('color')">색상 추가</button>
+            <button type="button" onclick="createSetOption('d-color')">색상 삭제</button>
+            <button type="button" onclick="createSetOption('size')">사이즈 추가</button>
+            <button type="button" onclick="createSetOption('d-size')">사이즈 삭제</button>
+            <button type="button" onclick="submitOptionForm()">옵션 확정</button>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        const products = /*[[${products}]]*/"";
     </script>
+    <script type="text/javascript" th:inline="javascript" th:src="@{/js/product_register.js}"></script>
 </body>
 
 </html>
