@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import ezenstudy.bts.DTO.ReviewBoardDTO;
 import ezenstudy.bts.domain.ReviewBoard;
 import ezenstudy.bts.service.ReviewBoardService;
 
@@ -30,8 +31,8 @@ public class ReviewBoardController {
     public String saveForm() {return "reviewboard/reviewsave";}
 
     @PostMapping("/reviewboard/save")
-    public String reviewBoardPost(ReviewBoard reviewBoard)throws Exception{
-        reviewBoardService.save(reviewBoard);
+    public String reviewBoardPost(ReviewBoardDTO reviewBoardDTO)throws Exception{
+        reviewBoardService.save(reviewBoardDTO);
         return "redirect:/reviewboard";
     }
 
