@@ -7,10 +7,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<h1>ComBoard</h1>
-<p>제목: <span th:text="${comBoard.title}"></span></p>
-<p>내용: <span th:text="${comBoard.content}"></span></p>
-<p>작성자: <span th:text="${comBoard.createdBy}"></span></p>
-<p>사업자 번호: <span th:text="${comBoard.BN}"></span></p>
+        <h1>회사 요청 게시판</h1>
+        <p>제목: <span th:text="${comBoard.title}"></span></p>
+        <p>내용: <span th:text="${comBoard.content}"></span></p>
+        <p>작성자: <span th:text="${comBoard.createdBy}"></span></p>
+        <p>사업자 번호: <span th:text="${comBoard.BN}"></span></p>
+
+    <form method="post">
+        <button type="submit" formaction="/comboard/list">목록</button>
+        <button type="submit" th:formaction="@{/comboard/modify/{id}(id=${comBoard.id})}" formmethod="get">수정</button>
+
+    </form>
+
+        <form action="/comboard/delete/{id}" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit">Delete</button>
+        </form>
+
+        <hr/>
+
+        <ul>
+            <li>
+                <p>신발사요</p>
+                <p>안사요</p>
+            </li>
+            <li>
+                <p>니뭐꼬</p>
+                <p>닌먼데</p>
+            </li>
+        </ul>
+
+        <ul>
+            <li th:each="comcomment : ${comBoard.comcomments}">
+                <p th:text="${comcomment.writer}"></p>
+                <p th:text="${comcomment.content}"></p>
+            </li>
+        </ul>
+
+        <!-- 댓글 추가 폼 -->
+        <form th:action="@{/comcomment/{id}(id=${comBoard.id})}" method="post">
+            <p>
+                <label>작성자</label> <input type="text" name="writer">
+            </p>
+            <p>
+                <textarea name="content" rows="5" cols="50"></textarea>
+            </p>
+            <p>
+                <button type="submit">댓글 작성</button>
+            </p>
+        </form>
 </body>
 </html>

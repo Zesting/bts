@@ -87,5 +87,13 @@ public class SpringConfig {
     public ComBoardService comBoardService() {
         return new ComBoardService(comBoardRepository());
     }
+
+
+    @Bean
+    public ComcommentRepository comcommentRepository() { return new MemoryComcommentRepository();}
+
+    @Bean
+    public ComcommentService comcommentService() { return  new ComcommentService(comcommentRepository());}
+
 }
 

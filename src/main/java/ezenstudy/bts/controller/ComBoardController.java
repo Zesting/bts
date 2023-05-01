@@ -6,7 +6,6 @@ package ezenstudy.bts.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,15 +25,17 @@ public class ComBoardController {
         this.comBoardService = comBoardService;
     }
 
-    @GetMapping("/comboard/view/{id}")
-    public String getcomBoard(@PathVariable("id") Long id, Model model) {
-        Optional<ComBoard> comBoard = Optional.ofNullable(comBoardService.getComBoardById(id));
-        model.addAttribute("comBoard", comBoard);
-        return "comBoard";
-    }
+
 
     @GetMapping("/comboard/list")
     public String listComBoards(Model model) {
+        List<ComBoard> comBoardList = comBoardService.getAllComBoards();
+        model.addAttribute("comBoardList", comBoardList);
+        return "comboard/comlist";
+    }
+
+    @PostMapping("/comboard/list")
+    public String listComBoardsPost(Model model) {
         List<ComBoard> comBoardList = comBoardService.getAllComBoards();
         model.addAttribute("comBoardList", comBoardList);
         return "comboard/comlist";
@@ -61,5 +62,39 @@ public class ComBoardController {
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ComBoard not found");
         }
+    }
+
+    /** 수정 */
+    @GetMapping("/comboard/modify/{id}")
+    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
+        Optional<ComBoard> comBoard = Optional.ofNullable(comBoardService.getComBoardById(id));
+        if (comBoard.isPresent()) {
+            model.addAttribute("comBoard", comBoard.get());
+            return "comboard/comupdate";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ComBoard not found");
+        }
+    }
+
+    @PostMapping("/comboard/modify/{id}")
+    public String update(@PathVariable("id") Long id, @ModelAttribute("comBoard") ComBoard comBoard) {
+        comBoardService.update(id, comBoard);
+        return "redirect:/comboard/show/" + id;
+    }
+
+
+    /** 삭제 */
+
+
+    @DeleteMapping(value = "/comboard/delete/{boardId}", params = "_method=DELETE")
+    public String delete(@PathVariable("boardId") Long boardId) {
+        comBoardService.delete(boardId);
+        return "redirect:/comboard/comlist";
+    }
+
+    @PostMapping(value = "/comboard/delete/{boardId}", params = "_method=DELETE")
+    public String deletePost(@PathVariable("boardId") Long boardId) {
+        comBoardService.delete(boardId);
+        return "redirect:/comboard/comlist";
     }
 }
