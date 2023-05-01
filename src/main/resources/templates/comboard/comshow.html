@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <title>ComBoard</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<h1>ComBoard</h1>
+<p>제목: <span th:text="${comBoard.title}"></span></p>
+<p>내용: <span th:text="${comBoard.content}"></span></p>
+<p>작성자: <span th:text="${comBoard.createdBy}"></span></p>
+<p>사업자 번호: <span th:text="${comBoard.BN}"></span></p>
+</body>
+</html>

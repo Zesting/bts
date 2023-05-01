@@ -10,14 +10,14 @@ import ezenstudy.bts.domain.ComBoard;
 public interface ComBoardRepository {
     ComBoard findById(Long id);
 
-    List<ComBoard> findAll();
-
     ComBoard save(ComBoard comBoard);
 
-    void delete(ComBoard comBoard);
+    List<ComBoard> findAll();
 
-    void deleteById(Long id);
+    ComBoard update(Long id, ComBoard comBoard);
 
-
-    // Add any custom query methods here
+    void delete(Long id);
 }
+
+
+
