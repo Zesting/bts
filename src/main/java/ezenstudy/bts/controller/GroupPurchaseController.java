@@ -4,7 +4,9 @@ package ezenstudy.bts.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import ezenstudy.bts.domain.Product;
 import ezenstudy.bts.service.GroupPurchaseService;
 import ezenstudy.bts.service.ProductImageService;
 import ezenstudy.bts.service.ProductOptionService;
@@ -39,6 +41,15 @@ public class GroupPurchaseController {
     }
     @GetMapping("/grouppurchase/new")
     public String grouppurchaseRegister(Model model){
+        model.addAttribute("products", productService.findProducts());
+        return "group_purchase/group_purchase_register";
+    }
+    @GetMapping("/grouppurchase/new/{id}")
+    public String grouppurchaseRegisterWithId(@PathVariable Long id, Model model){
+        model.addAttribute("products", productService.findProducts());
+        model.addAttribute("productId", id);
+        model.addAttribute("sizes", productOptionService.findSizesbyProductId(id));
+        model.addAttribute("colors", productOptionService.findColorsbyProductId(id));
         return "group_purchase/group_purchase_register";
     }
 }

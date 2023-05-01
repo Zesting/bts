@@ -20,26 +20,15 @@ public class ReviewBoardService {
     public void save(ReviewBoard reviewBoard) throws Exception{
         //작성날짜
         reviewBoard.setCDate(LocalDateTime.now());
-        boardRepository.save(reviewBoard);
 
-        // //파일경로 설정 (user.dir = 현재 디렉토리)
-        // String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
-        // //랜덤 파일명(중복안되게)
-        // UUID uuid = UUID.randomUUID();
-        // MultipartFile file = reviewBoard.getFile();
-        // //저장될 파일 이름
-        // String fileName = uuid + "_" + file.getOriginalFilename();
-        // //파일 저장 경로,이름
-        // File saveFile = new File(filePath,fileName);
-        // //파일 변환 후 저장
-        // file.transferTo(saveFile);
-        // //데이
-        // reviewBoard.setFileName(fileName);
-        // reviewBoard.setFilePath("/files/"+filePath);
+        
+        boardRepository.save(reviewBoard);
 
     }
 
     public void update(ReviewBoard reviewBoard){
+        Long id = reviewBoard.getId();
+        reviewBoard.setCDate(boardRepository.findById(id).get().getCDate());
         reviewBoard.setUDate(LocalDateTime.now()); // 수정날짜
         boardRepository.update(reviewBoard);
     }

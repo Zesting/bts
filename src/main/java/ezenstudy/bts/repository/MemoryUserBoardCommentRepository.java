@@ -41,7 +41,7 @@ public class MemoryUserBoardCommentRepository implements UserBoardCommentReposit
           .filter(comment -> comment.getId() == id)
           .toList();
   }
-
+ 
   @Override
   public List<UserBoardComment> listAll() {
     return new ArrayList<>(store.values());

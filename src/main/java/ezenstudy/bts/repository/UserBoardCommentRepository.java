@@ -16,3 +16,4 @@ public interface UserBoardCommentRepository {
    //댓글 작성자 별 댓글 리스트 조회 
    List<UserBoardComment> findByMemberID(Long id);
 }
+ 

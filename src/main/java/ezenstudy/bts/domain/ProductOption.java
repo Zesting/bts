@@ -8,6 +8,4 @@ public class ProductOption {
     private Long productId;
     private Integer size;
     private String color;
-    private Integer quantity;
-    private Integer price;
 }
