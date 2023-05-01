@@ -28,7 +28,7 @@
       <form
         action="members/logIn"
         th:action
-        th:object="${logInForm}"
+        th:object="${logInDTO}"
         method="post">
         <div th:if="${#fields.hasGlobalErrors()}">
           <p

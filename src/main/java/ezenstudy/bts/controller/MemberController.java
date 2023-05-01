@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ezenstudy.bts.SessionConstants;
+import ezenstudy.bts.DTO.DropMemberDTO;
+import ezenstudy.bts.DTO.FindMemberInfoDTO;
+import ezenstudy.bts.DTO.LogInDTO;
+import ezenstudy.bts.DTO.MemberDTO;
+import ezenstudy.bts.DTO.UpdateMemberDTO;
 import ezenstudy.bts.domain.Member;
 import ezenstudy.bts.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,27 +32,33 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
     private final MemberService memberService;
 
+    /** ================================================================= */
+    /** 회원 가입 기능. */
+
     @GetMapping("/members/new")
     public String createForm() {
         return "members/createForm";
     }
 
     @PostMapping("/members/new")
-    public String create(MemberForm form) {
+    public String create(MemberDTO memberDTO) {
         Member member = new Member();
-        member.setLogId(form.getLogId());
-        member.setLogPwd(form.getLogPwd());
-        member.setName(form.getName());
-        member.setAge(form.getAge());
-        member.setSocialNum(form.getSocialNum());
-        member.setPhonNum(form.getPhonNum());
-        member.setEmail(form.getEmail());
+        member.setLogId(memberDTO.getLogId());
+        member.setLogPwd(memberDTO.getLogPwd());
+        member.setName(memberDTO.getName());
+        member.setAge(memberDTO.getAge());
+        member.setSocialNum(memberDTO.getSocialNum());
+        member.setPhonNum(memberDTO.getPhonNum());
+        member.setEmail(memberDTO.getEmail());
         member.setInnerDate(LocalDate.now());
         member.setLogTime(LocalTime.now());
         memberService.Join(member);
         System.out.println("Controller Create() 메서드 실행");
         return "redirect:/";
     }
+
+    /** ================================================================= */
+    /** 회원 리스트 출력 기능 */
 
     @GetMapping("/members")
     public String memberList(Model model) {
@@ -57,16 +68,19 @@ public class MemberController {
         return "members/memberList";
     }
 
+    /** ================================================================= */
+    /* 로그인 기능 */
+
     /** 로그인 GetMapping */
     @GetMapping("/members/logIn")
-    public String loginForm(@ModelAttribute LogInForm loginForm) {
+    public String loginForm(@ModelAttribute LogInDTO logInDTO) {
         System.out.println("로그인 폼 이동");
         return "members/logInForm";
     }
 
     /** 로그인 PostMapping */
     @PostMapping("/members/logIn")
-    public String logIn(@ModelAttribute @Validated LogInForm loginForm,
+    public String logIn(@ModelAttribute @Validated LogInDTO logInDTO,
             BindingResult bindingResult,
             @RequestParam(defaultValue = "/") String redirectURL,
             HttpServletRequest request) {
@@ -77,7 +91,7 @@ public class MemberController {
             return "members/logInForm";
         }
 
-        Member logInMember = memberService.LonIn(loginForm.getLogId(), loginForm.getLogPwd());
+        Member logInMember = memberService.LonIn(logInDTO.getLogId(), logInDTO.getLogPwd());
 
         if (logInMember == null) {
             bindingResult.reject("logInFail", "아이디 또는 비밀번호가 맞지 않습니다.");
@@ -91,14 +105,54 @@ public class MemberController {
         return "redirect:" + redirectURL;
     }
 
+    /** 로그아웃 기능 */
+
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
+
         if (session != null) {
             session.invalidate();
         }
         return "redirect:/";
     }
+
+    /** ================================================================= */
+    /** 회원 데이터 수정 기능 */
+
+    @ResponseBody
+    @GetMapping("/members/updateInfo")
+    public String updateForm(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        if (session == null) {
+            return "<script>alert('로그인 정보를 조회하지 못했습니다. 로그인 후 이용해 주세요!');history.go(-2);</script>";
+        }
+
+        return "<script>>window.location.href = '/members/updateInfo'</script>";
+    }
+
+    @PostMapping("/members/updateInfo")
+    public String updateMember(Model model, @Validated UpdateMemberDTO updateMemberDTO,
+            HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        if (session == null) {
+            return "members/logInForm";
+
+        }
+        Member originalMember = (Member) session.getAttribute(SessionConstants.LOGIN_MEMBER);
+        if (originalMember == null) {
+            return "members/logInForm";
+        }
+
+        model.addAttribute("originalMember", originalMember);
+        return "members/updateForm";
+
+    }
+
+    /** ================================================================= */
+    /** 회원 아이디 조회 기능 */
 
     @GetMapping("/members/findId")
     public String findIdForm() {
@@ -106,11 +160,10 @@ public class MemberController {
     }
 
     @PostMapping("/members/findId")
-    public String findId(Model model, @Validated FindMemberInfo findMemberInfo,
-            BindingResult bindingResult) {
+    public String findId(Model model, @Validated FindMemberInfoDTO findMemberInfoDTO) {
 
-        Member findMember = memberService.FindMemberLogId(findMemberInfo.getName(),
-                findMemberInfo.getSocialNum());
+        Member findMember = memberService.FindMemberLogId(findMemberInfoDTO.getName(),
+                findMemberInfoDTO.getSocialNum());
         if (findMember == null) {
             String errorMessage = "존재하지 않는 정보입니다. 다시 한번 입력해주세요.";
             model.addAttribute("errorMessage", errorMessage);
@@ -121,6 +174,36 @@ public class MemberController {
         return "members/viewIdForm";
     }
 
+    /** ================================================================= */
+    /** 회원 비밀번호 조회 기능. */
+
+    @GetMapping("/members/findPwd")
+    public String findPwdForm() {
+        return "members/findPwdForm";
+    }
+
+    @PostMapping("/members/findPwd")
+    public String findPwd(Model model, @Validated FindMemberInfoDTO findMemberInfoDTO) {
+        Optional<Member> findMember = memberService.FindMemberLogPwd(findMemberInfoDTO.getLogId(),
+                findMemberInfoDTO.getName(),
+                findMemberInfoDTO.getSocialNum());
+
+        if (findMember.isPresent()) {
+            Member useMember = findMember.get();
+            model.addAttribute("useMember", useMember);
+            return "members/viewPwdForm";
+
+        } else {
+            String errorMessage = "존재하지 않는 정보입니다. 다시 한번 입력해주세요.";
+            model.addAttribute("errorMessage", errorMessage);
+            return "members/findPwdForm";
+
+        }
+    }
+
+    /** ================================================================= */
+    /** 회원 탈퇴 기능 */
+
     @GetMapping("/members/dropMember")
     public String DropForm() {
         return "members/dropForm";
@@ -128,10 +211,10 @@ public class MemberController {
 
     @ResponseBody
     @PostMapping("/members/dropMember")
-    public String dropMember(Model model, DropMemberForm dropMemberForm) {
-        Optional<Member> dropMember = memberService.VerificationMember(dropMemberForm.getName(),
-                dropMemberForm.getLogId(),
-                dropMemberForm.getLogPwd());
+    public String dropMember(Model model, DropMemberDTO dropMemberDTO) {
+        Optional<Member> dropMember = memberService.VerificationMember(dropMemberDTO.getName(),
+                dropMemberDTO.getLogId(),
+                dropMemberDTO.getLogPwd());
 
         if (dropMember.isPresent()) {
             model.addAttribute("dropMember", dropMember.get().getName());
@@ -141,18 +224,6 @@ public class MemberController {
         } else {
             return "<script>alert('회원 정보를 조회하지 못했습니다. 다시 입력해주세요!');history.go(-1);</script>";
         }
-
-        /*
-         * if (!dropMember.isPresent()) {
-         * model.addAttribute("dropMember", dropMember.get().getName());
-         * return
-         * "<script>alert('회원 정보를 조회하지 못했습니다. 다시 입력해주세요!');history.go(-1);</script>";
-         * }
-         * 
-         * model.addAttribute("dropMember", dropMember.get().getName());
-         * memberService.DropMember(dropMember.get());
-         * return
-         */
 
     }
 

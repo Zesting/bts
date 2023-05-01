@@ -12,3 +12,4 @@ public class UserBoardOffer {
     //private boolean isOfferCount; //상품 추천 유무  //클릭할때마다 true/fulse 
 
 }
+ 

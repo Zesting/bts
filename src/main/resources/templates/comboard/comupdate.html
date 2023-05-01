@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <title>ComBoard update</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+        <h1>내용 수정</h1>
+        <form method="post" th:object="${comBoard}" th:action="@{/comboard/modify/{id}(id=${comBoard.id})}">
+            <input type="hidden" th:field="*{id}"/>
+            <p>
+                <label for="title">제목</label>
+                <input type="text" id="title" th:field="*{title}" required="required"/>
+            </p>
+            <p>
+                <label for="content">내용</label>
+                <textarea id="content" th:field="*{content}" rows="10" required="required"></textarea>
+            </p>
+            <p>
+                <label for="BN">사업자 번호</label>
+                <input type="text" id="BN" th:field="*{BN}" required="required"/>
+            </p>
+            <p>
+                <button type="submit">수정</button>
+                <button type="button" onclick="location.href='/comboard/list'">취소</button>
+            </p>
+        </form>
+        <form method="post">
+            <button type="submit" formaction="/comboard/list">목록</button>
+        </form>
+
+
+</body>
+</html>

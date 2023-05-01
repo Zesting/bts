@@ -10,8 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class MemoryComBoardRepository implements ComBoardRepository{
-    private Map<Long, ComBoard> comBoardMap = new ConcurrentHashMap<>();
-    private AtomicLong nextId = new AtomicLong(1);
+    private final Map<Long, ComBoard> comBoardMap = new ConcurrentHashMap<>();
+    private final AtomicLong nextId = new AtomicLong(1);
 
     @Override
     public ComBoard findById(Long id) {

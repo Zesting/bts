@@ -38,13 +38,11 @@ public class MemberService {
     }
 
     /** 회원 정보 수정 기능 로그인 유지 기능 만들고 만들 것 */
-    /*
-     * public Member ModifyMember(String memberLogPwd, String memberInfo) {
-     * 
-     * return null;
-     * 
-     * }
-     */
+
+    public Member UpdateMember(Long memberId) {
+        return memberRepository.update(memberId).get();
+
+    }
 
     /** 회원 로그인 아이디 찾기 기능 */
     // 종민이형 의견 로그인 리스트가 아예 없을 경우, members가 0인 경우 빠져나가는 거 포함.
@@ -64,19 +62,21 @@ public class MemberService {
     }
 
     /** 회원 로그인 비밀번호 찾기 기능 */
-    public String FindMemberLogPwd(String memberLogId, String memberSocialNum) {
+    public Optional<Member> FindMemberLogPwd(String memberLogId, String memberName, String memberSocialNum) {
         Optional<Member> result = memberRepository.findLogId(memberLogId);
         if (result.isPresent()) {
             Member member = result.get();
-            if (member.getSocialNum().equals(memberSocialNum)) {
-                memberRepository.update(member.getId(), member);
+            if (member.getName().equals(memberName) && member.getSocialNum().equals(memberSocialNum)) {
+                /* memberRepository.update(member.getId(), member); */
                 // 주민번호가 일치하는 메서드 1개.-> true 나오면 수정 페이지로 넘어가겠음.(수정 페이지에서 변경 메서드 따로 작성)
-                return member.getName() + "님의 비밀번호 변경이 완료되었습니다.";
+                System.out.println(Optional.of(member));
+
+                return Optional.of(member);
             } else {
-                return "회원님의 주민등록번호가 다릅니다.";
+                return Optional.empty();
             }
         } else {
-            return "존재하지 않는 회원 ID입니다.";
+            return Optional.empty();
         }
     }
 

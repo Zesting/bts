@@ -29,7 +29,7 @@ public class MemoryUserBoardRepository implements UserBoardRepository {
   public Optional<UserBoard> delete(Long id) {
     return Optional.ofNullable(store.remove(id));
   }
-
+ 
   @Override
   public List<UserBoard> listAll() {
     return new ArrayList<>(store.values());
@@ -38,6 +38,11 @@ public class MemoryUserBoardRepository implements UserBoardRepository {
   @Override
   public Optional<UserBoard> findById(Long id) {
     return Optional.ofNullable(store.get(id));
+  }
+
+  @Override
+  public Optional<UserBoard> findBoardOne(Long userBoardNumber) {
+    return Optional.ofNullable((store.get(userBoardNumber)));
   }
 
   

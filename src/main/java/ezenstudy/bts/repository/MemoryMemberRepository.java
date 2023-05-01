@@ -56,7 +56,8 @@ public class MemoryMemberRepository implements MemberRepository {
 
     /** 회원 정보 수정(업데이트) 구현 객체 */
     @Override
-    public Optional<Member> update(Long memberId, Member member) {
+    public Optional<Member> update(Long memberId) {
+        Member member = new Member();
         member.setId(memberId);
         store.put(member.getId(), member);
         return Optional.of(member);
