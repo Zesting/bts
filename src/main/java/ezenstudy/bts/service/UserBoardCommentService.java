@@ -33,7 +33,7 @@ public class UserBoardCommentService {
     public List<UserBoardComment> findAllUserBoardComment() {
       return userBoardCommentRepository.listAll();
     }
-
+ 
     //댓글 조회 - 아이디
     public List<UserBoardComment> findListByMemberID(Long memberId) {
         List<UserBoardComment> list = userBoardCommentRepository.findByMemberID(memberId);
