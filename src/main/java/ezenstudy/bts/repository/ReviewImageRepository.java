@@ -7,7 +7,7 @@ import ezenstudy.bts.domain.ReviewImage;
 
 public interface ReviewImageRepository {
     public ReviewImage save(ReviewImage reviewImage);
-    public Optional<ReviewImage> findById(Long boardId);
+    public Optional<ReviewImage> findById(Long id);
     public List<ReviewImage> findAll();
-    public Long findByProductId(Long productId);
+    public List<ReviewImage> findByReviewBoardId(Long reviewBoardId);
 }
