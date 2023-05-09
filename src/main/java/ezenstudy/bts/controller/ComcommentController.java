@@ -20,14 +20,9 @@ public class ComcommentController {
     }
 
     @PostMapping("/comcomment")
-    public ResponseEntity<Comcomment> createComcomment(@RequestBody Comcomment comcomment) {
-        Comcomment createdComcomment = comcommentService.saveComcomment(comcomment);
-        return ResponseEntity.ok(createdComcomment);
-    }
-
-    @PostMapping("/comcomment/{id}")
-    public ResponseEntity<Comcomment> createComcomment(@PathVariable Long id, @RequestBody Comcomment comcomment) {
-        return null;
+    public String createComcomment(@RequestParam("id") Long id, Comcomment comcomment) {
+        comcommentService.saveComcomment(comcomment, id);
+        return "redirect:/comboard/show/" + id;
     }
 
     @GetMapping("/comcomment/{id}")

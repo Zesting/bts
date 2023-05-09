@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import ezenstudy.bts.DTO.ReviewBoardDTO;
-import ezenstudy.bts.repository.ReviewImageRepository;
 
 @Service
 public class ReviewImageService {
