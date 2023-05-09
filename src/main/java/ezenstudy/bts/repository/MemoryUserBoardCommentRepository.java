@@ -14,37 +14,46 @@ public class MemoryUserBoardCommentRepository implements UserBoardCommentReposit
 
   @Override
   public UserBoardComment saveComment(UserBoardComment comment) {
-    comment.setCommentID(++sequence);
-    store.put(comment.getCommentID(), comment);  
+    comment.setId(++sequence);
+    store.put(comment.getId(), comment);  
     return comment;
   }
 
   @Override
   public UserBoardComment updateComment(UserBoardComment comment) { 
-    return store.put(comment.getCommentID(),comment);
+    return store.put(comment.getId(),comment);
   }
  
   @Override
-  public Optional<UserBoardComment> delete(Long id) {
-    return Optional.ofNullable(store.remove(id));
+  public Optional<UserBoardComment> delete(Long commentId) {
+    return Optional.ofNullable(store.remove(commentId));
   }
 
   @Override
-  public Optional<UserBoardComment> findById(Long userBoardID) {
-    return Optional.ofNullable(store.get(userBoardID));
+  public Optional<UserBoardComment> findById(Long id) {
+    return Optional.ofNullable(store.get(id));
   }
 
   @Override
-  public List<UserBoardComment> findByMemberID(Long id) {
+  public List<UserBoardComment> findByMemberId(Long memberId) {
     return store.values()
           .stream()
-          .filter(comment -> comment.getId() == id)
+          .filter(comment -> comment.getMemberId()== memberId)
           .toList();
   }
- 
+  
   @Override
   public List<UserBoardComment> listAll() {
     return new ArrayList<>(store.values());
+  }
+
+  @Override
+  public List<UserBoardComment> findbyBoardId(Long boardId) {
+    
+    return store.values()
+          .stream()
+          .filter(comment -> comment.getBoardId()== boardId)
+          .toList();
   }
 
   

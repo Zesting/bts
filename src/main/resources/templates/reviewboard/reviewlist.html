@@ -1,29 +1,213 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>list</title>
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: left;
+            border-top: 2px solid #272424;
+        }
+
+        .review-images {
+            margin-top: 20px;
+        }
+
+        .review-images-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .review-images {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .review-list {
+            margin-top: 40px;
+        }
+
+        .review {
+            margin-bottom: 30px;
+        }
+
+        /* 상단 전체이미지 style */
+        .allImage {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            flex-shrink: 0;
+            width: 19%;
+            margin-right: 1%;
+        }
+
+        .prev,
+        .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2rem;
+            height: 2rem;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .prev {
+            left: 0;
+        }
+
+        .next {
+            right: 0;
+        }
+    </style>
 </head>
+
 <body>
-    <table>
-        <tr>
-            <th>id</th>
-            <th>title</th>
-            <th>writer</th>
-            <th>content</th>
-            <th>date</th>
-            <th>count</th>
-        </tr>
-        <tr th:each="board : ${boardAllList}">
-            <td th:text="${board.id}"></td>
-            <td><a th:href="@{|/reviewboard/${board.id}|}" th:text="${board.title}"></a></td>
-            <td><a th:href="@{/reviewboard/${board.id}}" th:text="${board.title}"></a></td>
-            <td th:text="${board.writer}"></td>
-            <td th:text="*{#temporals.format(board.cDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-            <td th:text="${board.viewCount}"></td>
-        </tr>
-    </table>
+    <div class="container">
+        <h2>고객 후기(<span th:text="${reviewSize}"></span>)</h2>
+        <p>해당 상품 평점</p>
+
+        <div class="allImage">
+            <div class="slides">
+
+            </div>
+        </div>
+
+        <!-- <div class="review-images">
+            <button id="view-all-images-btn">전체 이미지</button>
+            <div class="review-images-grid">
+                <div th:each="image:${imageList}" class="review-image">
+                    <img th:src="${image.filePath}">
+                </div>
+            </div>
+        </div> -->
+
+        <div class="review-list">
+            <div th:each="review : ${boardList}">
+                <div class="review">
+                    <h3 th:text="${review.title}"></h3>
+                    <p>
+                        작성자<span th:text="${review.writer}"></span>
+                        작성일<span th:text="${review.cDate}"></span>
+                    </p>
+                    <p>
+                        <span th:text="${review.star}"></span>
+                    </p>
+                    <div class="review-images-grid">
+                        <div th:each="image:${imageList}" class="review-image">
+                            <img th:src="${image.filePath}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="pagination">
+            <ul>
+                <li th:if="${boardList.hasPrevious}">
+                    <a th:href="@{${'/reviews?page='+(boardList.number-1)}}">$laquo;</a>
+                </li>
+                <li th:each="page:${boardList.pages}" th:class="${page.current ? 'active' : ''}">
+                    <a th:href="@{${'reviews?page='+page.number}}"><span th:text="${page.number+1}"></span></a>
+                </li>
+                <li th:if="${boardList.hasNext}">
+                    <a th:href="@{${'/reviews?page='+(boardList.number+1)}}">$raquo;</a>
+                </li>
+            </ul>
+        </div> -->
+    <script>
+        const viewAllImagesBtn = document.getElementById('view-all-images-btn');
+        const reviewImagesGrid = document.querySelector('.review-images-grid');
+        const reviewImages = document.querySelectorAll('.review-image');
+
+        viewAllImagesBtn.addEventListener('click', () => {
+            const popup = window.open('', '', 'width=800,height=600');
+            const popupContent = `
+        <style>
+        .popup-images-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .popup-image {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        </style>
+        <div class="popup-images-grid">
+      ${Array.from(reviewImages).map(reviewImage => `
+        <div class="popup-image">
+          ${reviewImage.innerHTML}
+        </div>
+      `).join('')}
+    </div>
+    `;
+            popup.document.write(popupContent);
+        });
+
+        // 이미지 불러오기
+         function fetchImages(){
+            const images = [
+                '/dummyimage/KakaoTalk_20230315_103734889.jpg',
+                '/dummyimage/KakaoTalk_20230315_103735389.jpg',
+                '/dummyimage/KakaoTalk_20230315_103735852.jpg',
+                '/dummyimage/KakaoTalk_20230315_103736319.jpg',
+                '/dummyimage/KakaoTalk_20230315_103736782.jpg',
+                '/dummyimage/KakaoTalk_20230315_103737412.jpg',
+                '/dummyimage/KakaoTalk_20230315_103737865.jpg',
+                '/dummyimage/KakaoTalk_20230315_103738629.jpg'
+            ];
+
+            const slides = document.querySelector('.slides');
+
+            images.forEach((imageUrl)=>{
+                const slide = document.createElement('div');
+                slide.classList.add('slide');
+
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                slide.appendChild(img);
+
+                slides.appendChild(slide);
+            });
+         }
+
+         const prevBtn = document.createElement('button');
+         prevBtn.textContent = 'Prev';
+         prevBtn.classList.add('prev');
+         prevBtn.addEventListener('click',()=>{
+            const slides = document.querySelector('.slides');
+            slides.style.transform = 'translateX(-20%)';
+         });
+
+         const nextBtn = document.createElement('button');
+         nextBtn.textContent = 'Next';
+         nextBtn.classList.add('next');
+         nextBtn.addEventListener('click', ()=>{
+            const slides = document.querySelector('.slides');
+            slides.style.transform = 'translateX(20%)';
+
+            const gallery = document.querySelector('.allImage');
+            gallery.appendChild(prevBtn);
+            gallery.appendChild(nextBtn);
+
+         })
+    </script>
 </body>
+
 </html>
