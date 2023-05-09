@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>sidebar</title>
+    <link href="../static/css/sidebar.css" rel="stylesheet" type="text/css">
+
+    <script src="../static/js/jquery-1.12.3.js"></script>
+    <script src="../static/js/sidebar.js"></script>
+</head>
+<body>
+    
+</body>
+<side>
+    <header>
+
+    </header>
+    <footer>
+        
+    </footer>
+    <div class="side">
+        <label id="sidebarCollapse" for="expand-side" title="목록">
+            
+        </label>
+        <input type="checkbox" id="expand-side" name="expand-side">
+        <ul>
+            <li><a href="#" class="item1" title="최근본상품"></a></li>
+            <li><a href="#" class="item2" title="관심상품"></a></li>
+            <li><a href="#" class="item3" title="장바구니"></a></li>
+            <li><a href="#header" class="item4" title="위로"></a></li>
+            <li><a href="#footer" class="item5" title="밑으로"></a></li>
+            <li><a href="#" class="item6" title="설정"></a></li>
+        </ul>
+    </div>
+</side>
+    <div id="bts">
+        <div class="btsContent">
+            <div id="bts1">
+                타이틀
+            </div>
+            <div class="btsOff">
+                <button id="btsClose">닫기</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+        <div class="mainlist">
+            <ul class="list">
+                <li><a href="#">마이쇼핑</a></li>
+                <li><a href="#">주문조회</a></li>
+                <li><a href="#">배송조회</a></li>
+                <li><a href="#">관심상품</a></li>
+                <li><a href="#">후기게시판</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="wrap">
+        <nav id="sidebar"></nav>
+        <button id="sidebarCollapse">ss</button> 
+        <div class="overlay"></div>
+    </div>
+</html>

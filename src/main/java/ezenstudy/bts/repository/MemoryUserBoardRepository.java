@@ -1,5 +1,6 @@
 package ezenstudy.bts.repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +30,7 @@ public class MemoryUserBoardRepository implements UserBoardRepository {
   public Optional<UserBoard> delete(Long id) {
     return Optional.ofNullable(store.remove(id));
   }
- 
+  
   @Override
   public List<UserBoard> listAll() {
     return new ArrayList<>(store.values());
@@ -45,5 +46,42 @@ public class MemoryUserBoardRepository implements UserBoardRepository {
     return Optional.ofNullable((store.get(userBoardNumber)));
   }
 
-  
+  /* =============== 더미 데이터 ===================== */
+  public MemoryUserBoardRepository() {
+    UserBoard u0 = new UserBoard();
+    u0.setUserBoardNumber(1);
+    u0.setUserBoardTitle("제목1 입니다.");
+    u0.setUserBoardContent("내용1 입니다.");
+    u0.setMemberId(1);
+    u0.setDateTime(LocalDateTime.now());
+    u0.setUpdateDateTime(LocalDateTime.now());
+    u0.setOfferCount(0);
+    save(u0);
+
+    UserBoard u1 = new UserBoard();
+    u1.setUserBoardNumber(2);
+    u1.setUserBoardTitle("제목2 입니다.");
+    u1.setUserBoardContent("내용2 입니다.");
+    u1.setMemberId(2);
+    u1.setDateTime(LocalDateTime.now());
+    u1.setUpdateDateTime(LocalDateTime.now());
+    u1.setOfferCount(0);
+    save(u1);
+
+    UserBoard u2 = new UserBoard();
+    u2.setUserBoardNumber(3);
+    u2.setUserBoardTitle("제목3 입니다.");
+    u2.setUserBoardContent("내용3 입니다.");
+    u2.setMemberId(3);
+    u2.setDateTime(LocalDateTime.now());
+    u2.setUpdateDateTime(LocalDateTime.now());
+    u2.setOfferCount(0);
+    save(u2);
+  }
+
+
+
+
+
+
 }

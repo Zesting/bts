@@ -46,10 +46,8 @@ public class UserBoardService {
   }
 
   // 게시판 수정
-  public UserBoard update(UserBoard userBoard) { 
+  public UserBoard update(UserBoard userBoard) {
     userBoard.setUpdateDateTime(FormDateTime());
-    // userBoard.setUserBoardTitle(userBoard.getUserBoardTitle());
-    // userBoard.setUserBoardContent(userBoard.getUserBoardContent());
     return userBoardRepository.update(userBoard);
   }
 
@@ -65,6 +63,6 @@ public class UserBoardService {
     return LocalDateTime.parse(now.format(formatter), formatter);
   }
 
-
+ 
 }
  
