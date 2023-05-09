@@ -12,8 +12,9 @@ public interface UserBoardCommentRepository {
    Optional<UserBoardComment> delete(Long id);//댓글 삭제
    //아이디로 조회
    Optional<UserBoardComment> findById(Long id);
-   List<UserBoardComment> listAll();
+   List<UserBoardComment> findbyBoardId(Long boardId);
    //댓글 작성자 별 댓글 리스트 조회 
-   List<UserBoardComment> findByMemberID(Long id);
-}
+   List<UserBoardComment> findByMemberId(Long memberId);
+   List<UserBoardComment> listAll();
+} 
  

@@ -29,5 +29,5 @@ public class MemoryUserBoardOfferRepository implements UserBoardOfferRepository{
         store.put(userBoardOffer.getOfferCount(),userBoardOffer);
         return userBoardOffer;
     }
-     
+      
 }
