@@ -139,7 +139,6 @@ public class MemberController {
         HttpSession session = request.getSession();
         if (session == null) {
             return "members/logInForm";
-
         }
         Member originalMember = (Member) session.getAttribute(SessionConstants.LOGIN_MEMBER);
         if (originalMember == null) {

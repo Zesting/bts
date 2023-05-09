@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
-    <title>ComBoard</title>
+    <title>comshow</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,14 +37,14 @@
         </ul>
 
         <ul>
-            <li th:each="comcomment : ${comBoard.comcomments}">
-                <p th:text="${comcomment.writer}"></p>
-                <p th:text="${comcomment.content}"></p>
+            <li th:each="comment : ${comments}">
+                <p th:text="${comment.writer}"></p>
+                <p th:text="${comment.content}"></p>
             </li>
         </ul>
 
         <!-- 댓글  -->
-        <form th:action="@{/comcomment/{id}(id=${comBoard.id})}" method="post">
+        <form th:action="@{/comcomment(id=${comBoard.id})}" method="post" id="comment-form">
             <p>
                 <label>작성자</label> <input type="text" name="writer">
             </p>
@@ -63,5 +63,10 @@
         });
     </script>
         </form>
+        <script>
+            document.querySelector('#comment-form').addEventListener('submit', function() {
+                location.reload();
+            });
+        </script>
 </body>
 </html>

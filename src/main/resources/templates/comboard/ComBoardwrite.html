@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>Create ComBoard</h1>
-<form method="post" th:action="@{/show}">
+<form method="post" th:action="@{/show}" enctype="multipart/form-data">
     <div>
         <label for="title">제목:</label>
         <input type="text" id="title" name="title" required>
@@ -25,6 +25,11 @@
         <label for="BN">사업자 번호:</label>
         <input type="text" id="BN" name="BN" required>
     </div>
+
+    <tr>
+        <td width="70">업로드</td>
+        <input type="file" name="uploadFile"/></td>
+    </tr>
     <button type="submit">등록</button>
 </form>
 </body>

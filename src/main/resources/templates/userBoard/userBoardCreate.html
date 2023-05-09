@@ -18,23 +18,20 @@
   <h1>User Board Create</h1>
   <p>게시물 작성 페이지</p>
   <form class="container" action="/userBoard/Home" method="post">
+    <textarea name="MemberId" id="MemberId" cols="50" rows="1" placeholder="MemberId를 입력하시오."></textarea>
     <div class="mb-3">
-      <textarea name="userBoardTitle" id="userBoardTitle" cols="50" rows="1" placeholder="Title를 입력하시오."></textarea><br>
+      <textarea name="userBoardTitle" id="userBoardTitle" cols="50" rows="1" placeholder="Title를 입력하시오."></textarea>
     </div>
     <div class="mb-3">
       <textarea name="userBoardContent" id="userBoardContent" cols="50" rows="10"
         placeholder="Content를 입력하시오."></textarea><br>
     </div>
-    <input type="file" name="img" id="img"><br><br>
     <button type="submit" class="btn btn-primary">저장</button>
-    
+    <input type="file" name="img" id="img">
   </form>
   <br>
-    <button type="submit" class="btn btn-primary">수정</button>
-    <button type="reset" class="btn btn-primary">삭제</button>
- 
-  </div>
-  <a href="http://localhost:8080/userBoard/Home"><button type="button">홈</button></a>
+  <a href="http://localhost:8080/userBoard/Home"><button type="button" class="btn btn-primary"> 나가기(홈으로) </button></a>
+  
 
 </body>
 

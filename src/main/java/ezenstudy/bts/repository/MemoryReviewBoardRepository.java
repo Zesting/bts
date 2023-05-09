@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
 import ezenstudy.bts.domain.ReviewBoard;
 
 @Repository
-public class MemoryReviewBoardRepository implements ReviewBoardRepository{
+public class MemoryReviewBoardRepository implements ReviewBoardRepository {
 
-    private static final Map<Long,ReviewBoard> store = new HashMap<>();
+    private static final Map<Long, ReviewBoard> store = new HashMap<>();
     private static long sequence = 0L;
 
     @Override
@@ -33,7 +33,7 @@ public class MemoryReviewBoardRepository implements ReviewBoardRepository{
 
     @Override
     public ReviewBoard update(ReviewBoard newBoard) {
-        return store.put(newBoard.getId(),newBoard);
+        return store.put(newBoard.getId(), newBoard);
     }
 
     @Override
@@ -42,9 +42,24 @@ public class MemoryReviewBoardRepository implements ReviewBoardRepository{
         store.put(board.getId(), board);
         return board;
     }
-    
-    public void clearStore(){
+
+    @Override
+    public Long reviewNum() {
+        return sequence;
+    }
+
+    @Override
+    public Integer findAllSize() {
+        return store.size();
+    }
+
+    public void clearStore() {
         store.clear();
+    }
+
+    //더미데이터
+    public MemoryReviewBoardRepository(){
+
     }
 
 }
