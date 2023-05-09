@@ -120,34 +120,53 @@ public class MemberController {
     /** ================================================================= */
     /** 회원 데이터 수정 기능 */
 
-    @ResponseBody
     @GetMapping("/members/updateInfo")
-    public String updateForm(HttpServletRequest request) {
-
-        HttpSession session = request.getSession();
-        if (session == null) {
-            return "<script>alert('로그인 정보를 조회하지 못했습니다. 로그인 후 이용해 주세요!');history.go(-2);</script>";
-        }
-
-        return "<script>>window.location.href = '/members/updateInfo'</script>";
-    }
-
-    @PostMapping("/members/updateInfo")
-    public String updateMember(Model model, @Validated UpdateMemberDTO updateMemberDTO,
-            HttpServletRequest request) {
-
-        HttpSession session = request.getSession();
-        if (session == null) {
-            return "members/logInForm";
-        }
+    public String updateForm(Model model, HttpSession session) {
         Member originalMember = (Member) session.getAttribute(SessionConstants.LOGIN_MEMBER);
-        if (originalMember == null) {
-            return "members/logInForm";
-        }
-
         model.addAttribute("originalMember", originalMember);
         return "members/updateForm";
 
+    }
+
+    @PostMapping("/members/updateInfo")
+    public String updateMember(Model model, @Validated UpdateMemberDTO updateMemberDTO) {
+        Optional<Member> coverOriginalMember = memberService.findById(updateMemberDTO.getId());
+        if (coverOriginalMember.isPresent()) {
+            Member original = coverOriginalMember.get();
+            Member updateMember = memberService.memberConverter(updateMemberDTO);
+
+            updateMember.setId(original.getId());
+            updateMember.setLogId(original.getLogId());
+
+            if (updateMember.getLogPwd() == null) {
+                updateMember.setLogPwd(original.getLogPwd());
+            }
+            if (updateMember.getName() == null) {
+                updateMember.setName(original.getName());
+            }
+            if (updateMember.getAge() == 0) {
+                updateMember.setAge(original.getAge());
+            }
+            if (updateMember.getPhonNum() == null) {
+                updateMember.setPhonNum(original.getPhonNum());
+            }
+            if (updateMember.getEmail() == null) {
+                updateMember.setEmail(original.getEmail());
+            }
+
+            updateMember.setSocialNum(original.getSocialNum());
+            memberService.UpdateMember(updateMember);
+            model.addAttribute("updateMember", updateMember);
+            return "members/viewUpdate";
+        }
+        return "redirect:/";
+    }
+
+    @GetMapping("/members/viewMemberInfo")
+    public String viewMemberInfo(Model model, HttpSession session) {
+        Member originalMember = (Member) session.getAttribute(SessionConstants.LOGIN_MEMBER);
+        model.addAttribute("updateMember", originalMember);
+        return "members/viewUpdate";
     }
 
     /** ================================================================= */

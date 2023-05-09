@@ -42,5 +42,10 @@ public class ProductOptionService {
         .stream().map(option -> option.getColor()).collect(Collectors.toSet());
         return new ArrayList<String>(colors);
     }
+    public Long findIdbyFields(Long productId, Integer size, String color){
+        return productOptionRepository.findAll().stream()
+        .filter(option ->(option.getProductId().longValue() == productId.longValue()) && (option.getColor().equals(color)) && (option.getSize().intValue() == size.intValue()))
+        .findAny().get().getId();
+    }
 
 }

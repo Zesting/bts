@@ -1,48 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-cache" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>Document</title>
+    <style>
+        .grouppurchase-form-container{
+            display:flex;
+            flex-direction: column;
+            width:70%;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body>
     <div class="body">
+        <div class="grouppurchase-form-container">
             <label for="productId">상품명</label>
             <select id="productId" name="productId">
-                <option value="-1">선택</option>
+                <option disabled selected>상품을 선택해 주세요</option>
                 <option th:each="product : ${products}" th:value="${product.id}"
                     th:text="${product.name}+' / '+${product.brand}+' / '+${product.category}"></option>
             </select>
             <button onclick="openProductRegister()">상품등록</button>
             <div id="option-form-container"></div>
+            <p id="option-form-container-validiry"></p>
+            <div class="flex-row">
             <button type="button" onclick="controlOptionForm('new')">판매 옵션 추가</button>
             <button type="button" onclick="controlOptionForm('remove')">판매 옵션 제거</button>
+        </div>
+        <div class="flex-row">
+            <label for="saleStart">판매 개시 시간</label>
+            <input type="datetime-local" id="saleStart" name="saleStart"> 
+        </div><div class="flex-row"></div>
+            <label for="saleEnd">판매 종료 시간</label>
+            <input type="datetime-local" id="saleEnd" name="saleEnd">
+        </div>
+        <div class="flex-row">
+            <label for="minQuantity">필요 구매 요청 수</label>
+            <input type="number" id="minQuantity" name="minQuantity">
+        </div>
+        <div class="flex-row">
+            <label for="information">공동구매 상세내용</label>
+            <textarea id="information" name="information"></textarea>
+        </div>
+        <button type="button" onclick="submitGroupPurchase()">게시글 등록</button>
 
 
     </div>
+    <!--스크립트에서 사용할 데이터 변수 설정-->
     <script th:inline="javascript">
         const productId = /*[[${productId}]]*/"";
         const productSizes = /*[[${sizes}]]*/"";
         const productColors = /*[[${colors}]]*/"";
-
-        const productSelect = document.getElementById('productId');
-
-        productSelect.addEventListener('change', (event) => {
-            const selectedId = event.target.value;
-            window.location.href = `/grouppurchase/new/${selectedId}`
-            console.log(`Selected option: ${selectedOption}`);
-        });
-
-        if(productId != ""){
-            productSelect.value = productId;
-        }
-
-        function reloadPage(){
-            location.reload();
-        }
     </script>
     <script src="/js/group_purchase.js"></script>
 

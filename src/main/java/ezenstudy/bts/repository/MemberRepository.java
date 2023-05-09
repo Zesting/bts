@@ -24,7 +24,7 @@ public interface MemberRepository {
     Optional<Member> findLogId(String memberLogId);
 
     /** 회원 정보 수정(업데이트) */
-    Optional<Member> update(Long memberId);
+    Optional<Member> update(Member member);
 
     /** 회원 정보 삭제(delete) */
     Long delete(long memberId);
