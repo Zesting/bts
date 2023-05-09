@@ -38,6 +38,17 @@
   <body>
     <div class="container">
       <form action="/members/updateInfo" method="post">
+        <div class="form-group" style="display: none">
+          <label for="Id">회원 고유 번호</label><br />
+          <input
+            type="text"
+            id="Id"
+            name="Id"
+            th:value="${originalMember.getId()}"
+            readonly />
+          <br />
+        </div>
+
         <div class="form-group">
           <label for="logId">아이디</label><br />
           <input
@@ -54,7 +65,8 @@
             type="text"
             id="logPwd"
             name="logPwd"
-            th:value="${originalMember.getLogPwd()}" />
+            th:value="${originalMember.getLogPwd()}"
+            required />
           <br />
         </div>
         <div class="form-group">
@@ -64,7 +76,7 @@
             id="name"
             name="name"
             th:value="${originalMember.getName()}"
-            readonly />
+            required />
           <br />
         </div>
         <div class="form-group">
@@ -74,7 +86,7 @@
             id="age"
             name="age"
             th:value="${originalMember.getAge()}"
-            readonly />
+            required />
           <br />
         </div>
         <div class="form-group">
@@ -93,7 +105,8 @@
             type="text"
             id="phonNum"
             name="phonNum"
-            th:value="${originalMember.getPhonNum()}" />
+            th:value="${originalMember.getPhonNum()}"
+            required />
           <br />
         </div>
         <div class="form-group">
@@ -102,13 +115,31 @@
             type="text"
             id="email"
             name="email"
-            th:value="${originalMember.getEmail()}" />
+            th:value="${originalMember.getEmail()}"
+            required />
           <br />
         </div>
-        <button
-          type="submit"
-          class="w-100 btn btn-dark btn-lg"
-          onclick="location.href= '/members'">
+        <div class="form-group" style="display: none">
+          <label for="innerDate">innerDate</label><br />
+          <input
+            type="text"
+            id="innerDate"
+            name="innerDate"
+            th:value="${originalMember.getInnerDate()}"
+            readonly />
+          <br />
+        </div>
+        <div class="form-group" style="display: none">
+          <label for="logTime">logTime</label><br />
+          <input
+            type="text"
+            id="logTime"
+            name="logTime"
+            th:value="${originalMember.getLogTime()}"
+            readonly />
+          <br />
+        </div>
+        <button type="submit" class="w-100 btn btn-dark btn-lg">
           회원 수정
         </button>
       </form>

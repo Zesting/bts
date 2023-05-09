@@ -3,6 +3,7 @@ package ezenstudy.bts.service;
 import java.util.List;
 import java.util.Optional;
 
+import ezenstudy.bts.DTO.UpdateMemberDTO;
 import ezenstudy.bts.domain.Member;
 import ezenstudy.bts.repository.MemberRepository;
 
@@ -31,18 +32,38 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+    public Optional<Member> findById(Long memberId) {
+        return memberRepository.findId(memberId);
+    }
+
     /* 로그인 기능 */
     /* 리턴이 null이면 로그인 실패 */
     public Member LonIn(String memberLogId, String memberPwd) {
         return memberRepository.findLogId(memberLogId).filter(m -> m.getLogPwd().equals(memberPwd)).orElse(null);
     }
 
-    /** 회원 정보 수정 기능 로그인 유지 기능 만들고 만들 것 */
+    /** 회원 정보 수정 기능 */
 
-    public Member UpdateMember(Long memberId) {
-        return memberRepository.update(memberId).get();
-
+    public Optional<Member> UpdateMember(Member member) {
+        return memberRepository.update(member);
     }
+
+    public Member memberConverter(UpdateMemberDTO updateMemberDTO) {
+        Member member = new Member();
+        member.setId(updateMemberDTO.getId());
+        member.setLogId(updateMemberDTO.getLogId());
+        member.setLogPwd(updateMemberDTO.getLogPwd());
+        member.setName(updateMemberDTO.getName());
+        member.setAge(updateMemberDTO.getAge());
+        member.setSocialNum(updateMemberDTO.getSocialNum());
+        member.setPhonNum(updateMemberDTO.getPhonNum());
+        member.setEmail(updateMemberDTO.getEmail());
+        member.setInnerDate(updateMemberDTO.getInnerDate());
+        member.setLogTime(updateMemberDTO.getLogTime());
+        return member;
+    };
+
+    /* ================================================================== */
 
     /** 회원 로그인 아이디 찾기 기능 */
     // 종민이형 의견 로그인 리스트가 아예 없을 경우, members가 0인 경우 빠져나가는 거 포함.
@@ -102,4 +123,5 @@ public class MemberService {
         return Optional.empty();
 
     };
+
 }

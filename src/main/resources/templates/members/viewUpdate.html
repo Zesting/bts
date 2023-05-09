@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      table th,
+      table td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      table th {
+        background-color: #f2f2f2;
+      }
+
+      table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      table tbody tr:hover {
+        background-color: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>수정된 회원 정보!</h1>
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>PassWord</td>
+            <td>이름</td>
+            <td>나이</td>
+            <td>주민등록번호</td>
+            <td>핸드폰 번호</td>
+            <td>Email</td>
+            <td>가입일</td>
+            <td>로그인 시간</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="member: ${updateMember}">
+            <td th:text="${member.logId}"></td>
+            <td th:text="${member.logPwd}"></td>
+            <td th:text="${member.name}"></td>
+            <td th:text="${member.age}"></td>
+            <td th:text="${member.socialNum}"></td>
+            <td th:text="${member.phonNum}"></td>
+            <td th:text="${member.email}"></td>
+            <td th:text="${member.innerDate}"></td>
+            <td th:text="${member.logTime}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
