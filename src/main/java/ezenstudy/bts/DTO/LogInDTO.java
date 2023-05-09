@@ -1,17 +1,14 @@
-package ezenstudy.bts.controller;
+package ezenstudy.bts.DTO;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class FindMemberInfo {
-
-    @NotBlank
-    private String name;
+public class LogInDTO {
 
     @NotBlank
     private String logId;
 
     @NotBlank
-    private String socialNum;
+    private String logPwd;
 }

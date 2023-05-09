@@ -9,55 +9,42 @@
       th:href="@{/css/bootstrap.min.css}"
       href="/src/main/resources/static/css/bootstrap.min.css"
       rel="stylesheet" />
-    <style>
-      .container {
-        max-width: 560px;
-      }
-      .field-error {
-        border-color: #dc3545;
-        color: #dc3545;
-      }
-    </style>
   </head>
   <body>
-    <div class="container">
-      <div class="py-5 text-center">
-        <h2>로그인</h2>
+    <div class="container" style="max-width: 600px">
+      <div class="pv-5 text-center" style="margin-top: 30px">
+        <h2>로그인 PASSWORD 찾기</h2>
       </div>
 
-      <form
-        action="members/logIn"
-        th:action
-        th:object="${logInDTO}"
-        method="post">
-        <div th:if="${#fields.hasGlobalErrors()}">
-          <p
-            class="field-error"
-            th:each="err : ${#fields.globalErrors()}"
-            th:text="${err}">
-            전체 오류 메시지
-          </p>
-        </div>
-
+      <form action="/members/findPwd" method="post">
         <div>
-          <label for="logId">로그인 ID</label>
+          <label for="logId">회원 LogID</label>
           <input
             type="text"
             id="logId"
-            th:field="*{logId}"
+            name="logId"
             class="form-control"
-            th:errorclass="field-error" />
-          <div class="field-error" th:errors="*{logId}" />
+            placeholder="회원님의 로그인 아이디를 입력해주세요." />
         </div>
+
         <div>
-          <label for="logPwd">비밀번호</label>
+          <label for="name">회원 이름</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="form-control"
+            placeholder="회원님의 이름을 입력해주세요." />
+        </div>
+
+        <div>
+          <label for="socialNum">회원 주민등록번호</label>
           <input
             type="password"
-            id="logPwd"
-            th:field="*{logPwd}"
+            id="socialNum"
+            name="socialNum"
             class="form-control"
-            th:errorclass="field-error" />
-          <div class="field-error" th:errors="*{logPwd}" />
+            placeholder="회원님의 주민등록번호를 입력해주세요." />
         </div>
 
         <hr class="my-4" />
@@ -65,9 +52,10 @@
         <div class="row">
           <div class="col">
             <button class="w-100 btn btn-primary btn-lg" type="submit">
-              로그인
+              회원 찾기
             </button>
           </div>
+
           <div class="col">
             <button
               class="w-100 btn btn-secondary btn-lg"
@@ -80,6 +68,13 @@
         </div>
       </form>
     </div>
-    <!-- /container -->
+    <!-- container div -->
+
+    <script
+      th:if="${not #strings.isEmpty(errorMessage)}"
+      th:inline="javascript">
+      var errorMessage = `[[${errorMessage}]]`;
+      window.alert(errorMessage);
+    </script>
   </body>
 </html>
