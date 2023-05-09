@@ -43,13 +43,13 @@ const controlOptionForm = (() => {
         let form;
         form = `
             <form id="group-purchase-form-option-${++optionRow}">
-                <select id="product-option-color-${optionRow}">
+                <select id="product-option-color-${optionRow}" name="optionColor">
                     <option value = "-1">색상</option>`;
         for (let color of colors) {
             form += `<option value="${color}">${color}</option>`;
         }
         form += `</select>
-                <select id="product-option-size-${optionRow}">
+                <select id="product-option-size-${optionRow}" name="optionSize">
                     <option value="-1">사이즈</option>`;
         for (let size of sizes) {
             form += `<option value="${size}">${size}</option>`;
@@ -83,21 +83,68 @@ const controlOptionForm = (() => {
 })();
 //최종 포스트 서브밋
 function submitGroupPurchase() {
+    //무결성 체크
 
     //같은 색상과 사이즈를 가진 옵션이 있는지 확인
     for (let i = 1; i <= optionRow; i++) {
         if (i < optionRow) {
             for (let j = i + 1; j <= optionRow; j++) {
                 if ($(`#product-option-color-${i}`).val() == $(`#product-option-color-${j}`).val()
-                && $(`#product-option-size-${i}`).val() == $(`#product-option-size-${j}`).val()) {
+                    && $(`#product-option-size-${i}`).val() == $(`#product-option-size-${j}`).val()) {
                     alert(`중복된 옵션이 있습니다. 색상: ${$(`#product-option-color-${i}`).val()}, 사이즈: ${$(`#product-option-size-${i}`).val()}`);
                     return;
                 }
             }
         }
     }
-
-    // let form = $(document).add
+    //groupPurchase post
+    let form = document.createElement("form");
+    $("body").append(form);
+    form.style.display = "none";
+    $(form)
+        .append($("#productId").clone().val($("#productId").val()))
+        .append($("#saleStart").clone())
+        .append($("#saleEnd").clone())
+        .append($("#minQuantity").clone())
+        .append($("#information").clone());
+    //공동구매상품옵션에 저장할 공동구매id 추출
+    $.ajax({
+        url: "/grouppurchase/new",
+        type: "post",
+        data: $(form).serialize(),
+        success: function (data) {
+            //options post
+            let optionNumber = 0;
+            let optionForm;
+            while (true) {
+                //사용할 폼 초기화
+                optionForm = document.createElement("form");
+                optionForm.style.display = "none";
+                //더이상 옵션을 찾을 수 없을때 break
+                if (document.getElementById(`group-purchase-form-option-${++optionNumber}`) == null) {
+                    break;
+                }
+                $(optionForm).append(`
+                    <input name="groupPurchaseId" value="${data}">
+                    <input name="productId" value="${$("#productId").val()}">`)
+                    .append($(`#product-option-color-${optionNumber}`).clone().val($(`#product-option-color-${optionNumber}`).val()))
+                    .append($(`#product-option-size-${optionNumber}`).clone().val($(`#product-option-size-${optionNumber}`).val()))
+                    .append($(`#product-option-quantity-${optionNumber}`).clone())
+                    .append($(`#product-option-price-${optionNumber}`).clone());
+                $("body").append(optionForm);
+                $.ajax({
+                    url: "/groupurchase/option/new",
+                    type: "post",
+                    data: $(optionForm).serialize(),
+                    success: (data => { }),
+                    error: ((xhr, status, error) => { console.log("option error"); })
+                });
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr, status, error);
+        }
+    });
 
 }
 

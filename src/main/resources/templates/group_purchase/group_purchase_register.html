@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-cache" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>Document</title>
@@ -41,8 +42,12 @@
             <input type="datetime-local" id="saleEnd" name="saleEnd">
         </div>
         <div class="flex-row">
-            <lable for="minQuantity">필요 구매 요청 수</lable>
+            <label for="minQuantity">필요 구매 요청 수</label>
             <input type="number" id="minQuantity" name="minQuantity">
+        </div>
+        <div class="flex-row">
+            <label for="information">공동구매 상세내용</label>
+            <textarea id="information" name="information"></textarea>
         </div>
         <button type="button" onclick="submitGroupPurchase()">게시글 등록</button>
 

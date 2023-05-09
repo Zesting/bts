@@ -12,10 +12,17 @@ public class SpringConfig {
     public GroupPurchaseService groupPurchaseService() {
         return new GroupPurchaseService(groupPurchaseRepository());
     }
-
     @Bean
     public GroupPurchaseRepository groupPurchaseRepository() {
         return new MemoryGroupPurchaseRepository();
+    }
+    @Bean
+    public GroupPurchaseProductOptionService groupPurchaseProductOptionService(){
+        return new GroupPurchaseProductOptionService(groupPurchaseProductOptionRepository());
+    }
+    @Bean
+    public GroupPurchaseProductOptionRepository groupPurchaseProductOptionRepository(){
+        return new MemoryGroupPurchaseProductOptionRepository();
     }
 
     @Bean
