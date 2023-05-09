@@ -35,4 +35,7 @@ public class ComcommentService {
     public void deleteComcomment(Long id) {
         comcommentRepository.deleteById(id);
     }
+
+    public void saveComcomment(Comcomment comcomment, Long id) {
+    }
 }

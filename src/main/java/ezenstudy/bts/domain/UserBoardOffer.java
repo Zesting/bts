@@ -10,6 +10,6 @@ public class UserBoardOffer {
     private Long offerCount;  // 상품 추천수 
     private String id; //회원 아이디
     //private boolean isOfferCount; //상품 추천 유무  //클릭할때마다 true/fulse 
-
+ 
 }
  
