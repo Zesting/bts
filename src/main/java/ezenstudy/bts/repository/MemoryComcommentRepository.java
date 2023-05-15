@@ -7,7 +7,7 @@ import java.util.*;
 
 public class MemoryComcommentRepository implements ComcommentRepository {
 
-        private static Map<Long, Comcomment> commentMap = new HashMap<>();
+        private static final Map<Long, Comcomment> commentMap = new HashMap<>();
         private static long sequence = 0L;
 
         @Override
@@ -40,3 +40,4 @@ public class MemoryComcommentRepository implements ComcommentRepository {
         }
 
 }
+

@@ -12,16 +12,19 @@ public class SpringConfig {
     public GroupPurchaseService groupPurchaseService() {
         return new GroupPurchaseService(groupPurchaseRepository());
     }
+
     @Bean
     public GroupPurchaseRepository groupPurchaseRepository() {
         return new MemoryGroupPurchaseRepository();
     }
+
     @Bean
-    public GroupPurchaseProductOptionService groupPurchaseProductOptionService(){
+    public GroupPurchaseProductOptionService groupPurchaseProductOptionService() {
         return new GroupPurchaseProductOptionService(groupPurchaseProductOptionRepository());
     }
+
     @Bean
-    public GroupPurchaseProductOptionRepository groupPurchaseProductOptionRepository(){
+    public GroupPurchaseProductOptionRepository groupPurchaseProductOptionRepository() {
         return new MemoryGroupPurchaseProductOptionRepository();
     }
 
@@ -76,6 +79,16 @@ public class SpringConfig {
     }
 
     @Bean
+    public AddrRepository addrRepository() {
+        return new MemoryAddrRepository();
+    }
+
+    @Bean
+    public AddrService addrService() {
+        return new AddrService(addrRepository());
+    }
+
+    @Bean
     public UserBoardCommentService userBoardCommentService() {
         return new UserBoardCommentService(userBoardCommentRepository());
     }
@@ -95,12 +108,14 @@ public class SpringConfig {
         return new ComBoardService(comBoardRepository());
     }
 
+    @Bean
+    public ComcommentRepository comcommentRepository() {
+        return new MemoryComcommentRepository();
+    }
 
     @Bean
-    public ComcommentRepository comcommentRepository() { return new MemoryComcommentRepository();}
-
-    @Bean
-    public ComcommentService comcommentService() { return  new ComcommentService(comcommentRepository());}
+    public ComcommentService comcommentService() {
+        return new ComcommentService(comcommentRepository());
+    }
 
 }
-

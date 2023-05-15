@@ -14,8 +14,6 @@
       id="-header"
       th:fragment="fragment-header(param1, param2, param3, param4)">
       <link rel="stylesheet" th:href="@{/css/header.css}" />
-      <script th:src="@{/js/jquery-1.12.3.js}"></script>
-      <script th:src="@{/js/leftSlide.js}"></script>
 
       <div class="sec01wrap">
         <div class="full-frame">
@@ -75,7 +73,7 @@
               <ul class="menu">
                 <li><a th:href="${param1}">로그인</a></li>
                 <li><a th:href="${param2}">회원가입</a></li>
-                <li><a th:href="${param3}">회원찾기</a></li>
+                <li><a th:href="${param3}">주문조회</a></li>
                 <li><a th:href="${param4}">마이페이지</a></li>
                 <li><a href="#">커뮤니티</a></li>
                 <li><a href="#">찾기박스</a></li>
@@ -86,25 +84,33 @@
         </div>
         <!-- full-frame -->
       </div>
-
       <div class="full-frame">
         <div class="sec02">
           <div class="ex-top-left">
             <div class="fade-slide">
-              <ul class="swipe-wrapper">
+              <ul class="left-swipe-wrapper">
                 <li>
                   <a href="#">
-                    <img th:src="@{/images/facebook.png}" alt="슬라이드1" />
+                    <img
+                      class="bannerImg"
+                      th:src="@{/images/facebook.png}"
+                      alt="슬라이드1" />
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <img th:src="@{/images/instagram.png}" alt="슬라이드2" />
+                    <img
+                      class="bannerImg"
+                      th:src="@{/images/instagram.png}"
+                      alt="슬라이드2" />
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <img th:src="@{/images/naver.png}" alt="슬라이드3" />
+                    <img
+                      class="bannerImg"
+                      th:src="@{/images/naver.png}"
+                      alt="슬라이드3" />
                   </a>
                 </li>
               </ul>
@@ -112,20 +118,67 @@
               <div class="next">&rang;</div>
             </div>
           </div>
+
           <div class="logoArea">
             <ul class="logo">
               <li class="return-homePage">
-                <a href="#">
+                <a href="/">
                   <img th:src="@{/images/bts.png}" alt="로고" />
                 </a>
               </li>
             </ul>
           </div>
           <div class="sec-top-right">
-            <div class="right-slide"></div>
+            <div class="swipe-container">
+              <ul class="right-swipe-wrapper">
+                <li class="right-swipe-slide">
+                  <a href="#"
+                    ><span class="rank" data-rank="1">1</span> 범고래-나이키
+                  </a>
+                </li>
+                <li class="right-swipe-slide">
+                  <a href="#"
+                    ><span class="rank" data-rank="2">2</span> 조던-나이키</a
+                  >
+                </li>
+                <li class="right-swipe-slide">
+                  <a href="#"
+                    ><span class="rank" data-rank="3">3</span> 올드스쿨-반스
+                  </a>
+                </li>
+                <li class="right-swipe-slide">
+                  <a href="#"
+                    ><span class="rank" data-rank="4">4</span> 어글리슈즈 -
+                    FILA</a
+                  >
+                </li>
+                <li class="right-swipe-slide">
+                  <a href="#"
+                    ><span class="rank" data-rank="5">5</span> 슈퍼스타 -
+                    아디다스</a
+                  >
+                </li>
+                <li class="right-swipe-slide">
+                  <a href="#"
+                    ><span class="rank" data-rank="6">6</span> 첼시 부츠 -
+                    로멘틱무브</a
+                  >
+                </li>
+                <li class="right-swipe-slide">
+                  <a href="#"
+                    ><span class="rank" data-rank="7">7</span> 리바운드 -
+                    뉴발란스</a
+                  >
+                </li>
+              </ul>
+              <div class="up">&and;</div>
+              <div class="down">&or;</div>
+            </div>
           </div>
         </div>
       </div>
+      <script th:src="@{/js/leftSlide.js}"></script>
+      <script th:src="@{/js/rightSlide.js}"></script>
     </header>
   </body>
 </html>

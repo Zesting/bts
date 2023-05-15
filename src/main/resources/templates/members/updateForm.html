@@ -59,6 +59,7 @@
             readonly />
           <br />
         </div>
+
         <div class="form-group">
           <label for="logPwd">비밀번호</label><br />
           <input
@@ -69,6 +70,7 @@
             required />
           <br />
         </div>
+
         <div class="form-group">
           <label for="name">이름</label><br />
           <input
@@ -79,6 +81,7 @@
             required />
           <br />
         </div>
+
         <div class="form-group">
           <label for="age">나이</label><br />
           <input
@@ -89,6 +92,7 @@
             required />
           <br />
         </div>
+
         <div class="form-group">
           <label for="socialNum">주민번호</label><br />
           <input
@@ -99,6 +103,7 @@
             readonly />
           <br />
         </div>
+
         <div class="form-group">
           <label for="phonNum">전화번호</label><br />
           <input
@@ -109,6 +114,28 @@
             required />
           <br />
         </div>
+
+        <div class="form-group">
+          <label for="addr">주소</label>
+          <input
+            type="text"
+            id="zipCode"
+            name="zipCode"
+            th:value="${originalAddr.getZipCode()}" />
+          <input type="button" onclick="selectAddr()" value="우편번호 찾기" />
+          <br />
+          <input
+            type="text"
+            id="streetAddr"
+            name="streetAddr"
+            th:value="${originalAddr.getStreetAddr()}" />
+          <input
+            type="text"
+            id="detailAddr"
+            name="detailAddr"
+            th:value="${originalAddr.getDetailAddr()}" />
+        </div>
+
         <div class="form-group">
           <label for="email">Email</label><br />
           <input
@@ -144,5 +171,8 @@
         </button>
       </form>
     </div>
+
+    <script th:src="@{/js/joinAddr.js}"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   </body>
 </html>

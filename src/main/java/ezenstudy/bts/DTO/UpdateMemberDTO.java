@@ -9,8 +9,6 @@ import lombok.Data;
 public class UpdateMemberDTO {
     /** 회원 고유 번호 */
     private long id;
-    /** 회원 주소 고유 번호 */
-    private Long addrId;
     /** 회원 아이디 */
     private String logId;
     /** 회원 비밀번호 */
@@ -29,5 +27,14 @@ public class UpdateMemberDTO {
     private LocalDate innerDate;
     /** 로그인 한 날짜 */
     private LocalTime logTime;
+
+    /** 회원 주소 고유 번호 */
+    private long addrId;
+    /** 우편 번호 */
+    private String zipCode;
+    /** 도로명 주소 */
+    private String streetAddr;
+    /** 상세 주소 */
+    private String detailAddr;
 
 }

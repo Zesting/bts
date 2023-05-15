@@ -31,11 +31,4 @@ public class ComcommentService {
     public List<Comcomment> getAllComcomments() {
         return comcommentRepository.findAll();
     }
-
-    public void deleteComcomment(Long id) {
-        comcommentRepository.deleteById(id);
-    }
-
-    public void saveComcomment(Comcomment comcomment, Long id) {
-    }
 }

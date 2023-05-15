@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link
-      th:href="@{/css/bootstrap.min.css}"
-      href="/src/main/resources/static/css/bootstrap.min.css"
-      rel="stylesheet" />
   </head>
 
   <body>
-    <div class="container" style="max-width: 600px">
+    <div
+      th:replace="~{/fragments/header.html :: fragment-header('/members/logIn','/members/new','/members/findId','/members/findPwd')}"></div>
+    <div class="container">
       <div class="py-5 text-center">
         <h2>홈 화면</h2>
       </div>
@@ -30,7 +31,9 @@
               로그아웃
             </button>
           </form>
+
           <hr class="my-4" />
+
           <form
             action="/members/updateInfo"
             method="get"

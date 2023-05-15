@@ -48,7 +48,6 @@ public class MemoryMemberRepository implements MemberRepository {
     }
 
     /** 멤버 레파지토리에 존재하는 멤버 조회(파라미터 = 멤버 로그인 아이디) 구현 객체 */
-    // 종민이형 의견 .collect.aslist();
     @Override
     public Optional<Member> findLogId(String memberLogId) {
         return store.values().stream().filter(m -> m.getLogId().equals(memberLogId)).findAny();
