@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>check box</title>
+</head>
+<body>
+        <form onsubmit="return checkBN()" method="post">
+            <label for="bn-input">BN 입력:</label>
+            <input type="text" id="bn-input" name="bn">
+            <input type="hidden" id="com-board-id" name="id" value="${comBoard.id}">
+            <input type="hidden" id="com-board-bn" name="comBoardBN" value="${comBoard.BN}">
+            <button type="submit">확인</button>
+        </form>
+        <script>
+          function checkBN() {
+            var inputBN = document.getElementById("bn-input").value;
+            var comBoardBN = document.getElementById("com-board-bn").value;
+            var comBoardId = document.getElementById("com-board-id").value;
+            if (inputBN === comBoardBN) {
+              window.location.href = "/comboard/show/" + comBoardId;
+              return false;
+            } else {
+              window.location.href = "/comboard/list";
+              return false;
+            }
+          }
+        </script>
+</body>
+</html>
