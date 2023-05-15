@@ -23,50 +23,6 @@
             <button type="submit">Delete</button>
         </form>
 
-        <hr/>
 
-        <ul>
-            <li>
-                <p>신발사요</p>
-                <p>안사요</p>
-            </li>
-            <li>
-                <p>니뭐꼬</p>
-                <p>닌먼데</p>
-            </li>
-        </ul>
-
-        <ul>
-            <li th:each="comment : ${comments}">
-                <p th:text="${comment.writer}"></p>
-                <p th:text="${comment.content}"></p>
-            </li>
-        </ul>
-
-        <!-- 댓글  -->
-        <form th:action="@{/comcomment(id=${comBoard.id})}" method="post" id="comment-form">
-            <p>
-                <label>작성자</label> <input type="text" name="writer">
-            </p>
-            <p>
-                <label>
-                    <textarea name="content" rows="5" cols="50"></textarea>
-                </label>
-            </p>
-            <p>
-                <button type="submit">댓글 작성</button>
-            </p>
-            <script>
-        // 댓글 작성 후 페이지 새로고침
-        document.querySelector('#comment-form').addEventListener('submit', function() {
-            location.reload();
-        });
-    </script>
-        </form>
-        <script>
-            document.querySelector('#comment-form').addEventListener('submit', function() {
-                location.reload();
-            });
-        </script>
 </body>
 </html>
