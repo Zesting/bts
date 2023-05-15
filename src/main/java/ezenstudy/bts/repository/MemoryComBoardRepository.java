@@ -1,8 +1,6 @@
 package ezenstudy.bts.repository;
 
 import ezenstudy.bts.domain.ComBoard;
-import ezenstudy.bts.service.ComBoardService;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

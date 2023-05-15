@@ -26,9 +26,30 @@
             <button type="submit">삭제</button>
         </form>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7f8f6c27980e644b2bfe913353fc3edc90268cc7
+        <!-- 댓글  -->
+        <form th:action="@{/comcomment(id=${comBoard.id})}" method="post" id="comment-form">
+            <p>
+                <label>작성자</label> <input type="text" name="writer">
+            </p>
+            <p>
+                <label>
+                    <textarea name="content" rows="5" cols="50"></textarea>
+                </label>
+            </p>
+            <p>
+                <button type="submit">댓글 작성</button>
+            </p>
+            <script>
+        // 댓글 작성 후 페이지 새로고침
+        document.querySelector('#comment-form').addEventListener('submit', function() {
+            location.reload();
+        });
+    </script>
+        </form>
+        <script>
+            document.querySelector('#comment-form').addEventListener('submit', function() {
+                location.reload();
+            });
+        </script>
 </body>
 </html>
