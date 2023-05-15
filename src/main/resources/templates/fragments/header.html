@@ -71,7 +71,12 @@
             <!-- -left -->
             <div class="-right">
               <ul class="menu">
-                <li><a th:href="${param1}">로그인</a></li>
+                <li th:if="${session.logInMember == null}">
+                  <a th:href="${param1}">로그인</a>
+                </li>
+                <li th:if="${session.logInMember != null}">
+                  <a th:href="${param1}">내정보</a>
+                </li>
                 <li><a th:href="${param2}">회원가입</a></li>
                 <li><a th:href="${param3}">주문조회</a></li>
                 <li><a th:href="${param4}">마이페이지</a></li>

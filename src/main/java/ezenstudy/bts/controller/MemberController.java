@@ -131,7 +131,7 @@ public class MemberController {
         session.getAttribute("logInMember");
 
         if (session != null) {
-            session.invalidate();
+            session.removeAttribute("logInMember");
         }
         return "redirect:/";
     }
