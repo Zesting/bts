@@ -69,10 +69,11 @@ public class UserBoardController {
 
   @PostMapping("/userBoard/comment/{id}")
   public String saveComment(@PathVariable("id") Long boardId, UserBoardComment userBoardComment) {
-    userBoardComment.setBoardId(boardId);
-    userBoardComment.setMemberId(777L);//임시로 멤버 아이디를 777로 줌
-    userBoardCommentService.saveComment(userBoardComment);
-    return "redirect:/userBoard/Read/"+boardId;
+      userBoardComment.setBoardId(boardId);
+      userBoardComment.setMemberId(777L);//임시로 멤버 아이디를 777로 줌
+      userBoardCommentService.saveComment(userBoardComment);
+      return "redirect:/userBoard/Read/"+boardId;
+    
   }
 
   

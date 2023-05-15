@@ -21,8 +21,6 @@ public class ComBoardController {
         this.comBoardService = comBoardService;
     }
 
-
-
     @GetMapping("/comboard/list")
     public String listComBoards(Model model) {
         List<ComBoard> comBoardList = comBoardService.getAllComBoards();
@@ -135,5 +133,28 @@ public class ComBoardController {
         return "comboard/comcheck";
     }
 
+
+    /** 비번 */
+
+    @PostMapping("/comboard/check-bn/{id}")
+    public String checkBN(@PathVariable("id") Long id, @ModelAttribute("comBoard") ComBoard comBoard, @RequestParam("bn") String bn) {
+        ComBoard savedComBoard = comBoardService.getComBoardById(id);
+        savedComBoard.setBN(bn);
+        comBoardService.saveComBoard(savedComBoard);
+
+        if (savedComBoard.getBN().equals(bn)) {
+            return "redirect:/comboard/show/" + id;
+        } else {
+            return "redirect:/comboard/list";
+        }
+    }
+
+
+    @GetMapping("/comboard/check-bn/{id}")
+    public String checkBNForm(@PathVariable("id") Long id, Model model) {
+        ComBoard comBoard = comBoardService.getComBoardById(id);
+        model.addAttribute("comBoard", comBoard);
+        return "comboard/comcheck";
+    }
 
 }

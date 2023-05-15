@@ -11,6 +11,7 @@ public class ComBoardService {
 
     private final ComBoardRepository comBoardRepository;
 
+
     public ComBoardService(ComBoardRepository comBoardRepository) {
         this.comBoardRepository = comBoardRepository;
     }
@@ -20,9 +21,10 @@ public class ComBoardService {
         if (comBoard.isPresent()) {
             return comBoard.get();
         } else {
-            throw new NoSuchElementException( id + "를 찾지못했습니다.");
+            throw new NoSuchElementException( id + "no search.");
         }
     }
+
 
     public List<ComBoard> getAllComBoards() {
         return comBoardRepository.findAll();
@@ -32,6 +34,9 @@ public class ComBoardService {
         return comBoardRepository.save(comBoard);
     }
 
+    public ComBoard saveComBoard(ComBoard comBoard) {
+        return comBoardRepository.save(comBoard);
+    }
     public ComBoard update(Long id, ComBoard updatedComBoard) {
         ComBoard comBoard = getComBoardById(id);
         comBoard.setTitle(updatedComBoard.getTitle());

@@ -20,8 +20,9 @@
   <tbody>
   <tr th:each="comBoard : ${comBoardList}">
     <td th:text="${comBoard.id}"></td>
-    <!--<td><a th:href="@{/comboard/show/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a></td>-->
-    <td><a th:href="@{/comboard/check-bn/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a></td>
+    <td>
+      <a th:href="@{/comboard/show/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a>
+    </td>
     <td th:text="${comBoard.createdBy}"></td>
     <td th:text="${comBoard.createAt}"></td>
   </tr>
