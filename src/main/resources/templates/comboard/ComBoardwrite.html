@@ -8,29 +8,32 @@
 </head>
 <body>
 <h1>Create ComBoard</h1>
-<form method="post" th:action="@{/show}" enctype="multipart/form-data">
-    <div>
-        <label for="title">제목:</label>
-        <input type="text" id="title" name="title" required>
-    </div>
-    <div>
-        <label for="content">내용:</label>
-        <textarea id="content" name="content" required></textarea>
-    </div>
-    <div>
-        <label for="createdBy">작성자:</label>
-        <input type="text" id="createdBy" name="createdBy" required>
-    </div>
-    <div>
-        <label for="BN">사업자 번호:</label>
-        <input type="text" id="BN" name="BN" required>
-    </div>
+    <form method="post" th:action="@{/show}" enctype="multipart/form-data">
+        <div>
+            <label for="title">제목:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div>
+            <label for="content">내용:</label>
+            <textarea id="content" name="content" required></textarea>
+        </div>
+        <div>
+            <label for="createdBy">작성자:</label>
+            <input type="text" id="createdBy" name="createdBy" required>
+        </div>
+        <div>
+            <label for="BN">사업자 번호:</label>
+            <input type="text" id="BN" name="BN" required>
+        </div>
 
-    <tr>
-        <td width="70">업로드</td>
-        <input type="file" name="uploadFile"/></td>
-    </tr>
-    <button type="submit">등록</button>
-</form>
+        <tr>
+            <td width="70">업로드</td>
+            <input type="file" name="uploadFile"/></td>
+        </tr>
+        <button type="submit">등록</button>
+    </form>
+    <form method="post">
+        <button type="submit" formaction="/comboard/list">취소</button>
+    </form>
 </body>
 </html>

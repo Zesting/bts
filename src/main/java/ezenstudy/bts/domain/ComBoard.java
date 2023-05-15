@@ -71,4 +71,8 @@ public class ComBoard {
     public void setFilled(boolean filled) {
         this.filled = filled;
     }
+
+    public ComBoard orElse(Object object) {
+        return null;
+    }
 }

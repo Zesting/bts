@@ -11,6 +11,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
+  <!-- 제이쿼리 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <style>
     .tdLine {
       border: 1px solid red;
@@ -50,7 +52,7 @@
   <form th:action="@{|/userBoard/comment/${id}|}" method="post" id="commentBtn">
     <textarea name="commentContent" id="userBoardComment" cols="100" rows="3" placeholder="댓글을 입력하세요."></textarea>
   </form>
-  <button type="submit" class="btn btn-primary" style="transform: translate(0%, 0%);" form="commentBtn">등록</button>
+  <button type="submit" class="btn btn-primary" form="commentBtn">등록</button>
   <table>
     <thead>
       <tr class="commentTr">
@@ -65,73 +67,107 @@
 
       <tr th:each="comment : ${comments}">
         <form action="" method="post">
-        <td th:text="'보드id: '+${comment.boardId}" class="tdLine"></td>
-        <td th:text="'id: '+${comment.id}" class="tdLine"></td>
-        <td th:text="'멤버id: '+${comment.memberId}" class="tdLine"></td>
-        <td>
-          <textarea th:id="'content'+${comment.id}" name="dd" disabled>[[${comment.commentContent}]]</textarea>
-        </td>
-        <td th:text="'작성시간: '+${comment.commentDate}" class="tdLine"></td>
-        <td><button th:onclick="'modifyComment(' + ${comment.id} + ')'" class="btn btn-primary" type="button" th:id="'modifyBtn'+${comment.id}">수정btn
-            [[${comment.id}]]</button></td>
-        <!-- <td><a th:href="@{|/userBoard/Delete/${comment.boardId}/comment/${comment.id}|}"><button class="btn btn-primary"
+          <td th:text="'보드id: '+${comment.boardId}" class="tdLine"></td>
+
+          <td th:text="'id: '+${comment.id}" class="tdLine" th:id="'id'+${comment.id}"></td>
+          <td th:text="'멤버id: '+${comment.memberId}" class="tdLine"></td>
+          <td>
+            <textarea th:id="'content'+${comment.id}" name="dd" disabled>[[${comment.commentContent}]]</textarea>
+          </td>
+          <td th:text="'작성시간: '+${comment.commentDate}" class="tdLine"></td>
+          <td><button th:onclick="'modifyComment(' + ${comment.id} + ')'" class="btn btn-primary" type="button"
+              th:id="'modifyBtn'+${comment.id}">수정btn
+              [[${comment.id}]]</button></td>
+          <!-- <td><a th:href="@{|/userBoard/Delete/${comment.boardId}/comment/${comment.id}|}"><button class="btn btn-primary"
               type="button" >삭제</button></a></td> 위에는 a태그로 하는법-->
-        <td><button th:onclick="'commentDeleteBtn('+${comment.boardId}+','+${comment.id}+')'" class="btn btn-primary" type="button" >삭제</button></td>
-        <!-- <td><button th:onclick="fun()" class="btn btn-primary" type="button">Create button</button></td> -->
-      </form>
+          <td><button th:onclick="'commentDeleteBtn('+${comment.boardId}+','+${comment.id}+')'" class="btn btn-primary"
+              type="button">삭제</button></td>
+          <!-- <td><button th:onclick="fun()" class="btn btn-primary" type="button">Create button</button></td> -->
+        </form>
       </tr>
     </tbody>
   </table>
   <script>
-    function deleteBtn(){//게시글 삭제 버튼 수정중
+    function deleteBtn() {//게시글 삭제 버튼 수정중
       location.href = "/userBoard/Delete/${id}"
     }
 
-    function commentDeleteBtn(boardId, commentId){//댓글 삭제 버튼
-      location.href = "/userBoard/Delete/"+boardId+"/comment/"+commentId;
+    function commentDeleteBtn(boardId, commentId) {//댓글 삭제 버튼
+      location.href = "/userBoard/Delete/" + boardId + "/comment/" + commentId;
     }
 
-    let a = 0;
-    let c = 0;
-    function modifyComment(commentId) {
-      let b = document.getElementById('content'+commentId)
-      let d = (b == c)? "같다": "다르다";
-      console.log(b)
-      console.log(d)
-      if(a == 1){
-        const btn = document.getElementById("modifyBtn"+commentId);
+    //댓글 수정버튼
+    let a = -1;
+    // const modifyComment = ((commentId) => {
+    function modifyComment(commentId)  {
+      
+      // let b = document.getElementById('content' + commentId);
+      // const btn = document.getElementById("modifyBtn" + commentId);
+      // const cid = document.getElementById("id" + commentId);
+      // const textarea = document.querySelector('#content' + commentId)
+
+      // return (()=>{
+        if (a == -1) {
+        const btn = document.getElementById("modifyBtn" + commentId);
+        const cid = document.getElementById("id" + commentId);
+        cid.innerHTML = 'id: ' + commentId;
+
+        const textarea = document.querySelector('#content' + commentId)
+        // 수정 가능 상태로 전환
+        textarea.disabled = false;
+        
+        //버튼 글씨 바꾸기
         const html = '수정완료';
         btn.innerText = html;
-        a = 0;
-      } else if(a == 0){
-        const btn = document.getElementById("modifyBtn"+commentId);
-        const html = '수정btn '+commentId;
-        btn.innerText = html;
+        //클릭한 버튼들 말고 다른 버튼들은 비활성화 기능을 넣으면?
+        // $("#modifyBtn"+commentId).click(function () {
+        $(document).ready(function(){
+          $('button:not("#modifyBtn'+commentId+'")').attr("disabled", true);
+          $('#userBoardComment').attr("disabled", true);
+        });
+        
+    // $("#modifyBtn"+commentId).attr("disabled", false);
+  
+        //버튼 토글
         a = 1;
+      } else if (a == 1) {
+        const btn = document.getElementById("modifyBtn" + commentId);
+        const textarea = document.querySelector('#content' + commentId);
+        textarea.disabled = true;
+        //텍스트에어리어 저장하는게 와야함.
+
+        const html = '수정btn ' + commentId;
+        btn.innerText = html;
+        //버튼 다시 활성화
+        $(document).ready(function(){
+          $('button:not("#modifyBtn'+commentId+'")').attr("disabled", false);
+          $('#userBoardComment').attr("disabled", false);
+        });
+        a = -1;
       }
-      let c = b;
-      console.log("현재"+a);
-      console.log("버튼Id"+commentId);
+
+      console.log("현재" + a);
       // const btn = document.getElementById("modifyBtn"+commentId);
       // const html = '수정완료';
       // btn.innerText = html;
 
-      // console.log(commentId) //commentId가 잘들어오는지 확인
-     let data = document.querySelector('#content'+commentId); //요소 선택후 저장
-     console.log(data);//요소 저장 확인
-     let ta = document.querySelector('#userBoardComment')//textarea 요소 선택
-     ta.innerHTML = data.innerHTML //textarea에 출력
+      //댓글 작성 텍스트에어리어에 값을 불러와서 표시
+      // let data = document.querySelector('#content' + commentId); //요소 선택후 저장
+      // console.log(data);//요소 저장 확인
+      // let ta = document.querySelector('#userBoardComment')//textarea 요소 선택
+      // ta.innerHTML = data.innerHTML //textarea에 출력
 
-    }
-
+      // });
+    };
+    // })();
 
     // 2번째 생각한것. 버튼을 누르면 textarea랑 수정완료, 취소 버튼이 생김. 1번쨰 방법으로 진행중이랑 잠시 보류
     function fun() {
-      let textA =document.createElement('textarea');
+      let textA = document.createElement('textarea');
       let updateBtn = document.createElement('button');
       let cancleBtn = document.createElement('button');
-      updateBtn.setAttribute("class","btn btn-primary");
-      cancleBtn.setAttribute("class","btn btn-primary");
+      updateBtn.setAttribute("class", "btn btn-primary");
+      cancleBtn.setAttribute("class", "btn btn-primary");
       textA.innerHTML = "click me";
       updateBtn.innerHTML = "수정완료";
       cancleBtn.innerHTML = "취소";

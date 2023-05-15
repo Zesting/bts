@@ -7,26 +7,33 @@
   <title>check box</title>
 </head>
 <body>
-        <form onsubmit="return checkBN()" method="post">
+        <form id="bnForm" onsubmit="return checkBN(event)" method="post">
             <label for="bn-input">BN 입력:</label>
             <input type="text" id="bn-input" name="bn">
-            <input type="hidden" id="com-board-id" name="id" value="${comBoard.id}">
-            <input type="hidden" id="com-board-bn" name="comBoardBN" value="${comBoard.BN}">
+            <input type="hidden" id="comboard-id" name="id" value="${comBoard.id}" th:value="${comBoard.id} ? ${comBoard.id} : 0">
             <button type="submit">확인</button>
         </form>
-        <script>
-          function checkBN() {
-            var inputBN = document.getElementById("bn-input").value;
-            var comBoardBN = document.getElementById("com-board-bn").value;
-            var comBoardId = document.getElementById("com-board-id").value;
-            if (inputBN === comBoardBN) {
-              window.location.href = "/comboard/show/" + comBoardId;
-              return false;
-            } else {
-              window.location.href = "/comboard/list";
-              return false;
+        <form method="post">
+            <button type="submit" formaction="/comboard/list">취소</button>
+        </form>
+        <!-- th:inline="javascript" 타임리프 이용 -->
+        <script th:inline="javascript">
+            function checkBN(submit) {
+                event.preventDefault();
+                let inputBN = document.getElementById("bn-input").value;
+                let Id = /*[[${comBoard.id}]]*/""; //바로 이용가능 **var X let or const 사용
+                // let Id = document.getElementById("comboard-id").value;
+                // var comBoardBN = document.getElementById("comboard-bn").value;
+                let comBoardBN = /*[[${comBoard.BN}]]*/"";
+                if (inputBN == comBoardBN) {
+                    document.getElementById("bnForm").action = "/comboard/show/" + Id;
+                    window.location.href = "/comboard/show/" +Id;
+                    return true;
+                } else {
+                    window.location.href = "/comboard/list";
+                    return false;
+                }
             }
-          }
         </script>
 </body>
 </html>

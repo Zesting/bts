@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+    <title>요청 답변</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+    <h1>요청 답변</h1>
+<body>
+    <form method="post" th:action="@{/show}">
+    <div>
+        <label for="title">제목:</label>
+        <input type="view" id="title" name="title">
+    </div>
+    <div>
+        <label for="content">내용:</label>
+        <textarea id="content" name="content" required></textarea>
+    </div>
+    <div>
+        <label for="createdBy">작성자:</label>
+        <input type="text" id="createdBy" name="createdBy" required>
+    </div>
+    
+    <div>
+        <label for="BN">사업자 번호:</label>
+        <input type="hidden" id="BN" name="BN" th:value="${bn}">
+        <span th:text="${bn}"></span>
+    </div>
+    <button type="submit">등록</button>
+    </form>
+    <form method="post">
+        <button type="submit" formaction="/comboard/list">취소</button>
+    </form>
+
+</body>
+</html>

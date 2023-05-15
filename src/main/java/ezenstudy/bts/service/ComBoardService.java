@@ -48,4 +48,17 @@ public class ComBoardService {
     public void delete(Long id) {
         comBoardRepository.delete(id);
     }
+
+    public ComBoard getComBoard(Long id, String BN) {
+        ComBoard comBoard = comBoardRepository.findById(id).orElse(null);
+        if (comBoard != null && comBoard.getBN().equals(BN)) {
+            return comBoard;
+        }
+        return null;
+    }
+
+    public ComBoard findById(Long id) {
+        Optional<ComBoard> comBoard = Optional.ofNullable(comBoardRepository.findById(id));
+        return comBoard.orElse(null);
+    }
 }
