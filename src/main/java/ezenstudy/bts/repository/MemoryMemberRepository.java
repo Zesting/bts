@@ -48,7 +48,6 @@ public class MemoryMemberRepository implements MemberRepository {
     }
 
     /** 멤버 레파지토리에 존재하는 멤버 조회(파라미터 = 멤버 로그인 아이디) 구현 객체 */
-    // 종민이형 의견 .collect.aslist();
     @Override
     public Optional<Member> findLogId(String memberLogId) {
         return store.values().stream().filter(m -> m.getLogId().equals(memberLogId)).findAny();
@@ -56,10 +55,10 @@ public class MemoryMemberRepository implements MemberRepository {
 
     /** 회원 정보 수정(업데이트) 구현 객체 */
     @Override
-    public Optional<Member> update(Long memberId) {
-        Member member = new Member();
-        member.setId(memberId);
-        store.put(member.getId(), member);
+    public Optional<Member> update(Member member) {
+        Member updateMember = new Member();
+        updateMember.setId(member.getId());
+        store.put(updateMember.getId(), member);
         return Optional.of(member);
     }
 

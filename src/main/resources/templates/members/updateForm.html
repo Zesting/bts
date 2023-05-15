@@ -38,6 +38,17 @@
   <body>
     <div class="container">
       <form action="/members/updateInfo" method="post">
+        <div class="form-group" style="display: none">
+          <label for="Id">회원 고유 번호</label><br />
+          <input
+            type="text"
+            id="Id"
+            name="Id"
+            th:value="${originalMember.getId()}"
+            readonly />
+          <br />
+        </div>
+
         <div class="form-group">
           <label for="logId">아이디</label><br />
           <input
@@ -48,15 +59,18 @@
             readonly />
           <br />
         </div>
+
         <div class="form-group">
           <label for="logPwd">비밀번호</label><br />
           <input
             type="text"
             id="logPwd"
             name="logPwd"
-            th:value="${originalMember.getLogPwd()}" />
+            th:value="${originalMember.getLogPwd()}"
+            required />
           <br />
         </div>
+
         <div class="form-group">
           <label for="name">이름</label><br />
           <input
@@ -64,9 +78,10 @@
             id="name"
             name="name"
             th:value="${originalMember.getName()}"
-            readonly />
+            required />
           <br />
         </div>
+
         <div class="form-group">
           <label for="age">나이</label><br />
           <input
@@ -74,9 +89,10 @@
             id="age"
             name="age"
             th:value="${originalMember.getAge()}"
-            readonly />
+            required />
           <br />
         </div>
+
         <div class="form-group">
           <label for="socialNum">주민번호</label><br />
           <input
@@ -87,31 +103,76 @@
             readonly />
           <br />
         </div>
+
         <div class="form-group">
           <label for="phonNum">전화번호</label><br />
           <input
             type="text"
             id="phonNum"
             name="phonNum"
-            th:value="${originalMember.getPhonNum()}" />
+            th:value="${originalMember.getPhonNum()}"
+            required />
           <br />
         </div>
+
+        <div class="form-group">
+          <label for="addr">주소</label>
+          <input
+            type="text"
+            id="zipCode"
+            name="zipCode"
+            th:value="${originalAddr.getZipCode()}" />
+          <input type="button" onclick="selectAddr()" value="우편번호 찾기" />
+          <br />
+          <input
+            type="text"
+            id="streetAddr"
+            name="streetAddr"
+            th:value="${originalAddr.getStreetAddr()}" />
+          <input
+            type="text"
+            id="detailAddr"
+            name="detailAddr"
+            th:value="${originalAddr.getDetailAddr()}" />
+        </div>
+
         <div class="form-group">
           <label for="email">Email</label><br />
           <input
             type="text"
             id="email"
             name="email"
-            th:value="${originalMember.getEmail()}" />
+            th:value="${originalMember.getEmail()}"
+            required />
           <br />
         </div>
-        <button
-          type="submit"
-          class="w-100 btn btn-dark btn-lg"
-          onclick="location.href= '/members'">
+        <div class="form-group" style="display: none">
+          <label for="innerDate">innerDate</label><br />
+          <input
+            type="text"
+            id="innerDate"
+            name="innerDate"
+            th:value="${originalMember.getInnerDate()}"
+            readonly />
+          <br />
+        </div>
+        <div class="form-group" style="display: none">
+          <label for="logTime">logTime</label><br />
+          <input
+            type="text"
+            id="logTime"
+            name="logTime"
+            th:value="${originalMember.getLogTime()}"
+            readonly />
+          <br />
+        </div>
+        <button type="submit" class="w-100 btn btn-dark btn-lg">
           회원 수정
         </button>
       </form>
     </div>
+
+    <script th:src="@{/js/joinAddr.js}"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   </body>
 </html>

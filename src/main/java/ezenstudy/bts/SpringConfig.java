@@ -19,6 +19,16 @@ public class SpringConfig {
     }
 
     @Bean
+    public GroupPurchaseProductOptionService groupPurchaseProductOptionService() {
+        return new GroupPurchaseProductOptionService(groupPurchaseProductOptionRepository());
+    }
+
+    @Bean
+    public GroupPurchaseProductOptionRepository groupPurchaseProductOptionRepository() {
+        return new MemoryGroupPurchaseProductOptionRepository();
+    }
+
+    @Bean
     public ProductService productService() {
         return new ProductService(productRepository());
     }
@@ -69,6 +79,16 @@ public class SpringConfig {
     }
 
     @Bean
+    public AddrRepository addrRepository() {
+        return new MemoryAddrRepository();
+    }
+
+    @Bean
+    public AddrService addrService() {
+        return new AddrService(addrRepository());
+    }
+
+    @Bean
     public UserBoardCommentService userBoardCommentService() {
         return new UserBoardCommentService(userBoardCommentRepository());
     }
@@ -88,5 +108,6 @@ public class SpringConfig {
         return new ComBoardService(comBoardRepository());
     }
 
-}
 
+
+}

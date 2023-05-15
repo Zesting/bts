@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ezenstudy.bts.SessionConstants;
 import ezenstudy.bts.DTO.DropMemberDTO;
 import ezenstudy.bts.DTO.FindMemberInfoDTO;
 import ezenstudy.bts.DTO.LogInDTO;
-import ezenstudy.bts.DTO.MemberDTO;
+import ezenstudy.bts.DTO.Member_AddrDTO;
 import ezenstudy.bts.DTO.UpdateMemberDTO;
+import ezenstudy.bts.domain.Addr;
 import ezenstudy.bts.domain.Member;
+import ezenstudy.bts.service.AddrService;
 import ezenstudy.bts.service.MemberService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -31,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class MemberController {
     private final MemberService memberService;
+    private final AddrService addrService;
 
     /** ================================================================= */
     /** 회원 가입 기능. */
@@ -41,19 +42,29 @@ public class MemberController {
     }
 
     @PostMapping("/members/new")
-    public String create(MemberDTO memberDTO) {
+    public String create(Member_AddrDTO member_addrDTO) {
         Member member = new Member();
-        member.setLogId(memberDTO.getLogId());
-        member.setLogPwd(memberDTO.getLogPwd());
-        member.setName(memberDTO.getName());
-        member.setAge(memberDTO.getAge());
-        member.setSocialNum(memberDTO.getSocialNum());
-        member.setPhonNum(memberDTO.getPhonNum());
-        member.setEmail(memberDTO.getEmail());
+        Addr addr = new Addr();
+
+        member.setLogId(member_addrDTO.getLogId());
+        member.setLogPwd(member_addrDTO.getLogPwd());
+        member.setName(member_addrDTO.getName());
+        member.setAge(member_addrDTO.getAge());
+        member.setSocialNum(member_addrDTO.getSocialNum());
+        member.setPhonNum(member_addrDTO.getPhonNum());
+        member.setEmail(member_addrDTO.getEmail());
         member.setInnerDate(LocalDate.now());
         member.setLogTime(LocalTime.now());
         memberService.Join(member);
         System.out.println("Controller Create() 메서드 실행");
+
+        addr.setMemberId(member.getId());
+        addr.setZipCode(member_addrDTO.getZipCode());
+        addr.setMemberName(member.getName());
+        addr.setStreetAddr(member_addrDTO.getStreetAddr());
+        addr.setDetailAddr(member_addrDTO.getDetailAddr());
+        addrService.AddrJoin(addr);
+
         return "redirect:/";
     }
 
@@ -66,6 +77,16 @@ public class MemberController {
         model.addAttribute("members", members);
         System.out.println("controller memberList() 실행");
         return "members/memberList";
+    }
+
+    /** ================================================================= */
+    /** 주소 리스트 출력 기능 */
+    @GetMapping("/addr")
+    public String AddrList(Model model) {
+        List<Addr> addr = addrService.findAllAddr();
+        model.addAttribute("addr", addr);
+        System.out.println("controller addrList() 실행");
+        return "members/addrList";
     }
 
     /** ================================================================= */
@@ -83,7 +104,7 @@ public class MemberController {
     public String logIn(@ModelAttribute @Validated LogInDTO logInDTO,
             BindingResult bindingResult,
             @RequestParam(defaultValue = "/") String redirectURL,
-            HttpServletRequest request) {
+            HttpSession session) {
 
         /** 타입 미스 매치 또는 바인딩된 로그인 정보로 조회가 불가능하면 로그인 폼으로 리턴 */
 
@@ -97,9 +118,7 @@ public class MemberController {
             bindingResult.reject("logInFail", "아이디 또는 비밀번호가 맞지 않습니다.");
             return "members/logInForm";
         }
-
-        HttpSession session = request.getSession(); // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
-        session.setAttribute(SessionConstants.LOGIN_MEMBER, logInMember);
+        session.setAttribute("logInMember", logInMember);
 
         /** 로그인 성공하면 기본 화면으로 리턴 */
         return "redirect:" + redirectURL;
@@ -108,8 +127,8 @@ public class MemberController {
     /** 로그아웃 기능 */
 
     @PostMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
+    public String logout(HttpSession session) {
+        session.getAttribute("logInMember");
 
         if (session != null) {
             session.invalidate();
@@ -120,35 +139,73 @@ public class MemberController {
     /** ================================================================= */
     /** 회원 데이터 수정 기능 */
 
-    @ResponseBody
     @GetMapping("/members/updateInfo")
-    public String updateForm(HttpServletRequest request) {
+    public String updateForm(Model model, HttpSession session) {
+        Member originalMember = (Member) session.getAttribute("logInMember");
+        Addr originalAddr = addrService.findAddr(originalMember.getId()).get();
+        model.addAttribute("originalMember", originalMember);
+        model.addAttribute("originalAddr", originalAddr);
+        return "members/updateForm";
 
-        HttpSession session = request.getSession();
-        if (session == null) {
-            return "<script>alert('로그인 정보를 조회하지 못했습니다. 로그인 후 이용해 주세요!');history.go(-2);</script>";
-        }
-
-        return "<script>>window.location.href = '/members/updateInfo'</script>";
     }
 
     @PostMapping("/members/updateInfo")
-    public String updateMember(Model model, @Validated UpdateMemberDTO updateMemberDTO,
-            HttpServletRequest request) {
+    public String updateMember(Model model, @Validated UpdateMemberDTO updateMemberDTO) {
+        Optional<Member> coverOriginalMember = memberService.findById(updateMemberDTO.getId());
+        Optional<Addr> coverOriginalAddr = addrService.findAddr(updateMemberDTO.getId());
+        if (coverOriginalMember.isPresent() && coverOriginalAddr.isPresent()) {
+            Member original = coverOriginalMember.get();
+            Member updateMember = memberService.memberConverter(updateMemberDTO);
 
-        HttpSession session = request.getSession();
-        if (session == null) {
-            return "members/logInForm";
+            Addr originalAddr = coverOriginalAddr.get();
+            Addr updateAddr = addrService.addrConverter(updateMemberDTO);
 
+            updateMember.setId(original.getId());
+            updateMember.setLogId(original.getLogId());
+            updateMember.setSocialNum(original.getSocialNum());
+            updateAddr.setAddrId(originalAddr.getAddrId());
+            updateAddr.setMemberId(originalAddr.getMemberId());
+
+            if (updateMember.getLogPwd() == null) {
+                updateMember.setLogPwd(original.getLogPwd());
+            }
+            if (updateMember.getName() == null) {
+                updateMember.setName(original.getName());
+            }
+            if (updateMember.getAge() == 0) {
+                updateMember.setAge(original.getAge());
+            }
+            if (updateMember.getPhonNum() == null) {
+                updateMember.setPhonNum(original.getPhonNum());
+            }
+            if (updateMember.getEmail() == null) {
+                updateMember.setEmail(original.getEmail());
+            }
+
+            if (updateAddr.getZipCode() == null) {
+                updateAddr.setZipCode(originalAddr.getZipCode());
+            }
+            if (updateAddr.getStreetAddr() == null) {
+                updateAddr.setStreetAddr(originalAddr.getStreetAddr());
+            }
+            if (updateAddr.getDetailAddr() == null) {
+                updateAddr.setDetailAddr(originalAddr.getDetailAddr());
+            }
+
+            memberService.UpdateMember(updateMember);
+            addrService.updateAddr(updateAddr);
+            model.addAttribute("updateMember", updateMember);
+            model.addAttribute("updateAddr", updateAddr);
+            return "members/viewUpdate";
         }
-        Member originalMember = (Member) session.getAttribute(SessionConstants.LOGIN_MEMBER);
-        if (originalMember == null) {
-            return "members/logInForm";
-        }
+        return "redirect:/";
+    }
 
-        model.addAttribute("originalMember", originalMember);
-        return "members/updateForm";
-
+    @GetMapping("/members/viewMemberInfo")
+    public String viewMemberInfo(Model model, HttpSession session) {
+        Member originalMember = (Member) session.getAttribute("logInMember");
+        model.addAttribute("updateMember", originalMember);
+        return "members/viewUpdate";
     }
 
     /** ================================================================= */
@@ -219,6 +276,7 @@ public class MemberController {
         if (dropMember.isPresent()) {
             model.addAttribute("dropMember", dropMember.get().getName());
             memberService.DropMember(dropMember.get());
+            addrService.DropAddr(dropMember.get().getId());
             return "<script>alert('" + dropMember.get().getName()
                     + "님의 회원 탈퇴가 정상적으로 수행되었습니다.');history.go(-2);</script>";
         } else {

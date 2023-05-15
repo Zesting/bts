@@ -233,6 +233,7 @@ const submitOptionForm = (() => {
     });
 })();
 
+//윈도우가 닫힐때 오프너 페이지를 새로고침하기;
 window.onbeforeunload = function () {
-    opener.refreshPage();
+    opener.location.reload();
 };

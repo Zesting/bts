@@ -1,54 +1,64 @@
 package ezenstudy.bts.service;
 
+import java.util.List;
 import java.util.Optional;
 
+import ezenstudy.bts.DTO.UpdateMemberDTO;
 import ezenstudy.bts.domain.Addr;
-import ezenstudy.bts.domain.Member;
 import ezenstudy.bts.repository.AddrRepository;
-import ezenstudy.bts.repository.MemberRepository;
 
 public class AddrService {
-    private AddrRepository addrRepository;
-    private MemberRepository memberRepository;
+    private final AddrRepository addrRepository;
 
-    public AddrService(AddrRepository addrRepository, MemberRepository memberRepository) {
+    public AddrService(AddrRepository addrRepository) {
         this.addrRepository = addrRepository;
-        this.memberRepository = memberRepository;
     }
 
     /** 주소 저장 기능 */
-    public Long AddrSave(Addr addr) {
+    public Long AddrJoin(Addr addr) {
         addrRepository.save(addr);
         return addr.getAddrId();
     }
 
-    /** 주소 조회 기능 */
-    // 서비스에는 본인 레파지토리만. 섞는거는 컨트롤러.
-    // memberId;
-    public Addr FindAddr(String memberName) {
-        Optional<Addr> memberAddr = addrRepository.findAddrName(memberName);
-        Optional<Member> members = memberRepository.findAll().stream().filter(m -> m.getName().equals(memberName))
-                .findAny();
-        if (members.isPresent()) {
-            Addr addr = memberAddr.get();
-            Member member = members.get();
-            if (addr.getMemberId() == member.getId()) {
-                return addr;
-            }
-        }
-        return null;
+    /** 모든 주소 조회 기능 */
+    public List<Addr> findAllAddr() {
+        return addrRepository.findAddrAll();
     }
 
-    /** 주소 삭제 기능 */
+    /** 주소 조회 기능 */
+    public Optional<Addr> findAddr(Long memberId) {
+        return addrRepository.findAddr_memberId(memberId);
+    }
+
+    /** 주소 정보 수정 기능 */
+    public Optional<Addr> updateAddr(Addr addr) {
+        return addrRepository.update(addr);
+    }
+
+    public Addr addrConverter(UpdateMemberDTO updateMemberDTO) {
+        Addr addr = new Addr();
+        addr.setAddrId(updateMemberDTO.getAddrId());
+        addr.setMemberId(updateMemberDTO.getId());
+        addr.setMemberName(updateMemberDTO.getName());
+        addr.setZipCode(updateMemberDTO.getZipCode());
+        addr.setStreetAddr(updateMemberDTO.getStreetAddr());
+        addr.setDetailAddr(updateMemberDTO.getDetailAddr());
+        return addr;
+    }
+
+    /** 주소 정보 삭제 기능 */
     // 위와 같이 memberId;
-    public String DropAddr(String memberName) {
-        Optional<Addr> memberAddr = addrRepository.findAddrName(memberName);
-        if (addrRepository.findAddrName(memberName).isPresent()) {
-            Addr addr = memberAddr.get();
-            addrRepository.deleteAll(addr.getAddrId());
-            return "모든 주소가 삭제되었습니다.";
+    public void DropAddr(Long memberId) {
+        addrRepository.delete(memberId);
+    }
+
+    /** 주소 존재 여부 검증 */
+    public Addr verificationAddr(Long memberId) {
+        Optional<Addr> addr = addrRepository.findAddr_memberId(memberId);
+        if (addr.isPresent()) {
+            return addr.get();
         } else {
-            return "저장된 주소가 없습니다.";
+            return null;
         }
     }
 

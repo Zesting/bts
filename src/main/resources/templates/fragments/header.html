@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bts-join</title>
+  </head>
+
+  <body>
+    <!-- 공통 상단 영역 마이메뉴/로고 -->
+    <header
+      class="-header"
+      id="-header"
+      th:fragment="fragment-header(param1, param2, param3, param4)">
+      <link rel="stylesheet" th:href="@{/css/header.css}" />
+
+      <div class="sec01wrap">
+        <div class="full-frame">
+          <div class="sec01">
+            <div class="-left">
+              <ul class="menu">
+                <li class="-icon">
+                  <ul>
+                    <li class="icon-naver">
+                      <a href="http://www.naver.com"
+                        ><img th:src="@{/images/naver.png}" alt="네이버"
+                      /></a>
+                    </li>
+                    <li class="icon-facebook">
+                      <a href="https://www.facebook.com/"
+                        ><img
+                          th:src="@{/images/facebook.png}"
+                          alt="페이스북
+                        "
+                      /></a>
+                    </li>
+                    <li class="icon-instagram">
+                      <a href="https://www.instagram.com/"
+                        ><img
+                          th:src="@{/images/instagram.png}"
+                          alt="인스타그램"
+                      /></a>
+                    </li>
+                    <li class="icon-kakaotalk">
+                      <a href="https://www.kakaocorp.com/"
+                        ><img th:src="@{/images/kakaotalk.png}" alt="카카오톡"
+                      /></a>
+                    </li>
+                    <li class="icon-youtube">
+                      <a href="https://www.youtube.com/"
+                        ><img th:src="@{/images/youtube.png}" alt="유튜브"
+                      /></a>
+                    </li>
+                  </ul>
+                </li>
+                <!-- -icon -->
+                <li class="-favorite">
+                  <a th:href="@{/images/kakaotalk.png}" target="_blank"
+                    >즐겨찾기</a
+                  >
+                </li>
+                <li class="-goto">
+                  <a th:href="@{/images/facebook.png}" target="_blank"
+                    >바로가기</a
+                  >
+                </li>
+              </ul>
+              <!-- menu -->
+            </div>
+            <!-- -left -->
+            <div class="-right">
+              <ul class="menu">
+                <li><a th:href="${param1}">로그인</a></li>
+                <li><a th:href="${param2}">회원가입</a></li>
+                <li><a th:href="${param3}">주문조회</a></li>
+                <li><a th:href="${param4}">마이페이지</a></li>
+                <li><a href="#">커뮤니티</a></li>
+                <li><a href="#">찾기박스</a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- sec01 -->
+        </div>
+        <!-- full-frame -->
+      </div>
+      <div class="full-frame">
+        <div class="sec02">
+          <div class="ex-top-left">
+            <div class="fade-slide">
+              <ul class="left-swipe-wrapper">
+                <li>
+                  <a href="#">
+                    <img
+                      class="bannerImg"
+                      th:src="@{/images/facebook.png}"
+                      alt="슬라이드1" />
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img
+                      class="bannerImg"
+                      th:src="@{/images/instagram.png}"
+                      alt="슬라이드2" />
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img
+                      class="bannerImg"
+                      th:src="@{/images/naver.png}"
+                      alt="슬라이드3" />
+                  </a>
+                </li>
+              </ul>
+              <div class="prev">&lang;</div>
+              <div class="next">&rang;</div>
+            </div>
+          </div>
+
+          <div class="logoArea">
+            <ul class="logo">
+              <li class="return-homePage">
+                <a href="/">
+                  <img th:src="@{/images/bts.png}" alt="로고" />
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="sec-top-right">
+            <div class="swipe-container">
+              <ul class="right-swipe-wrapper">
+                <li class="right-swipe-slide">
+                  <a href="#"
+                    ><span class="rank" data-rank="1">1</span> 범고래-나이키
+                  </a>
+                </li>
+                <li class="right-swipe-slide">
+                  <a href="#"
+                    ><span class="rank" data-rank="2">2</span> 조던-나이키</a
+                  >
+                </li>
+                <li class="right-swipe-slide">
+                  <a href="#"
+                    ><span class="rank" data-rank="3">3</span> 올드스쿨-반스
+                  </a>
+                </li>
+                <li class="right-swipe-slide">
+                  <a href="#"
+                    ><span class="rank" data-rank="4">4</span> 어글리슈즈 -
+                    FILA</a
+                  >
+                </li>
+                <li class="right-swipe-slide">
+                  <a href="#"
+                    ><span class="rank" data-rank="5">5</span> 슈퍼스타 -
+                    아디다스</a
+                  >
+                </li>
+                <li class="right-swipe-slide">
+                  <a href="#"
+                    ><span class="rank" data-rank="6">6</span> 첼시 부츠 -
+                    로멘틱무브</a
+                  >
+                </li>
+                <li class="right-swipe-slide">
+                  <a href="#"
+                    ><span class="rank" data-rank="7">7</span> 리바운드 -
+                    뉴발란스</a
+                  >
+                </li>
+              </ul>
+              <div class="up">&and;</div>
+              <div class="down">&or;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script th:src="@{/js/leftSlide.js}"></script>
+      <script th:src="@{/js/rightSlide.js}"></script>
+    </header>
+  </body>
+</html>

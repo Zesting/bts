@@ -46,7 +46,8 @@
             id="logId"
             th:field="*{logId}"
             class="form-control"
-            th:errorclass="field-error" />
+            th:errorclass="field-error"
+            required />
           <div class="field-error" th:errors="*{logId}" />
         </div>
         <div>
@@ -56,7 +57,8 @@
             id="logPwd"
             th:field="*{logPwd}"
             class="form-control"
-            th:errorclass="field-error" />
+            th:errorclass="field-error"
+            required />
           <div class="field-error" th:errors="*{logPwd}" />
         </div>
 

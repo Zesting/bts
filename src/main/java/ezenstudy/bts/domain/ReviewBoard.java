@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class ReviewBoard {
     private Long id;                // 고유번호
+    private Long productId;         // 상품 고유번호
     private String title;           // 글제목
     private String content;         // 글내용
     private LocalDateTime cDate;    // 글작성일자
@@ -13,4 +14,5 @@ public class ReviewBoard {
     private Byte star;              // 상품별점
     private Integer viewCount;      // 글조회수
     private String writer;          // 글작성자
+    private byte fileAttached;      // 파일첨부 여부 (1있음 0없음)
 }
