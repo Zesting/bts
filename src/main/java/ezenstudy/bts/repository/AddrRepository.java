@@ -15,13 +15,13 @@ public interface AddrRepository {
     /* 주소 레파지토리에 존재하는 주소 정보 조회(파라미터 = 주소 고유번호) */
     Optional<Addr> findAddrId(Long addrId);
 
-    /* 주소 레파지토리에 존재하는 주소 정보 조회(파라미터 = 메인 주소 이름) */
-    Optional<Addr> findAddrName(String addrName);
+    /* 멤버 고유 번호로 주소 조회 */
+    Optional<Addr> findAddr_memberId(Long memberId);
 
     /** 주소 정보 수정 */
-    Optional<Addr> update(Long addrId, Addr addr);
+    Optional<Addr> update(Addr addr);
 
     /** 모든 주소 삭제 */
-    Long deleteAll(Long addrId);
+    Long delete(Long addrId);
 
 }

@@ -28,10 +28,12 @@ public class MemberService {
         });
     }
 
+    /** 모든 회원 조회 기능 */
     public List<Member> findAllMembers() {
         return memberRepository.findAll();
     }
 
+    /** 회원 조회 기능 */
     public Optional<Member> findById(Long memberId) {
         return memberRepository.findId(memberId);
     }

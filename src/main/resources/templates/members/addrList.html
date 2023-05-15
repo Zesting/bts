@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      tbody td {
+        text-align: center;
+        border: 1px dotted #555;
+      }
+      thead td {
+        text-align: center;
+        border: 3px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <td>주소고유번호</td>
+          <td>멤버고유번호</td>
+          <td>멤버이름</td>
+          <td>ZipCode(우편번호)</td>
+          <td>StreetAddr(도로명 주소)</td>
+          <td>DetailAddr(상세 주소)</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="addr: ${addr}">
+          <td th:text="${addr.addrId}"></td>
+          <td th:text="${addr.memberId}"></td>
+          <td th:text="${addr.memberName}"></td>
+          <td th:text="${addr.zipCode}"></td>
+          <td th:text="${addr.streetAddr}"></td>
+          <td th:text="${addr.detailAddr}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -9,8 +9,6 @@ import lombok.Data;
 public class Member {
     /** 회원 고유 번호 */
     private long id;
-    /** 회원 주소 고유 번호 */
-    private Long addrId;
     /** 회원 아이디 */
     private String logId;
     /** 회원 비밀번호 */
