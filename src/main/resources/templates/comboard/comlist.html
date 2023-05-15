@@ -20,14 +20,16 @@
   <tbody>
   <tr th:each="comBoard : ${comBoardList}">
     <td th:text="${comBoard.id}"></td>
-    <td>
-      <a th:href="@{/comboard/show/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a>
-    </td>
+    <!--<td><a th:href="@{/comboard/show/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a></td>-->
+    <td><a th:href="@{/comboard/check-bn/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a></td>
     <td th:text="${comBoard.createdBy}"></td>
     <td th:text="${comBoard.createAt}"></td>
   </tr>
   </tbody>
 </table>
-<a th:href="@{/comboard/create}">작성</a>
+<form method="post">
+<button type="submit" th:formaction="@{/comboard/create}" formmethod="get">작성</button>
+<!-- <a th:href="@{/comboard/create}">작성</a> -->
+</form>
 </body>
 </html>

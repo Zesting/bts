@@ -42,6 +42,32 @@ public class ComBoardController {
         return "comboard/ComBoardwrite";
     }
 
+    /* 답변 */
+    // @GetMapping("/comboard/show/{id}/reply")
+    // public String comboardreply(){
+    //     return "comboard/comReply";
+    // }
+
+    @GetMapping("/comboard/show/reply/{id}")
+    public String showReplyForm(@PathVariable("id") Long id, Model model) {
+        ComBoard comBoard = comBoardService.findById(id);
+        if (comBoard == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ComBoard not found");
+        }
+        model.addAttribute("comBoard", comBoard);
+        String bn = comBoard.getBN();
+        model.addAttribute("bn", bn);
+        return "comboard/comReply";
+    }
+
+    // 답변 처리
+    @PostMapping("/comboard/reply/{id}")
+    public String submitReply(@PathVariable("id") Long id, @ModelAttribute("comBoard") ComBoard comBoard) {
+        
+        return "redirect:/comboard/list";
+    }
+
+
     @PostMapping("/show")
     public String createComBoard(ComBoard comBoard) {
         ComBoard savedComBoard = comBoardService.save(comBoard);
@@ -78,13 +104,35 @@ public class ComBoardController {
         return "redirect:/comboard/show/" + id;
     }
 
-
     /** 삭제 */
 
     @PostMapping(value = "/comboard/delete/{boardId}", params = "_method=DELETE")
     public String deletePost(@PathVariable("boardId") Long boardId) {
         comBoardService.delete(boardId);
         return "redirect:/comboard/list";
+    }
+
+    /** 비번 */
+
+    @PostMapping("/comboard/check-bn/{id}")
+    public String checkBN(@PathVariable("id") Long id, @ModelAttribute("comBoard") ComBoard comBoard, @RequestParam("bn") String bn) {
+        ComBoard ComBoard = comBoardService.getComBoardById(id);
+        ComBoard.setBN(bn);
+        if (ComBoard.getBN().equals(bn)) {
+            System.out.println("일치합니다.");
+            return "redirect:/comboard/show/" + id;
+        } else {
+            System.out.println("일치하지않습니다.");
+            return "redirect:/comboard/list";
+        }
+    }
+
+
+    @GetMapping("/comboard/check-bn/{id}")
+    public String checkBN(@PathVariable("id") Long id, Model model) {
+        ComBoard comBoard = comBoardService.getComBoardById(id);
+        model.addAttribute("comBoard", comBoard);
+        return "comboard/comcheck";
     }
 
 

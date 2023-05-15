@@ -16,49 +16,15 @@
         <form method="post">
             <button type="submit" formaction="/comboard/list">목록</button>
             <button type="submit" th:formaction="@{/comboard/modify/{id}(id=${comBoard.id})}" formmethod="get">수정</button>
+            <button type="submit" th:formaction="@{/comboard/show/reply/{id}(id=${comBoard.id})}" formmethod="get">답변</button>
         </form>
+        
+        <!-- <a type="button" th:href="@{/comboard/reply}">답변</a> -->
 
         <form th:action= "@{/comboard/delete/{id}(id=${comBoard.id})}" method="POST">
             <input type="hidden" name="_method" value="DELETE">
-            <button type="submit">Delete</button>
+            <button type="submit">삭제</button>
         </form>
 
-        <hr/>
-
-        <ul>
-            <li>
-                <p>신발사요</p>
-                <p>안사요</p>
-            </li>
-            <li>
-                <p>니뭐꼬</p>
-                <p>닌먼데</p>
-            </li>
-        </ul>
-
-        <ul>
-            <li th:each="comment : ${comments}">
-                <p th:text="${comment.writer}"></p>
-                <p th:text="${comment.content}"></p>
-            </li>
-        </ul>
-
-        <!-- 댓글  -->
-        <form th:action="@{/comcomment(id=${comBoard.id})}" method="post" id="comment-form">
-            <p>
-                <label>작성자</label> <input type="text" name="writer">
-            </p>
-            <p>
-                <textarea name="content" rows="5" cols="50"></textarea>
-            </p>
-            <p>
-                <button type="submit">댓글 작성</button>
-            </p>
-        </form>
-        <script>
-            document.querySelector('#comment-form').addEventListener('submit', function() {
-                location.reload();
-            });
-        </script>
 </body>
 </html>

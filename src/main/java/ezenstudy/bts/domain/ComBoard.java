@@ -4,7 +4,6 @@ package ezenstudy.bts.domain;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 public class ComBoard {
@@ -15,7 +14,6 @@ public class ComBoard {
     private LocalDateTime createAt;  // 생성일자
     private String createdBy;  // 생성자
     private String BN;  // 사업자 번호
-    private List<Comcomment> comcomments;
     private boolean filled; // new property
 
     public Long getId() {
@@ -72,5 +70,9 @@ public class ComBoard {
 
     public void setFilled(boolean filled) {
         this.filled = filled;
+    }
+
+    public ComBoard orElse(Object object) {
+        return null;
     }
 }
