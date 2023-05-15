@@ -1,6 +1,7 @@
 package ezenstudy.bts.repository;
 
 import ezenstudy.bts.domain.ComBoard;
+import ezenstudy.bts.service.ComBoardService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class MemoryComBoardRepository implements ComBoardRepository{
     private final Map<Long, ComBoard> comBoardMap = new ConcurrentHashMap<>();
     private final AtomicLong nextId = new AtomicLong(1);
+
 
     @Override
     public ComBoard findById(Long id) {
