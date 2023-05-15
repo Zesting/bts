@@ -117,19 +117,7 @@
             </div>
         </div>
     </div>
-    <!-- <div class="pagination">
-            <ul>
-                <li th:if="${boardList.hasPrevious}">
-                    <a th:href="@{${'/reviews?page='+(boardList.number-1)}}">$laquo;</a>
-                </li>
-                <li th:each="page:${boardList.pages}" th:class="${page.current ? 'active' : ''}">
-                    <a th:href="@{${'reviews?page='+page.number}}"><span th:text="${page.number+1}"></span></a>
-                </li>
-                <li th:if="${boardList.hasNext}">
-                    <a th:href="@{${'/reviews?page='+(boardList.number+1)}}">$raquo;</a>
-                </li>
-            </ul>
-        </div> -->
+
     <script>
         const viewAllImagesBtn = document.getElementById('view-all-images-btn');
         const reviewImagesGrid = document.querySelector('.review-images-grid');
