@@ -20,9 +20,15 @@ public class ComcommentController {
     }
 
     @PostMapping("/comcomment")
-    public String createComcomment(@RequestParam("id") Long id, Comcomment comcomment) {
-        comcommentService.saveComcomment(comcomment, id);
+    public String createComcomment(Comcomment comcomment, @RequestParam("id") Long id) {
+        comcommentService.saveComcomment(comcomment);
         return "redirect:/comboard/show/" + id;
+    }
+
+
+    @PostMapping("/comcomment/{id}")
+    public ResponseEntity<Comcomment> createComcomment(@PathVariable Long id, @RequestBody Comcomment comcomment) {
+        return null;
     }
 
     @GetMapping("/comcomment/{id}")
@@ -38,9 +44,4 @@ public class ComcommentController {
     }
 
 
-    @DeleteMapping("/comcomment/{id}")
-    public ResponseEntity<Void> deleteComcomment(@PathVariable Long id) {
-        comcommentService.deleteComcomment(id);
-        return ResponseEntity.noContent().build();
-    }
 }

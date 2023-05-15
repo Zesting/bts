@@ -49,11 +49,19 @@
                 <label>작성자</label> <input type="text" name="writer">
             </p>
             <p>
-                <textarea name="content" rows="5" cols="50"></textarea>
+                <label>
+                    <textarea name="content" rows="5" cols="50"></textarea>
+                </label>
             </p>
             <p>
                 <button type="submit">댓글 작성</button>
             </p>
+            <script>
+        // 댓글 작성 후 페이지 새로고침
+        document.querySelector('#comment-form').addEventListener('submit', function() {
+            location.reload();
+        });
+    </script>
         </form>
         <script>
             document.querySelector('#comment-form').addEventListener('submit', function() {
