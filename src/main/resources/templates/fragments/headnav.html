@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <nav th:fragment="fragment-nav">
+        <link rel="stylesheet" th:href="@{/css/nav.css}" type="text/css">
+        <script th:src="@{/js/jquery-1.12.3.js}"></script>
+        <script type="text/javascript" th:src="@{/js/nav.js}"></script>
+
+        <!-- 메인 메뉴바 -->
+        <div id="navbar">
+            <ul id="allmenu">
+                <!-- 햄버거 메뉴버튼 -->
+                <a href="#" class="menu_btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+
+                <li class="m_menu">
+                    <a href="#">메인메뉴1</a>
+                    <ul class="s_menu_group">
+                        <li class="s_menu">
+                            <a href="#">서브메뉴1</a>
+                        </li>
+                        <li class="s_menu">
+                            <a href="#">서브메뉴2</a>
+                        </li>
+                        <li class="s_menu">
+                            <a href="#">서브메뉴3</a>
+                        </li>
+                        <li class="s_menu">
+                            <a href="#">서브메뉴4</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="m_menu">
+                    <a href="#">메인메뉴2</a>
+                    <ul class="s_menu_group">
+                        <li class="s_menu">
+                            <a href="#">서브메뉴1</a>
+                        </li>
+                        <li class="s_menu">
+                            <a href="#">서브메뉴2</a>
+                        </li>
+                        <li class="s_menu">
+                            <a href="#">서브메뉴3</a>
+                        </li>
+                        <li class="s_menu">
+                            <a href="#">서브메뉴4</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="m_menu">
+                    <a href="#">메인메뉴3</a>
+                    <ul class="s_menu_group">
+                        <li class="s_menu">
+                            <a href="#">서브메뉴1</a>
+                        </li>
+                        <li class="s_menu">
+                            <a href="#">서브메뉴2</a>
+                        </li>
+                        <li class="s_menu">
+                            <a href="#">서브메뉴3</a>
+                        </li>
+                        <li class="s_menu">
+                            <a href="#">서브메뉴4</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="m_menu">
+                    <a href="#">메인메뉴4</a>
+                    <ul class="s_menu_group">
+                        <li class="s_menu">
+                            <a href="#">서브메뉴1</a>
+                        </li>
+                        <li class="s_menu">
+                            <a href="#">서브메뉴2</a>
+                        </li>
+                        <li class="s_menu">
+                            <a href="#">서브메뉴3</a>
+                        </li>
+                        <li class="s_menu">
+                            <a href="#">서브메뉴4</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 전체목록 햄버거 클릭이벤트 -->
+        <div class="fulldown">
+            <ul class="menu">
+                <li><a href="#">메인메뉴</a></li>
+                <li><a href="#">서브메뉴1</a></li>
+                <li><a href="#">서브메뉴2</a></li>
+                <li><a href="#">서브메뉴3</a></li>
+                <li><a href="#">서브메뉴4</a></li>
+            </ul>
+        </div>
+        <!-- 서브메뉴 바탕 -->
+        <div class="close"></div>
+        <script type="text/javascript" th:src="@{/js/nav.js}"></script>
+    </nav>
+</body>
+
+</html>

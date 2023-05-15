@@ -45,8 +45,13 @@ public class ReviewBoardController {
 
     @PostMapping("/reviewboard/save")
     public String save(ReviewBoardDTO reviewBoardDTO) throws Exception {
-        if (reviewBoardDTO.getFile().isEmpty()) {
+        System.out.println(reviewBoardDTO.getFile());
+        if (reviewBoardDTO.getFile()==null || reviewBoardDTO.getFile().isEmpty()) {
             reviewBoardService.save(reviewBoardDTO.toSaveReviewBaord());
+            ReviewImage reviewImage = new ReviewImage();
+            Long reviewBoardId = reviewBoardService.reviewBoardNum();
+            reviewImage.setReviewBoardId(reviewBoardId);
+            reviewImageService.nullSave(reviewImage);
         } else {
             reviewBoardService.save(reviewBoardDTO.toSaveFileReviewBaord());
             ReviewImage reviewImage;

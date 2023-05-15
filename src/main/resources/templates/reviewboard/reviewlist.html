@@ -21,7 +21,7 @@
         .review-images-grid {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: left;
             margin-top: 10px;
         }
 
@@ -74,6 +74,25 @@
         .next {
             right: 0;
         }
+
+        img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .star-rating {
+            font-size: 24px;
+            letter-spacing: 2px;
+            display: inline-block;
+        }
+
+        .star {
+            color: #ccc;
+        }
+
+        .active {
+            color: #ffcc00;
+        }
     </style>
 </head>
 
@@ -82,20 +101,14 @@
         <h2>고객 후기(<span th:text="${reviewSize}"></span>)</h2>
         <p>해당 상품 평점</p>
 
-        <div class="allImage">
-            <div class="slides">
-
-            </div>
-        </div>
-
-        <!-- <div class="review-images">
+        <div class="review-images">
             <button id="view-all-images-btn">전체 이미지</button>
             <div class="review-images-grid">
                 <div th:each="image:${imageList}" class="review-image">
-                    <img th:src="${image.filePath}">
+                    <img th:if="${image!=null}" th:src="${image.filePath}">
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <div class="review-list">
             <div th:each="review : ${boardList}">
@@ -103,14 +116,17 @@
                     <h3 th:text="${review.title}"></h3>
                     <p>
                         작성자<span th:text="${review.writer}"></span>
-                        작성일<span th:text="${review.cDate}"></span>
+                        작성일<span th:text="*{#temporals.format(review.cDate,'yyyy-MM-dd HH:mm')}"></span>
                     </p>
                     <p>
-                        <span th:text="${review.star}"></span>
+                    <div class="star-rating">
+                        <span class="star" th:each="i : ${#numbers.sequence(1,5)}"
+                            th:classappend="${i le review.star} ? 'active' : ''">&#9733;</span>
+                    </div>
                     </p>
                     <div class="review-images-grid">
-                        <div th:each="image:${imageList}" class="review-image">
-                            <img th:src="${image.filePath}">
+                        <div th:each="image:${imageList}" class="review-image" id="review-image">
+                            <img th:if="${image!=null}" th:src="${image.filePath}">
                         </div>
                     </div>
                 </div>
@@ -148,53 +164,6 @@
             popup.document.write(popupContent);
         });
 
-        // 이미지 불러오기
-         function fetchImages(){
-            const images = [
-                '/dummyimage/KakaoTalk_20230315_103734889.jpg',
-                '/dummyimage/KakaoTalk_20230315_103735389.jpg',
-                '/dummyimage/KakaoTalk_20230315_103735852.jpg',
-                '/dummyimage/KakaoTalk_20230315_103736319.jpg',
-                '/dummyimage/KakaoTalk_20230315_103736782.jpg',
-                '/dummyimage/KakaoTalk_20230315_103737412.jpg',
-                '/dummyimage/KakaoTalk_20230315_103737865.jpg',
-                '/dummyimage/KakaoTalk_20230315_103738629.jpg'
-            ];
-
-            const slides = document.querySelector('.slides');
-
-            images.forEach((imageUrl)=>{
-                const slide = document.createElement('div');
-                slide.classList.add('slide');
-
-                const img = document.createElement('img');
-                img.src = imageUrl;
-                slide.appendChild(img);
-
-                slides.appendChild(slide);
-            });
-         }
-
-         const prevBtn = document.createElement('button');
-         prevBtn.textContent = 'Prev';
-         prevBtn.classList.add('prev');
-         prevBtn.addEventListener('click',()=>{
-            const slides = document.querySelector('.slides');
-            slides.style.transform = 'translateX(-20%)';
-         });
-
-         const nextBtn = document.createElement('button');
-         nextBtn.textContent = 'Next';
-         nextBtn.classList.add('next');
-         nextBtn.addEventListener('click', ()=>{
-            const slides = document.querySelector('.slides');
-            slides.style.transform = 'translateX(20%)';
-
-            const gallery = document.querySelector('.allImage');
-            gallery.appendChild(prevBtn);
-            gallery.appendChild(nextBtn);
-
-         })
     </script>
 </body>
 
