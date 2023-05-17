@@ -7,7 +7,7 @@ public class Product {
     private Long id;
     private String name;
     private String brand;
-    private String description;
     private String category;
-    
+    private String bannerImagePath;
+    private Integer originalPrice;
 }

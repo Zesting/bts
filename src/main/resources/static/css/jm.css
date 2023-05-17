@@ -6,3 +6,11 @@ body {
 .hidden{
     display:none;
 }
+.container{
+    display:block;
+    width:100%;
+    min-width:1260px;
+    max-width: 1260px;
+    margin: 30px auto 0;
+    background-color: beige;
+}

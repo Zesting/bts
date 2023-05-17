@@ -8,6 +8,7 @@ import lombok.Data;
 public class GroupPurchase {
     private Long id;
     private Long productId; //Foreign Key
+    private Integer price;
     private LocalDateTime saleStart; //판매 시작일
     private LocalDateTime saleEnd; //판매 종료일
     private String information; //공동구매에 대한 설명
