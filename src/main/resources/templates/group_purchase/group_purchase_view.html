@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/grouppurchase/groupPurchaseView.css}">
+    <link th:href="@{/css/jm.css}" rel="stylesheet" />
+    <title>BTS</title>
+</head>
+
+<body>
+    <header
+        th:replace="~{/fragments/header.html :: fragment-header('/members/logIn','/members/new','/members/findId','/members/findPwd')}">
+    </header>
+    <div class="container">
+        <div class="gp-contents">
+            <div class="row">
+                <div class="gp-imgArea">
+                    <div class="gp-img-main-wrap">
+                        <img class="gp-img-main" th:if="${images[0]}" th:src="${images[0].imagePath}"/>
+                    </div>
+                    <div class="gp-img-nav">
+                        <ul>
+                            <li th:each="image : ${images}">
+                                <img th:src="${image.imagePath}"/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="gp-infoArea">
+                    <div class="gp-info-row">
+                        <h3 th:text="${product.name}"></h3>
+                        <p th:if="${product.brand}" th:text="${product.brand}"></p>
+                    </div>
+                    <div class="gp-info-row">
+                        <pre>[[${gp.information}]]</pre>
+                    </div>
+                    <div class="gp-info-row"></div>
+                    <div class="gp-info-row">
+                        <span>소비자가</span>
+                        <span th:text="${product.originalPrice}"></span>
+                    </div>
+                    <div class="gp-info-row">
+                        <span>판매가</span>
+                        <span th:text="${gp.price}"></span>
+                        <span th:text="${(1 - (gp.price / product.originalPrice)) * 100}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="gp-detail">
+                
+            </div>
+            <div class="gp-review">
+
+            </div>
+            <div class="gp-guide">
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

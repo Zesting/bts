@@ -20,7 +20,6 @@ public class ProductDTO {
         p.setName(product_name);
         p.setCategory(product_category);
         p.setBrand(product_brand);
-        p.setDescription(product_description);
         return p;
     }
 }

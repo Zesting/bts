@@ -12,6 +12,9 @@ public interface OrderRepository {
     /** 모든 주문 정보 조회 */
     List<Order> findOrderAll();
 
+    /** 멤버 고유 번호에 해당하는 모든 주문 정보 조회 */
+    List<Order> findAll_memberId(Long memberId);
+
     /** 주문 정보조회 */
     Optional<Order> findOrderOne(Long orderId);
 

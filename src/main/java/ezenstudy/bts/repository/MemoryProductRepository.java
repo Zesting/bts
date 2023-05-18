@@ -38,15 +38,66 @@ public class MemoryProductRepository implements ProductRepository{
         Product p1 = new Product();
         p1.setBrand("nike");
         p1.setName("나이키 덩크 로우 레트로 SE");
-        p1.setCategory("운동화");
-        p1.setDescription("하드우드 코트를 위해 태어나 스트리트로 무대를 옮겨온 80년대의 농구 아이콘이 자수 디테일, 대조적인 스티치와 레트로 농구 스타일로 돌아옵니다. 패딩 처리된 로우컷 카라가 어디서든 편안한 발걸음을 이끌어 줍니다.");
+        p1.setCategory("러닝");
+        p1.setBannerImagePath("/images/banner/나이키덩크로우레트로배너");
+        p1.setOriginalPrice(129000);
         save(p1);
 
         Product p2 = new Product();
         p2.setBrand("drmartens");
         p2.setName("마일즈");
         p2.setCategory("샌들");
+        p1.setBannerImagePath("");
+        p1.setOriginalPrice(170000);
         save(p2);
+
+        Product p3 = new Product();
+        p3.setBrand("nike");
+        p3.setName("에어 베이퍼맥스 2023 플라이니트");
+        p3.setCategory("러닝");
+        p3.setBannerImagePath("");
+        p3.setOriginalPrice(249000);
+        save(p3);
+
+        Product p4 = new Product();
+        p4.setBrand("BIRKENSTOCK");
+        p4.setName("아리조나 에바 블랙 129421");
+        p4.setCategory("슬리퍼");
+        p4.setBannerImagePath("");
+        p4.setOriginalPrice(59000);
+        save(p4);
+
+        Product p5 = new Product();
+        p5.setBrand("nike");
+        p5.setName("에어 조던 1 엘리베이트 하이");
+        p5.setCategory("러닝");
+        p5.setBannerImagePath("/images/banner/에어조던1엘리베이트하이배너.jpeg");
+        p5.setOriginalPrice(179000);
+        save(p5);
+
+    //     Product p = new Product();
+    //     p.setBrand("");
+    //     p.setName("");
+    //     p.setCategory("");
+    //     p.setDescription("");
+    //     p.setOriginalPrice(0);
+    //     save(p);
+
+    //     Product p = new Product();
+    //     p.setBrand("");
+    //     p.setName("");
+    //     p.setCategory("");
+    //     p.setDescription("");
+    //     p.setOriginalPrice(0);
+    //     save(p);
+
+    //     Product p = new Product();
+    //     p.setBrand("");
+    //     p.setName("");
+    //     p.setCategory("");
+    //     p.setDescription("");
+    //     p.setOriginalPrice(0);
+    //     save(p);
     }
     
 }

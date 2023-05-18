@@ -40,6 +40,7 @@
     </style>
   </head>
   <body>
+    <div th:replace="~{/fragments/header.html :: fragment-header}"></div>
     <div class="container">
       <form action="/members/new" method="post" id="formId">
         <div class="form-group">
@@ -128,7 +129,6 @@
 
     <script th:src="@{/js/joinAddr.js}"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
     <script th:src="@{/js/join_verification.js}"></script>
   </body>
 </html>

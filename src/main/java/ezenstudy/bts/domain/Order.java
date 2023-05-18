@@ -11,7 +11,7 @@ public class Order {
     /** 찜 고유 번호 */
     private Long selectId;
     /** 상품 고유 번호 */
-    private long productId;
+    private Long groupPurchaseId;
     /** 주문한 신발 총 수량(찜 + 상품) */
     private byte orderCount;
     /** 주문한 신발 총 가격 */
