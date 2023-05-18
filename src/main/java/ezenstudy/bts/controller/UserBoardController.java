@@ -75,8 +75,18 @@ public class UserBoardController {
       return "redirect:/userBoard/Read/"+boardId;
     
   }
+  @PostMapping("/userBoard/comment/{id}/update")
+  public String updateComment(@PathVariable("id") Long boardId, UserBoardComment userBoardComment, Model model){
+    Optional<UserBoardComment> updateUserBoardComment = userBoardCommentService.findById(boardId);
+    userBoardComment.getBoardId();
+    userBoardComment.setMemberId(userBoardComment.getMemberId());
+    userBoardComment.setCommentDate(userBoardCommentService.FormDateTime());
+    userBoardCommentService.saveComment(userBoardComment);
+    System.out.println(userBoardComment);
 
-  
+    model.addAttribute("commentContent", updateUserBoardComment.get());
+    return "redirect:/userBoard/Read/"+boardId;
+  }
 
 
   //게시물 지우기
