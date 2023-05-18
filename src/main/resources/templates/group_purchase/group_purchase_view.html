@@ -31,8 +31,21 @@
                 </div>
                 <div class="gp-infoArea">
                     <div class="gp-info-row">
+                        <h3 th:text="${product.name}"></h3>
+                        <p th:if="${product.brand}" th:text="${product.brand}"></p>
+                    </div>
+                    <div class="gp-info-row">
+                        <pre>[[${gp.information}]]</pre>
+                    </div>
+                    <div class="gp-info-row"></div>
+                    <div class="gp-info-row">
                         <span>소비자가</span>
-                        <span th:text="product."></span>
+                        <span th:text="${product.originalPrice}"></span>
+                    </div>
+                    <div class="gp-info-row">
+                        <span>판매가</span>
+                        <span th:text="${gp.price}"></span>
+                        <span th:text="${(1 - (gp.price / product.originalPrice)) * 100}"></span>
                     </div>
                 </div>
             </div>
