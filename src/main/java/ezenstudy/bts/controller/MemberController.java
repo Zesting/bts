@@ -126,7 +126,7 @@ public class MemberController {
 
     /** 로그아웃 기능 */
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.getAttribute("logInMember");
 
@@ -201,10 +201,13 @@ public class MemberController {
         return "redirect:/";
     }
 
+    /** 내 정보 보기 */
     @GetMapping("/members/viewMemberInfo")
     public String viewMemberInfo(Model model, HttpSession session) {
         Member originalMember = (Member) session.getAttribute("logInMember");
+        Addr originalAddr = addrService.findAddr(originalMember.getId()).get();
         model.addAttribute("updateMember", originalMember);
+        model.addAttribute("updateAddr", originalAddr);
         return "members/viewUpdate";
     }
 

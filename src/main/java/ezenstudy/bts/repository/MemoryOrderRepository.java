@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import ezenstudy.bts.domain.Order;
 
@@ -24,6 +25,13 @@ public class MemoryOrderRepository implements OrderRepository {
     @Override
     public List<Order> findOrderAll() {
         return new ArrayList<>(store.values());
+    }
+
+    /** 멤버 고유 번호에 해당하는 모든 주문 조회 */
+    @Override
+    public List<Order> findAll_memberId(Long memberId) {
+        return new ArrayList<>(store.values().stream().filter(order -> order.getMemberId().equals(memberId))
+                .collect(Collectors.toList()));
     }
 
     /** 주문 정보조회 구현 메서드 */

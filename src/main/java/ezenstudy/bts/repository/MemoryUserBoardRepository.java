@@ -46,7 +46,7 @@ public class MemoryUserBoardRepository implements UserBoardRepository {
     return Optional.ofNullable((store.get(userBoardNumber)));
   }
 
-  /* =============== 더미 데이터 ===================== */
+  /* =============== 게시물 더미 데이터 ===================== */
   public MemoryUserBoardRepository() {
     UserBoard u0 = new UserBoard();
     u0.setUserBoardNumber(1);
@@ -77,6 +77,16 @@ public class MemoryUserBoardRepository implements UserBoardRepository {
     u2.setUpdateDateTime(LocalDateTime.now());
     u2.setOfferCount(0);
     save(u2);
+
+    UserBoard u3 = new UserBoard();
+    u3.setUserBoardNumber(4);
+    u3.setUserBoardTitle("제목4 입니다.");
+    u3.setUserBoardContent("내용4 입니다.");
+    u3.setMemberId(4);
+    u3.setDateTime(LocalDateTime.now());
+    u3.setUpdateDateTime(LocalDateTime.now());
+    u3.setOfferCount(0);
+    save(u3);
   }
 
 

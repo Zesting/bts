@@ -11,6 +11,7 @@
       rel="stylesheet" />
   </head>
   <body>
+    <div th:replace="~{/fragments/header.html :: fragment-header}"></div>
     <div class="container" style="max-width: 680px">
       <div class="pv-5 text-center" style="margin-top: 20px">
         <h4>회원 탈퇴 ㅜㅜ;;;</h4>
@@ -68,26 +69,5 @@
         </div>
       </form>
     </div>
-    <!-- container -->
-
-    <!-- <script th:if="${#strings.isEmpty(dropMember)}" th:inline="javascript">
-      function submit() {
-        if ("${#strings.isEmpty(dropMember)}") {
-          alert("등록된 회원을 찾을 수 없습니다. 정보를 다시 입력해 주세요.");
-        } else {
-          alert(
-            `[[${dropMember}]]` + "님의 회원 탈퇴가 정상적으로 수행되었습니다."
-          );
-        }
-      }
-      alert(
-        "등록된 회원을 찾을 수 없습니다. 정보를 다시 입력해 주시길 바랍니다."
-      );
-    </script>
-
-    <script>
-      if (condition) {
-      }
-    </script> -->
   </body>
 </html>

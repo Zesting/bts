@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html
-  lang="ko"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -32,8 +29,7 @@
     </style>
   </head>
   <body>
-    <div
-      th:replace="~{/fragments/header.html :: fragment-header('/members/logIn','/members/new','/members/findId','/members/findPwd')}"></div>
+    <div th:replace="~{/fragments/header.html :: fragment-header}"></div>
     <button><a href="/grouppurchase">공동구매</a></button>
     <p><a href="/members">회원 리스트</a></p>
     <p><a href="/addr">주소 리스트</a></p>
