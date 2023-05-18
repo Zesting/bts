@@ -5,13 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link
-      th:href="@{/css/bootstrap.min.css}"
-      href="/src/main/resources/static/css/bootstrap.min.css"
-      rel="stylesheet" />
   </head>
   <body>
-    <div class="container" style="max-width: 600px">
+    <div th:replace="~{/fragments/header.html :: fragment-header}"></div>
+    <div class="container">
       <div class="pv-5 text-center" style="margin-top: 30px">
         <h2>로그인 ID 찾기</h2>
       </div>

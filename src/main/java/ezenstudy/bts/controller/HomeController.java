@@ -19,7 +19,7 @@ public class HomeController {
         }
 
         model.addAttribute("member", logInMember);
-        return "loginHome";
+        return "home";
     }
 
 }
