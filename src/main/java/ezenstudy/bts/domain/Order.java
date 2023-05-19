@@ -8,12 +8,12 @@ public class Order {
     private long orderId;
     /** 회원 고유 번호 */
     private Long memberId;
-    /** 찜 고유 번호 */
-    private Long selectId;
-    /** 상품 고유 번호 */
+    /** 공동 구매 고유 번호 */
     private Long groupPurchaseId;
-    /** 주문한 신발 총 수량(찜 + 상품) */
-    private byte orderCount;
-    /** 주문한 신발 총 가격 */
-    private int orderPrice;
+    /** 공동 구매에서의 상품 고유 번호 */
+    private Long groupPurchaseProductOptionId;
+    /** 주문에 해당하는 결제 고유번호 */
+    private Long paymentId;
+    /** 주문에 해당하는 배송 고유번호 */
+    private Long deliveryId;
 }
