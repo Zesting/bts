@@ -36,9 +36,9 @@ nav {
     padding: 10px;
     font-size: 15px;
     color: #1e1e1e;
-    font-family: 'Poppins','Spoqa han sans kr','맑은고딕','Malgun Gothic','돋움',Dotum,Helvetica,Arial,AppleGothic,sans-serif;
-    font-weight:600;
-    
+    font-family: 'Poppins', 'Spoqa han sans kr', '맑은고딕', 'Malgun Gothic', '돋움', Dotum, Helvetica, Arial, AppleGothic, sans-serif;
+    font-weight: 600;
+
 }
 
 .sub-menu {
@@ -59,11 +59,12 @@ nav {
     text-align: center;
 }
 
-.sub-menu>li>a{
+.sub-menu>li>a {
     font-weight: lighter;
     color: #202020;
 }
-.sub-menu>li>a:hover{
+
+.sub-menu>li>a:hover {
     position: relative;
     left: 5px;
 }
@@ -128,24 +129,32 @@ nav {
 }
 
 .fulldown .full-mainmenu {
-    display: flex;
-    align-items: center;
-}
-.fulldown .full-mainmenu>li{
-    margin: 30px;
+    display: inline-flex;
+    align-items: flex-start;
+    width: 70%;
+    height: 90%;
+    border-right: 1px solid rgb(152, 152, 152);
 }
 
-.fulldown ul li a{
+
+.fulldown .full-mainmenu>li {
+    margin: 30px;
+    width: 15%;
+}
+
+.fulldown ul li a {
     text-decoration: none;
     color: #1e1e1e;
 }
-.full-mainmenu>li>a{
+
+.full-mainmenu>li>a {
     font-weight: 600;
     display: block;
     font-size: 16px;
     margin-bottom: 20px;
 }
-.full-mainmenu>li>a:hover a{
+
+.full-mainmenu>li>a:hover a {
     color: #575757;
     font-weight: normal;
 }
@@ -156,14 +165,21 @@ nav {
     font-weight: lighter;
     font-style: normal;
 }
-.full-submenu{
+
+.full-submenu {
     padding: 0;
     font-size: 14px;
 }
-.full-submenu li{
+
+.full-submenu li {
     margin-bottom: 8px;
 }
-.full-submenu>li>a:hover    {
+
+.full-submenu>li>a:hover {
     position: relative;
     left: 5px;
+}
+
+.full-community {
+    display: inline-flex;
 }

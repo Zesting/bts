@@ -12,7 +12,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import ezenstudy.bts.DTO.paymentDTO;
+import ezenstudy.bts.DTO.PaymentDTO;
 import lombok.extern.java.Log;
 
 @Service
@@ -21,7 +21,7 @@ public class KakaoPayService {
 
     private static final String HOST = "https://kapi.kakao.com";
 
-    private paymentDTO kakaoPayReadyVO;
+    private PaymentDTO paymentDTO;
 
     public String kakaoPayReady() {
 
@@ -49,12 +49,12 @@ public class KakaoPayService {
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
         try {
-            kakaoPayReadyVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body,
-                    paymentDTO.class);
+            paymentDTO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body,
+                    PaymentDTO.class);
 
-            log.info("" + kakaoPayReadyVO);
+            log.info("" + paymentDTO);
 
-            return kakaoPayReadyVO.getNext_redirect_pc_url();
+            return paymentDTO.getNext_redirect_pc_url();
 
         } catch (RestClientException e) {
             e.printStackTrace();
