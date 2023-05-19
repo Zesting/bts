@@ -40,7 +40,7 @@ public class OrderService {
                 .count();
     }
 
-    /** 주문 삭제 기능 */
+    /** 주문 삭제(취소) 기능 */
     public void dropOrder(Order order) {
         orderRepository.delete(order.getOrderId());
     }
