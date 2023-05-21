@@ -8,5 +8,4 @@ public class GroupPurchaseProductOption {
     private Long groupPurchaseId;
     private Long productOptionId;
     private Integer quantity;
-    private Integer price;
 }

@@ -1,12 +1,13 @@
 package ezenstudy.bts.repository;
 
-import ezenstudy.bts.domain.ComBoard;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+
+import ezenstudy.bts.domain.ComBoard;
 
 public class MemoryComBoardRepository implements ComBoardRepository{
     private final Map<Long, ComBoard> comBoardMap = new ConcurrentHashMap<>();

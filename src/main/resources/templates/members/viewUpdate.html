@@ -32,7 +32,8 @@
     </style>
   </head>
   <body>
-    <h1>수정된 회원 정보!</h1>
+    <div th:replace="~{/fragments/header.html :: fragment-header}"></div>
+    <h1>내 정보</h1>
     <div class="container">
       <table>
         <thead>
@@ -62,6 +63,26 @@
           </tr>
         </tbody>
       </table>
+      <hr style="border-bottom: 1px solid #333" />
+      <table>
+        <thead>
+          <tr>
+            <td>수취인</td>
+            <td>우편 번호</td>
+            <td>도로명 주소</td>
+            <td>상세 주소</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="addr: ${updateAddr}">
+            <td th:text="${addr.memberName}"></td>
+            <td th:text="${addr.zipCode}"></td>
+            <td th:text="${addr.streetAddr}"></td>
+            <td th:text="${addr.detailAddr}"></td>
+          </tr>
+        </tbody>
+      </table>
+      <a th:href="@{/}">초기 페이지로 이동</a>
     </div>
   </body>
 </html>

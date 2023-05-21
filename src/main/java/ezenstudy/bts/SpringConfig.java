@@ -89,6 +89,16 @@ public class SpringConfig {
     }
 
     @Bean
+    public OrderRepository orderRepository() {
+        return new MemoryOrderRepository();
+    }
+
+    @Bean
+    public OrderService orderService() {
+        return new OrderService(orderRepository());
+    }
+
+    @Bean
     public UserBoardCommentService userBoardCommentService() {
         return new UserBoardCommentService(userBoardCommentRepository());
     }

@@ -48,6 +48,7 @@ public class MemoryGroupPurchaseRepository implements GroupPurchaseRepository{
     public MemoryGroupPurchaseRepository(){
         GroupPurchase gp1 = new GroupPurchase();
         gp1.setProductId(1l);
+        gp1.setPrice(300);
         gp1.setInformation("나이키의 신상 농구화 판매개시");
         gp1.setSaleStart(LocalDateTime.of(2023, 4, 1, 15, 0, 0));
         gp1.setSaleEnd(LocalDateTime.of(2023, 5, 1, 0, 0, 0));
@@ -62,5 +63,14 @@ public class MemoryGroupPurchaseRepository implements GroupPurchaseRepository{
         gp2.setMinQuantity(20);
         gp2.setSaleRequestId(157l);
         save(gp2);
+        GroupPurchase gp3 = new GroupPurchase();
+        gp3.setProductId(3l);
+        gp3.setPrice(59800);
+        gp3.setInformation("나이키 베스트셀러 초저가 9월까지 상시판매");
+        gp3.setSaleStart(LocalDateTime.of(2023, 5, 1, 12, 0, 0));
+        gp3.setSaleEnd(LocalDateTime.of(2023, 9, 30, 12, 0, 0));
+        gp3.setMinQuantity(100);
+        gp3.setSaleRequestId(15l);
+        save(gp3);
     }
 }

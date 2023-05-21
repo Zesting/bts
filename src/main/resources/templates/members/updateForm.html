@@ -5,11 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link
-      th:href="@{/css/bootstrap.min.css}"
-      href="/src/main/resources/static/css/bootstrap.min.css"
-      rel="stylesheet" />
-
     <style>
       /* 입력 폼에 대한 기본 스타일 */
       input[type="text"],
@@ -36,6 +31,7 @@
     </style>
   </head>
   <body>
+    <div th:replace="~{/fragments/header.html :: fragment-header}"></div>
     <div class="container">
       <form action="/members/updateInfo" method="post">
         <div class="form-group" style="display: none">
