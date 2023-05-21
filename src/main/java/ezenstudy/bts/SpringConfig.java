@@ -108,5 +108,14 @@ public class SpringConfig {
         return new ComBoardService(comBoardRepository());
     }
 
+    @Bean
+    public TrackingRepository trackingRepository() {
+        return new MemoryTrackingRepository();
+    }
+
+    @Bean
+    public TrackingService trackingService() {
+        return new TrackingService(trackingRepository());
+    }
 
 }

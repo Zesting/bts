@@ -15,6 +15,7 @@ public class ComBoard {
     private String createdBy;  // 생성자
     private String BN;  // 사업자 번호
     private boolean filled; // new property
+    //private MultipartFile file;
 
     public Long getId() {
         return id;
