@@ -2,6 +2,7 @@ package ezenstudy.bts.DTO;
 
 import java.util.Date;
 
+import ezenstudy.bts.domain.Payment;
 import lombok.Data;
 
 @Data
@@ -22,4 +23,14 @@ public class KakaoPayApprovalVO {
     private Integer quantity, tax_free_amount, vat_amount;
     // 결제준비 요청 시각 / 결제승인 시각
     private Date created_at, approved_at;
+
+        public Payment paymentVoSave() {
+            Payment payment = new Payment();
+            payment.setAmount(amount.getTotal());
+            payment.setApprovalDate(approved_at);
+            payment.setPaymentType(payment_method_type);
+            payment.setCardName(card_info.getIssuer_corp());
+            payment.setDiscount(amount.getDiscount());
+            return payment;
+        }
 }
