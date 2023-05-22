@@ -24,14 +24,19 @@ public class OrderService {
         return orderRepository.findOrderAll();
     }
 
-    /* 주문 조회 기능_주문 고유 번호 */
-    public Optional<Order> findOneOrder(Long orderId) {
-        return orderRepository.findOrderOne(orderId);
-    }
-
     /** 주문 조회 기능_멤버 고유 번호 */
     public List<Order> findAllByMember(Long memberId) {
         return orderRepository.findAll_memberId(memberId);
+    }
+
+    /** 주문 조회 기능_주문 고유 번호 */
+    public Optional<Order> findOneByOrder(Long orderId) {
+        return orderRepository.findOrderOne(orderId);
+    }
+
+    /** 주문 조회 기능_고객 고유 번호 */
+    public Optional<Order> findOneByMember() {
+        return Optional.empty();
     }
 
     /** 주문 리스트에 존재하는 공동 구매Id 카운팅 */
