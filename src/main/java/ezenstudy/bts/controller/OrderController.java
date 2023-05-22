@@ -11,6 +11,7 @@ import ezenstudy.bts.domain.GroupPurchase;
 import ezenstudy.bts.domain.Member;
 import ezenstudy.bts.domain.Order;
 import ezenstudy.bts.domain.ProductOption;
+import ezenstudy.bts.service.AddrService;
 import ezenstudy.bts.service.GroupPurchaseProductOptionService;
 import ezenstudy.bts.service.GroupPurchaseService;
 import ezenstudy.bts.service.OrderService;
@@ -30,6 +31,7 @@ public class OrderController {
     private final ProductImageService productImageService;
     private final ProductOptionService productOptionService;
     private final ProductService productService;
+    private final AddrService addrService;
 
     @GetMapping("/order/myOrder")
     public String listForm(Model model, HttpSession session) {
@@ -53,8 +55,13 @@ public class OrderController {
             String pi = productImageService.findListbyProductId(gp.getProductId()).get(0).getImagePath();
             /** 결제 여부 변수 */
             String pay = orderService.findOneByOrder(orderId).get().getPayment();
+
             /** 배송 상태 변수 */
             String del = orderService.findOneByOrder(orderId).get().getDelivery();
+            // String order = orderService.findOneByOrder(orderId).get
+
+            String memberStreetAddr = addrService.findAddr(member.getId()).get().getStreetAddr();
+            String memberDetailAddr = addrService.findAddr(member.getId()).get().getDetailAddr();
 
             model.addAttribute("orderList", member_orderList);
             model.addAttribute("gp_name" + orderId, pn);
@@ -64,40 +71,10 @@ public class OrderController {
             model.addAttribute("gp_image" + orderId, pi);
             model.addAttribute("gp_pay" + orderId, pay);
             model.addAttribute("gp_del" + orderId, del);
+            model.addAttribute("gp_sa" + orderId, memberStreetAddr);
+            model.addAttribute("gp_da" + orderId, memberDetailAddr);
         });
 
-        // List<Order> orderList = orderService.findAllByMember(member.getId());
-
-        // <img th:src="@{${['gp_image' + order.getOrderId()]}}}" alt="productImage">
-
-        /*
-         * Order testod = new Order();
-         * testod.setGroupPurchaseId(1l);
-         * testod.setGroupPurchaseProductOptionId(1l);
-         * testod.setOrderId(1l);
-         * 
-         * List<Order> orderList = new ArrayList<Order>();
-         * orderList.add(testod);
-         * orderList.stream().forEach(order -> {
-         * Long gpId = order.getGroupPurchaseId();
-         * GroupPurchase gp = groupPurchaseService.findOnebyId(gpId).get();
-         * Long orderId = order.getOrderId();
-         * ProductOption po = productOptionService.findOnebyId(
-         * groupPurchaseProductOptionService.findOnebyId(order.
-         * getGroupPurchaseProductOptionId()).get()
-         * .getProductOptionId())
-         * .get();
-         * 
-         * model.addAttribute("gp_price" + orderId, gp.getPrice());
-         * model.addAttribute("gp_img" + orderId,
-         * productImageService.findListbyProductId(gp.getProductId()).get(0).
-         * getImagePath());
-         * model.addAttribute("gp_name" + orderId,
-         * productService.findOnebyId(gp.getProductId()).get().getName());
-         * model.addAttribute("gp_color" + orderId, po.getColor());
-         * model.addAttribute("gp_size" + orderId, po.getSize());
-         * });
-         */
         return "orders/orderListForm";
     }
 
