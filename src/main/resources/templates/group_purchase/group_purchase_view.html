@@ -40,7 +40,7 @@
                     <div class="gp-info-row"></div>
                     <div class="gp-info-row">
                         <span>소비자가</span>
-                        <span th:text="${product.originalPrice}"></span>
+                        <span style="text-decoration: line-through;" th:text="${product.originalPrice}"></span>
                     </div>
                     <div class="gp-info-row">
                         <span>판매가</span>
@@ -57,8 +57,8 @@
                                 </option>
                             </select>
                             <input th:if="${session.logInMember}" th:value="${session.logInMember.id}"
-                                name="memberId" />
-                            <input th:value="${gp.id}" name="groupPurchaseId" />
+                                name="memberId" style="display:none;"/>
+                            <input th:value="${gp.id}" name="groupPurchaseId" style="display:none;"/>
                             <p th:unless="${session.logInMember}">상품을 구매하려면 로그인이 필요합니다.</p>
                             <a th:unless="${session.logInMember}" href="/members/logIn"><button
                                     type="button">로그인</button></a>
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="gp-detail">
-
+                <img th:src="${product.bannerImagePath}" />
             </div>
             <div class="gp-review">
 
