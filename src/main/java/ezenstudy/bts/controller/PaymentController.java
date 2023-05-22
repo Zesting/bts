@@ -25,11 +25,10 @@ public class PaymentController {
 
     @PostMapping("/payment")
     public String kakaoPay(
-            @RequestParam("memberId") Long memberId,
-            @RequestParam("groupPurchaseId") Long groupPurchaseId,
-            @RequestParam("groupPurchaseProductOptionId") Long groupPurchaseProductOptionId)
-             {
-
+        @RequestParam("memberId") Long memberId,
+        @RequestParam("groupPurchaseId") Long groupPurchaseId,
+        @RequestParam("groupPurchaseProductOptionId") Long groupPurchaseProductOptionId) {
+       System.out.println(memberId + " | "+groupPurchaseId+" | "+groupPurchaseProductOptionId);
         log.info("kakaoPay post............................................");
 
         return "redirect:" + kakaopay.kakaoPayReady();
