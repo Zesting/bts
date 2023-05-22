@@ -1,86 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
+    <title>배송 조회</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>배송 조회</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-    <div id="tekbeCompnayListContainer">
-        <label for="tekbeCompnayList">택배사</label>
-        <select id="tekbeCompnayList" title="택배사 선택">
-            <option>선택해 주세요</option>
+    <h1>배송 조회</h1>
+    <div id="tracking">
+        <select id="trackinglist" title="배송상태">
+            <option>배송상태 선택</option>
+            <option value="1">배송 준비중</option>        
+            <option value="2">배송 중</option>
+            <option value="3">배송 완료</option>
         </select>
     </div>
-    <div id="invoiceNumberContainer">
-        <input type="text" id="invoiceNumberText" placeholder="송장번호를 입력하세요">
-        <button id="tButton">조회</button>
+    <div id="imageContainer">
+        <img id="trackingImage" alt="Tracking Image" src=" ">
     </div>
-    <div id="myPtag"></div>
-    <script>
-        $(document).ready(function(){
-            var jsonData = {
-                "Company": [
-                    {
-                        "Code": "01",
-                        "Name": "CJ대한통운"
-                    },
-                    {
-                        "Code": "02",
-                        "Name": "한진택배"
-                    },
-                    {
-                        "Code": "03",
-                        "Name": "우체국택배"
-                    },
-                    {
-                        "Code": "04",
-                        "Name": "로젠택배"
-                    }
-                ]
-            };
+    <script type="text/javascript">
+            $(document).ready(function() {
+            $("#trackinglist").change(() => {
+                let imageValue = $("#trackinglist").val();
+                let imageSrc = "";
 
-            var $select = $("#tekbeCompnayList");
-
-            $.each(jsonData.Company, function (index, company) {
-                $select.append($('<option></option>').attr('value', company.Code).text(company.Name));
-            });
-
-            $("#tButton").click(function() {
-                var selectCode = $select.val();
-                var invoiceNumber = $("#invoiceNumberText").val();
-
-                if(selectCode == "01" && invoiceNumber == "0") {
-                    $("#resultContainer").text("일치합니다");
-                } else {
-                    $("#resultContainer").text("일치하지않습니다.");
+                if (imageValue == "1") {
+                    imageSrc = "/images/tracking1.png";
+                } else if (imageValue == "2") {
+                    imageSrc = "/src/main/resources/static/images/tracking2.png";
+                } else if (imageValue == "3") {
+                    imageSrc = "/src/main/resources/static/images/tracking3.png";
                 }
+
+                $("#trackingImage").attr("src", imageSrc);
             });
-        });
+            });
     </script>
-  <!--  
-    <script src="/js/trackingcompany.js"></script>
-    <script>
-        $(document).ready(function(){
-            
-                // 택배사 목록 조회 company-api
-            $.ajax({
-                        type: "GET",
-                        dataType: "json",
-                        url: "/js/trackingcompany.js",  // 수정된 경로
-                        success: function (data) {
-                            var CompanyArray = data.Company;
-                            var myData = "";
-                            $.each(CompanyArray, function (key, value) {
-                            myData += '<option value="' + value.Code + '">' + 'key:' + key + ', Code:' + value.Code + ',Name:' + value.Name + '</option>';
-                            });
-                            $("#tekbeCompnayList").html(myData);
-                        }
-                    });
-                
-        });
-    </script> -->
 </body>
 </html>

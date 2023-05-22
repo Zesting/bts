@@ -3,6 +3,7 @@ package ezenstudy.bts.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -58,7 +59,7 @@ public class ReviewBoardService {
     //상품별 평균 별점
     public double starAverage(Long productId){  
         return boardRepository.findAll().stream().
-        filter(pi->pi.getProductId()== productId).
+        filter(pi->pi.getProductId().equals(productId)).
         mapToDouble(ReviewBoard::getStar).average().getAsDouble();
     }
 
@@ -72,4 +73,10 @@ public class ReviewBoardService {
         return boardRepository.reviewNum();
     }
 
+    // 해당 상품 모든 리뷰 불러오기
+    public List<ReviewBoard> findByProductId(Long productId){
+        return boardRepository.findAll().stream().
+        filter(prv->prv.getProductId().equals(productId)).
+        collect(Collectors.toList());
+    }
 }

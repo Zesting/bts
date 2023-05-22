@@ -48,7 +48,7 @@ public class MemoryGroupPurchaseRepository implements GroupPurchaseRepository{
     public MemoryGroupPurchaseRepository(){
         GroupPurchase gp1 = new GroupPurchase();
         gp1.setProductId(1l);
-        gp1.setPrice(300);
+        gp1.setPrice(56000);
         gp1.setInformation("나이키의 신상 농구화 판매개시");
         gp1.setSaleStart(LocalDateTime.of(2023, 4, 1, 15, 0, 0));
         gp1.setSaleEnd(LocalDateTime.of(2023, 5, 1, 0, 0, 0));
