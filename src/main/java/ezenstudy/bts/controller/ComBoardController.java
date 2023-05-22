@@ -1,5 +1,7 @@
 package ezenstudy.bts.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import ezenstudy.bts.domain.ComBoard;
 import ezenstudy.bts.service.ComBoardService;
@@ -40,12 +43,28 @@ public class ComBoardController {
         return "comboard/ComBoardwrite";
     }
 
+    /* upload */
+    @PostMapping("/comboard/create")
+    public String addFile(@RequestParam String filename,
+                            @RequestParam MultipartFile file) throws IOException {
+        System.out.println("filename = " + filename);
+
+        if(!file.isEmpty()){
+            String fullPath = "/C:/image/" + file.getOriginalFilename();
+            System.out.println("파일 저장 fullPath = " + fullPath);
+            file.transferTo(new File(fullPath));
+        }
+
+        return "comboard/comshow";
+    }
+    
     /* 답변 */
     // @GetMapping("/comboard/show/{id}/reply")
     // public String comboardreply(){
     //     return "comboard/comReply";
     // }
-
+    
+    // 답변 처리
     @GetMapping("/comboard/show/reply/{id}")
     public String showReplyForm(@PathVariable("id") Long id, Model model) {
         ComBoard comBoard = comBoardService.findById(id);
@@ -58,7 +77,6 @@ public class ComBoardController {
         return "comboard/comReply";
     }
 
-    // 답변 처리
     @PostMapping("/comboard/reply/{id}")
     public String submitReply(@PathVariable("id") Long id, @ModelAttribute("comBoard") ComBoard comBoard) {
         
