@@ -27,12 +27,6 @@ public class ReviewBoardController {
         this.reviewBoardService = reviewBoardService;
     }
 
-
-    @GetMapping("/nav")
-    public String menu(){
-        return "menu";
-    };
-
     @GetMapping("/reviewboard")
     public String index() {
         return "reviewboard/reviewhome";
@@ -45,8 +39,13 @@ public class ReviewBoardController {
 
     @PostMapping("/reviewboard/save")
     public String save(ReviewBoardDTO reviewBoardDTO) throws Exception {
-        if (reviewBoardDTO.getFile().isEmpty()) {
+        System.out.println(reviewBoardDTO.getFile().get(0).getOriginalFilename());
+        if (reviewBoardDTO.getFile().get(0).getOriginalFilename().equals("")) {
             reviewBoardService.save(reviewBoardDTO.toSaveReviewBaord());
+            ReviewImage reviewImage = new ReviewImage();
+            Long reviewBoardId = reviewBoardService.reviewBoardNum();
+            reviewImage.setReviewBoardId(reviewBoardId);
+            reviewImageService.nullSave(reviewImage);
         } else {
             reviewBoardService.save(reviewBoardDTO.toSaveFileReviewBaord());
             ReviewImage reviewImage;
@@ -73,10 +72,6 @@ public class ReviewBoardController {
         return "reviewboard/reviewlist";
     }
 
-    // @GetMapping("/reviewboard/reviewpaging")
-    // public String paging(Model model,@RequestParam(defaultValue = "1")){
-
-    // }
 
     @GetMapping("/reviewboard/{id}")
     public String findById(@PathVariable Long id, Model model) {

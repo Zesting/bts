@@ -75,6 +75,24 @@ li {
 .-header .menu > li.-icon > ul > li:first-child {
   margin: 0px;
 }
+#logout_button:hover {
+  cursor: pointer;
+}
+
+#order_button {
+  cursor: pointer;
+}
+#order_button:hover {
+  cursor: pointer;
+}
+
+#memberInfo_button {
+  cursor: pointer;
+}
+
+#memberInfo_button:hover {
+  cursor: pointer;
+}
 
 .-header .menu > li.-icon > ul > li a {
   display: block;

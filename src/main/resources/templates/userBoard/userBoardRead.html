@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BTS</title>
+  <!-- 입력버튼 스타일/ 부트스트랩 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
@@ -14,12 +15,20 @@
   <!-- 제이쿼리 -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <style>
+    /* 임시 테이블 스타일 */
     .tdLine {
       border: 1px solid red;
     }
 
     .commentTr {
       text-align: center;
+    }
+
+    /* 추천 하트 스타일 */
+    #offerBtn {
+      border: none;
+      background-color: white;
+      font-size: 20px;
     }
   </style>
 </head>
@@ -46,6 +55,8 @@
   <!-- <button type="button" class="btn btn-primary" th:onclick="'deleteBtn('+ ${userBoard.boardId} +')'">삭제</button> -->
   <a href="http://localhost:8080/userBoard/Home"><button type="button" class="btn btn-primary">리스트</button></a>
 
+  <!-- offerCount는 멤버당 true / false를 카운팅하여 갯수를 표시한다. 그럴라면 멤버관련 데이터가 있어야한다? -->
+  <button id="offerBtn">&#129293;</button>
 
   <!-- 댓글 -->
   <p style="display: block;">
@@ -72,7 +83,8 @@
           <td th:text="'id: '+${comment.id}" class="tdLine" th:id="'id'+${comment.id}"></td>
           <td th:text="'멤버id: '+${comment.memberId}" class="tdLine"></td>
           <td>
-            <textarea th:id="'content'+${comment.id}" name="dd" disabled>[[${comment.commentContent}]]</textarea>
+            <textarea th:id="'content'+${comment.id}" th:name="'cTextarea'+${comment.id}"
+              disabled>[[${comment.commentContent}]]</textarea>
           </td>
           <td th:text="'작성시간: '+${comment.commentDate}" class="tdLine"></td>
           <td><button th:onclick="'modifyComment(' + ${comment.id} + ')'" class="btn btn-primary" type="button"
@@ -82,11 +94,13 @@
               type="button" >삭제</button></a></td> 위에는 a태그로 하는법-->
           <td><button th:onclick="'commentDeleteBtn('+${comment.boardId}+','+${comment.id}+')'" class="btn btn-primary"
               type="button">삭제</button></td>
+          <!-- 2번째 방법으로 버튼을 누르면 버튼2개와 텍스트에어리어를 생성해서 수정하려 시도했지만 1번방법으로 변경 -->
           <!-- <td><button th:onclick="fun()" class="btn btn-primary" type="button">Create button</button></td> -->
         </form>
       </tr>
     </tbody>
   </table>
+  <!-- js 파일 만들어서 변경할것. -->
   <script>
     function deleteBtn() {//게시글 삭제 버튼 수정중
       location.href = "/userBoard/Delete/${id}"
@@ -97,59 +111,50 @@
     }
 
     //댓글 수정버튼
-    let a = -1;
-    // const modifyComment = ((commentId) => {
-    function modifyComment(commentId)  {
-      
-      // let b = document.getElementById('content' + commentId);
-      // const btn = document.getElementById("modifyBtn" + commentId);
-      // const cid = document.getElementById("id" + commentId);
-      // const textarea = document.querySelector('#content' + commentId)
+    let modifyBtn = -1;
+    const modifyComment = ((commentId) => {
+      const btn = document.getElementById("modifyBtn" + commentId);
+      var textarea = document.querySelector('#content' + commentId);
 
       // return (()=>{
-        if (a == -1) {
-        const btn = document.getElementById("modifyBtn" + commentId);
+      if (modifyBtn == -1) {
         const cid = document.getElementById("id" + commentId);
         cid.innerHTML = 'id: ' + commentId;
-
-        const textarea = document.querySelector('#content' + commentId)
-        // 수정 가능 상태로 전환
+        //수정 가능 상태로 전환
         textarea.disabled = false;
-        
         //버튼 글씨 바꾸기
         const html = '수정완료';
         btn.innerText = html;
-        //클릭한 버튼들 말고 다른 버튼들은 비활성화 기능을 넣으면?
-        // $("#modifyBtn"+commentId).click(function () {
-        $(document).ready(function(){
-          $('button:not("#modifyBtn'+commentId+'")').attr("disabled", true);
+        //클릭한 버튼제외하고 나머지 버튼 비활성화
+        $(document).ready(function () {
+          $('button:not("#modifyBtn' + commentId + '")').attr("disabled", true);
           $('#userBoardComment').attr("disabled", true);
         });
-        
-    // $("#modifyBtn"+commentId).attr("disabled", false);
-  
         //버튼 토글
-        a = 1;
-      } else if (a == 1) {
-        const btn = document.getElementById("modifyBtn" + commentId);
-        const textarea = document.querySelector('#content' + commentId);
+        modifyBtn = 1;
+      } else if (modifyBtn == 1) {
         textarea.disabled = true;
-        //텍스트에어리어 저장하는게 와야함.
+        //텍스트에어리어 저장하는게 와야함.//종민이 추천 > form태그로 포스팅
+        //각종 객체의 정보들을 불러와서 함께 저장해서 모델로?
+        textarea.setAttribute("name", 'textarea' + commentId);
+        textarea.value = textarea.value
+        console.log('댓글내용 :' + textarea.value);
+        // form 태그 생성 & 속성부여
+        let formComment = document.createElement('form');
+        formComment.setAttribute("method", "post");
+        formComment.setAttribute("action", "/userBoard/comment/" + commentId + "/update")
+
+        // formComment.submit();  //현재 서밋하면 리셋됨...
 
         const html = '수정btn ' + commentId;
         btn.innerText = html;
         //버튼 다시 활성화
-        $(document).ready(function(){
-          $('button:not("#modifyBtn'+commentId+'")').attr("disabled", false);
+        $(document).ready(function () {
+          $('button:not("#modifyBtn' + commentId + '")').attr("disabled", false);
           $('#userBoardComment').attr("disabled", false);
         });
-        a = -1;
+        modifyBtn = -1;
       }
-
-      console.log("현재" + a);
-      // const btn = document.getElementById("modifyBtn"+commentId);
-      // const html = '수정완료';
-      // btn.innerText = html;
 
       //댓글 작성 텍스트에어리어에 값을 불러와서 표시
       // let data = document.querySelector('#content' + commentId); //요소 선택후 저장
@@ -158,8 +163,7 @@
       // ta.innerHTML = data.innerHTML //textarea에 출력
 
       // });
-    };
-    // })();
+    });
 
     // 2번째 생각한것. 버튼을 누르면 textarea랑 수정완료, 취소 버튼이 생김. 1번쨰 방법으로 진행중이랑 잠시 보류
     function fun() {
@@ -176,8 +180,29 @@
       document.body.appendChild(cancleBtn);
     }
 
+    //하트 누르면 빨간색/하얀색 토글. 추천기능
+    document.getElementById("offerBtn").addEventListener("click", offerClick);
+    const redHeart = `&#129293;`;
+    const whiteHeart = `&#10084;`;
+    const offerBtn = document.getElementById("offerBtn");
+    let value = false;
+    function offerClick() {
+      console.log('초기:' + value)
+      if (value == true) {
+        offerBtn.innerHTML = redHeart;
+        //상품id, 멤버id, offer상태 카운트+1 저장하여 전송해야함
+
+        console.log('if: ' + value);
+      } else {
+        offerBtn.innerHTML = whiteHeart;
+        //상품id, 멤버id, offer상태 카운트-1 삭제하기
+
+        console.log('else: ' + value);
+      }
+      value = !value;
+    }
+
   </script>
-  <!-- <button th:onclick="fun()" class="btn btn-primary">Create button</button> -->
 </body>
 
 

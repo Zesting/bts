@@ -1,9 +1,9 @@
 package ezenstudy.bts.domain;
 
 
-import lombok.Data;
-
 import java.time.LocalDateTime;
+
+import lombok.Data;
 
 @Data
 public class ComBoard {

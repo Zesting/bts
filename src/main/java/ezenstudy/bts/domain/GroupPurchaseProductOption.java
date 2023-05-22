@@ -1,5 +1,6 @@
 package ezenstudy.bts.domain;
 
+import ezenstudy.bts.DTO.GroupPurchaseProductOptionDTO;
 import lombok.Data;
 
 @Data
@@ -8,5 +9,12 @@ public class GroupPurchaseProductOption {
     private Long groupPurchaseId;
     private Long productOptionId;
     private Integer quantity;
-    private Integer price;
+
+    public GroupPurchaseProductOptionDTO transferToDTO(){
+        GroupPurchaseProductOptionDTO dto = new GroupPurchaseProductOptionDTO();
+        dto.setId(id);
+        dto.setGroupPurchaseId(groupPurchaseId);
+        dto.setQuantity(quantity);
+        return dto;
+    }
 }

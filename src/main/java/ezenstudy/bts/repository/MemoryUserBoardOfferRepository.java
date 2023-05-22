@@ -10,7 +10,7 @@ import ezenstudy.bts.domain.UserBoardOffer;
 
 public class MemoryUserBoardOfferRepository implements UserBoardOfferRepository{
     private static Map<Long, UserBoardOffer> store = new HashMap<>();
-    private static long sequence = 0L;   //sequence와 같다.
+    // private static long sequence = 0L;   //sequence와 같다.
   
 
     @Override
@@ -19,15 +19,27 @@ public class MemoryUserBoardOfferRepository implements UserBoardOfferRepository{
     }
 
     @Override
-    public Optional<UserBoardOffer> findbyId(Long id) {
+    public Optional<UserBoardOffer> findById(Long id) {
         return Optional.ofNullable(store.get(id));
     }
 
     @Override
-    public UserBoardOffer offerCount(UserBoardOffer userBoardOffer) {
-        userBoardOffer.setOfferCount(++sequence);
-        store.put(userBoardOffer.getOfferCount(),userBoardOffer);
+    public Integer offerCount(Integer userBoardOfferCount) {
+        //offerCount가 트루일때만 카운팅해주는 조건문 필요
+        return userBoardOfferCount;
+    }
+
+    @Override
+    public UserBoardOffer save(UserBoardOffer userBoardOffer) {
+        //정보들 저장할 것 넣기
         return userBoardOffer;
     }
+
+    @Override
+    public Optional<UserBoardOffer> delete(Long memberId) {
+       return null;
+    }
+
+    
       
 }

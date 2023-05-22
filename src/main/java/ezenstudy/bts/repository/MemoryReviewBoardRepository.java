@@ -61,5 +61,4 @@ public class MemoryReviewBoardRepository implements ReviewBoardRepository {
     public MemoryReviewBoardRepository(){
 
     }
-
 }

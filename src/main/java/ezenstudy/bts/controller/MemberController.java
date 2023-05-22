@@ -126,13 +126,10 @@ public class MemberController {
 
     /** 로그아웃 기능 */
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.getAttribute("logInMember");
-
-        if (session != null) {
-            session.removeAttribute("logInMember");
-        }
+        session.removeAttribute("logInMember");
         return "redirect:/";
     }
 
@@ -201,10 +198,13 @@ public class MemberController {
         return "redirect:/";
     }
 
+    /** 내 정보 보기 */
     @GetMapping("/members/viewMemberInfo")
     public String viewMemberInfo(Model model, HttpSession session) {
         Member originalMember = (Member) session.getAttribute("logInMember");
+        Addr originalAddr = addrService.findAddr(originalMember.getId()).get();
         model.addAttribute("updateMember", originalMember);
+        model.addAttribute("updateAddr", originalAddr);
         return "members/viewUpdate";
     }
 
@@ -268,7 +268,7 @@ public class MemberController {
 
     @ResponseBody
     @PostMapping("/members/dropMember")
-    public String dropMember(Model model, DropMemberDTO dropMemberDTO) {
+    public String dropMember(Model model, DropMemberDTO dropMemberDTO, HttpSession session) {
         Optional<Member> dropMember = memberService.VerificationMember(dropMemberDTO.getName(),
                 dropMemberDTO.getLogId(),
                 dropMemberDTO.getLogPwd());
@@ -278,11 +278,10 @@ public class MemberController {
             memberService.DropMember(dropMember.get());
             addrService.DropAddr(dropMember.get().getId());
             return "<script>alert('" + dropMember.get().getName()
-                    + "님의 회원 탈퇴가 정상적으로 수행되었습니다.');history.go(-2);</script>";
+                    + "님의 회원 탈퇴가 정상적으로 수행되었습니다.');window.location = '/logout';</script>";
         } else {
             return "<script>alert('회원 정보를 조회하지 못했습니다. 다시 입력해주세요!');history.go(-1);</script>";
         }
-
     }
 
 }

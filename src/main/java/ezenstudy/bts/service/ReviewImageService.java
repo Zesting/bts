@@ -18,13 +18,19 @@ public class ReviewImageService {
         this.reviewImageRepository = reviewImageRepository;
     }
 
+    public void nullSave(ReviewImage reviewImage){
+        reviewImage.setFile(null);
+        reviewImage.setFileName(null);
+        reviewImage.setFilePath(null);
+        reviewImageRepository.save(reviewImage);
+    }
     public void fileSave(ReviewImage reviewImage) {
 
         // 랜덤 파일명(중복안되게)
         UUID uuid = UUID.randomUUID();
         String fileName;
         // 파일경로 설정 (user.dir = 현재 디렉토리)
-        String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+        String savePath = System.getProperty("user.dir")+"/src/main/resources/static/files/";
         // 저장될 파일 이름
         fileName = uuid + "_" + reviewImage.getFile().getOriginalFilename();
         // 파일 저장 경로,이름
