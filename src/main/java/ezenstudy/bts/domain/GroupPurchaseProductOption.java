@@ -12,6 +12,7 @@ public class GroupPurchaseProductOption {
 
     public GroupPurchaseProductOptionDTO transferToDTO(){
         GroupPurchaseProductOptionDTO dto = new GroupPurchaseProductOptionDTO();
+        dto.setId(id);
         dto.setGroupPurchaseId(groupPurchaseId);
         dto.setQuantity(quantity);
         return dto;

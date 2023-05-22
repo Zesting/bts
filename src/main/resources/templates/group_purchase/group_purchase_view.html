@@ -12,20 +12,19 @@
 </head>
 
 <body>
-    <header
-        th:replace="~{/fragments/header.html :: fragment-header}">
+    <header th:replace="~{/fragments/header.html :: fragment-header}">
     </header>
     <div class="container">
         <div class="gp-contents">
             <div class="row">
                 <div class="gp-imgArea">
                     <div class="gp-img-main-wrap">
-                        <img class="gp-img-main" th:if="${images[0]}" th:src="${images[0].imagePath}"/>
+                        <img class="gp-img-main" th:if="${images[0]}" th:src="${images[0].imagePath}" />
                     </div>
                     <div class="gp-img-nav">
                         <ul>
                             <li th:each="image : ${images}">
-                                <img th:src="${image.imagePath}"/>
+                                <img th:src="${image.imagePath}" />
                             </li>
                         </ul>
                     </div>
@@ -50,21 +49,26 @@
                     </div>
                     <hr>
                     <div class="gp-info-row">
-                        <form>
-                        <select th:if="${session.logInMember}" id="gp-select">
-                            <option disabled selected>옵션을 선택해주세요</option>
-                            <option class="gp-option" th:each="gppo : ${GPPOList}" th:value="${gppo.id}">[[${gppo.optionColor}]] | [[${gppo.optionSize}]] | 남은수량: [[${gppo.quantity}]]</option>
-                        </select>
-                        <input th:if="${session.logInMember}" th:value="${session.logInMember.id}"/>
-                        <p th:unless="${session.logInMember}">상품을 구매하려면 로그인이 필요합니다.</p>
-                        <a th:unless="${session.logInMember}" href="/members/logIn"><button type="button">로그인</button></a>
-                        <button th:if="${session.logInMember}" type="submit">바로구매</button>
-                    </form>
+                        <form action="/payment" method="post">
+                            <select th:if="${session.logInMember}" id="gp-select" name="groupPurchaseProductOptionId">
+                                <option disabled selected>옵션을 선택해주세요</option>
+                                <option class="gp-option" th:each="gppo : ${GPPOList}" th:value="${gppo.id}">
+                                    [[${gppo.optionColor}]] | [[${gppo.optionSize}]] | 남은수량: [[${gppo.quantity}]]
+                                </option>
+                            </select>
+                            <input th:if="${session.logInMember}" th:value="${session.logInMember.id}"
+                                name="memberId" />
+                            <input th:value="${gp.id}" name="groupPurchaseId" />
+                            <p th:unless="${session.logInMember}">상품을 구매하려면 로그인이 필요합니다.</p>
+                            <a th:unless="${session.logInMember}" href="/members/logIn"><button
+                                    type="button">로그인</button></a>
+                            <button th:if="${session.logInMember}" type="submit">바로구매</button>
+                        </form>
                     </div>
                 </div>
             </div>
             <div class="gp-detail">
-                
+
             </div>
             <div class="gp-review">
 
@@ -79,10 +83,10 @@
         {
             let oriPrice = /*[[${product.originalPrice}]]*/"#";
             let salePrice = /*[[${gp.price}]]*/"##";
-            if(oriPrice != "#" && salePrice != "##"){
-                $("#discount_rate").text(parseInt(100*(1 - salePrice / oriPrice))+"%↓↓");
-            }else if(oriPrice == salePrice){
-            }else{
+            if (oriPrice != "#" && salePrice != "##") {
+                $("#discount_rate").text(parseInt(100 * (1 - salePrice / oriPrice)) + "%↓↓");
+            } else if (oriPrice == salePrice) {
+            } else {
                 $("#discount_rate").text("error");
             }
         }
