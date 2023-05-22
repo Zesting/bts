@@ -84,55 +84,55 @@ public class MemoryGroupPurchaseProductOptionRepository implements GroupPurchase
         GroupPurchaseProductOption gppo5 = new GroupPurchaseProductOption();
         gppo5.setGroupPurchaseId(2l);
         gppo5.setProductOptionId(5l);
-        gppo5.setQuantity(342);
+        gppo5.setQuantity(34);
         save(gppo5);
 //--
         GroupPurchaseProductOption gppo6 = new GroupPurchaseProductOption();
         gppo6.setGroupPurchaseId(3l);
         gppo6.setProductOptionId(6l);
-        gppo6.setQuantity(342);
+        gppo6.setQuantity(31);
         save(gppo6);
 
         GroupPurchaseProductOption gppo7 = new GroupPurchaseProductOption();
         gppo7.setGroupPurchaseId(3l);
         gppo7.setProductOptionId(7l);
-        gppo7.setQuantity(342);
+        gppo7.setQuantity(35);
         save(gppo7);
 
         GroupPurchaseProductOption gppo8 = new GroupPurchaseProductOption();
         gppo8.setGroupPurchaseId(3l);
         gppo8.setProductOptionId(8l);
-        gppo8.setQuantity(342);
+        gppo8.setQuantity(42);
         save(gppo8);
 
         GroupPurchaseProductOption gppo9 = new GroupPurchaseProductOption();
         gppo9.setGroupPurchaseId(3l);
         gppo9.setProductOptionId(9l);
-        gppo9.setQuantity(342);
+        gppo9.setQuantity(32);
         save(gppo9);
 
         GroupPurchaseProductOption gppo10 = new GroupPurchaseProductOption();
         gppo10.setGroupPurchaseId(3l);
         gppo10.setProductOptionId(10l);
-        gppo10.setQuantity(342);
+        gppo10.setQuantity(37);
         save(gppo10);
 
         GroupPurchaseProductOption gppo11 = new GroupPurchaseProductOption();
         gppo11.setGroupPurchaseId(3l);
         gppo11.setProductOptionId(11l);
-        gppo11.setQuantity(342);
+        gppo11.setQuantity(21);
         save(gppo11);
 
         GroupPurchaseProductOption gppo12 = new GroupPurchaseProductOption();
         gppo12.setGroupPurchaseId(3l);
         gppo12.setProductOptionId(12l);
-        gppo12.setQuantity(342);
+        gppo12.setQuantity(2);
         save(gppo12);
 
         GroupPurchaseProductOption gppo13 = new GroupPurchaseProductOption();
         gppo13.setGroupPurchaseId(3l);
         gppo13.setProductOptionId(13l);
-        gppo13.setQuantity(342);
+        gppo13.setQuantity(76);
         save(gppo13);
 
         GroupPurchaseProductOption gppo14 = new GroupPurchaseProductOption();
