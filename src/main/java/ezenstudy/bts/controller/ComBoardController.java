@@ -58,12 +58,29 @@ public class ComBoardController {
         return "comboard/comshow";
     }
     
-    /* 답변 */
-    // @GetMapping("/comboard/show/{id}/reply")
-    // public String comboardreply(){
-    //     return "comboard/comReply";
+    @GetMapping("/comboard/answer/{id}")
+    public String answer(Model model, @PathVariable("id") Long id){
+        ComBoard comBoard = comBoardService.findById(id);
+        model.addAttribute(("comBoard"), comBoard);
+        return "comboard/comboardanswer";
+    }
+
+    @PostMapping("/comboard/answer")
+    public String answerpost(@RequestParam("comboardId") String comboardId, @RequestParam("answer") String answer) {
+        System.out.println("comboardId: " + comboardId);
+        System.out.println("answer: " + answer);
+
+        return "redirect:/";
+    }
+
+
+    // @PostMapping("/comboard/answer")
+    // public String answerpost(Model model){
+    //     System.out.println("comboardId: "+(String)model.getAttribute("getComboardId()"));
+    //     System.out.println("answer: "+(String)model.getAttribute("getAnswer()"));
+
+    //     return "redirect:/";
     // }
-    
     // 답변 처리
     @GetMapping("/comboard/show/reply/{id}")
     public String showReplyForm(@PathVariable("id") Long id, Model model) {

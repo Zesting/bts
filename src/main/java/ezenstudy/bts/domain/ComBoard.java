@@ -14,6 +14,7 @@ public class ComBoard {
     private LocalDateTime createAt;  // 생성일자
     private String createdBy;  // 생성자
     private String BN;  // 사업자 번호
+    private String answer; // 답변
     private boolean filled; // new property
     //private MultipartFile file;
 

@@ -15,10 +15,11 @@
             </h1>
         </div>
         <div>
-            <h1>방문예정</h1>
+            <h1>5/22(월) 출고예정</h1>
+            <h3>고객님이 주문하신 상품이 출고예정입니다.</h3>
         </div>
         <div class="trackingimg">
-            <img src="/bts/src/main/resources/static/images/tracking.png">
+            <img src="/bts/src/main/resources/static/images/tracking1.png">
         </div>
     </header>
 
@@ -27,10 +28,26 @@
     </div>
     <ul>
         <li>
-            <h4>택배사</h4>
+            <h4>BTS택배</h4>
         </li>
         <li>
-            <h4>송장번호</h4>
+            <h4>송장번호: <span th:text="${tracking.t_invoice}"></span></h4>
+        </li>
+        <li>
+            <h4>회사 연락처: <span th:text="${tracking.t_code}"></span></h4>
+        </li>
+    </ul>
+    <ul>
+        <li>
+            <h4>받는 사람  <span th:text="${addr.memberName}"></span> </h4>
+        </li>
+        <li>
+            <h4>받는 주소  <span th:text="${addr.streatAddr}" ></span>
+                            <span th:text="${addr.detailAddr}"></span>                
+            </h4>
+        </li>
+        <li>
+            <h4>상품수령방법   </h4>
         </li>
     </ul>
 </body>
