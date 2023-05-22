@@ -17,27 +17,31 @@ import lombok.extern.java.Log;
 public class PaymentController {
     @Setter(onMethod_ = @Autowired)
     private KakaoPayService kakaopay;
-    
-    
+
     @GetMapping("/payment")
     public void kakaoPayGet() {
-        
+
     }
-    
+
     @PostMapping("/payment")
-    public String kakaoPay() {
+    public String kakaoPay(
+            @RequestParam("memberId") Long memberId,
+            @RequestParam("groupPurchaseId") Long groupPurchaseId,
+            @RequestParam("groupPurchaseProductOptionId") Long groupPurchaseProductOptionId)
+             {
+
         log.info("kakaoPay post............................................");
-        
+
         return "redirect:" + kakaopay.kakaoPayReady();
- 
+
     }
-    
+
     @GetMapping("/paymentSuccess")
     public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
         log.info("paymentSuccess get............................................");
         log.info("paymentSuccess pg_token : " + pg_token);
-        
+
         model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
-        
+
     }
 }

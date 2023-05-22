@@ -22,6 +22,9 @@ public class MemoryPaymentRepository implements PaymentRepository {
         return payment;
     }
 
-    
+    @Override
+    public Payment findOne(Long id) {
+        return store.get(id);
+    }
     
 }
