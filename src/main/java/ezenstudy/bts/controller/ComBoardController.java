@@ -58,32 +58,65 @@ public class ComBoardController {
         return "comboard/comshow";
     }
     
-    /* 답변 */
-    // @GetMapping("/comboard/show/{id}/reply")
-    // public String comboardreply(){
+    @GetMapping("/comboard/answer/{id}")
+    public String answer(Model model, @PathVariable("id") Long id){
+        ComBoard comBoard = comBoardService.findById(id);
+        model.addAttribute("comBoard", comBoard);
+        return "comboard/comboardanswer";
+    }
+
+    @PostMapping("/comboard/answer")
+    public String answerpost(@RequestParam("comboardId") Long id, @RequestParam("answer") String answer, Model model) {
+
+        ComBoard comBoard = comBoardService.findById(id);
+        model.addAttribute("comBoard", comBoard);
+        
+         return "comboard/comshow";
+        //return "redirect:/";
+    }
+
+    // @PostMapping("/comboard/answer")
+    // public String answerpost(@RequestParam("comboardId") String comboardId, @RequestParam("answer") String answer, Model model) {
+
+    //     System.out.println("comboardId: " + comboardId);
+    //     System.out.println("answer: " + answer);
+
+    //     Long id = Long.parseLong(comboardId);
+    //     ComBoard comBoard = comBoardService.findById(id);
+    //     model.addAttribute("comBoard", comBoard);
+        
+    //      return "comboard/comshow";
+    //     //return "redirect:/";
+    // }
+
+
+    // @PostMapping("/comboard/answer")
+    // public String answerpost(Model model){
+    //     System.out.println("comboardId: "+(String)model.getAttribute("getComboardId()"));
+    //     System.out.println("answer: "+(String)model.getAttribute("getAnswer()"));
+
+    //     return "redirect:/";
+    // }
+    // 답변 처리
+    // @GetMapping("/comboard/show/reply/{id}")
+    // public String showReplyForm(@PathVariable("id") Long id, Model model) {
+    //     ComBoard comBoard = comBoardService.findById(id);
+    //     if (comBoard == null){
+    //         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ComBoard not found");
+    //     }
+    //     model.addAttribute("comBoard", comBoard);
+    //     String bn = comBoard.getBN();
+    //     model.addAttribute("bn", bn);
     //     return "comboard/comReply";
     // }
-    
-    // 답변 처리
-    @GetMapping("/comboard/show/reply/{id}")
-    public String showReplyForm(@PathVariable("id") Long id, Model model) {
-        ComBoard comBoard = comBoardService.findById(id);
-        if (comBoard == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ComBoard not found");
-        }
-        model.addAttribute("comBoard", comBoard);
-        String bn = comBoard.getBN();
-        model.addAttribute("bn", bn);
-        return "comboard/comReply";
-    }
 
-    @PostMapping("/comboard/reply/{id}")
-    public String submitReply(@PathVariable("id") Long id, @ModelAttribute("comBoard") ComBoard comBoard) {
+    // @PostMapping("/comboard/reply/{id}")
+    // public String submitReply(@PathVariable("id") Long id, @ModelAttribute("comBoard") ComBoard comBoard) {
         
-        return "redirect:/comboard/list";
-    }
+    //     return "redirect:/comboard/list";
+    // }
 
-
+    /** show */
     @PostMapping("/show")
     public String createComBoard(ComBoard comBoard) {
         ComBoard savedComBoard = comBoardService.save(comBoard);

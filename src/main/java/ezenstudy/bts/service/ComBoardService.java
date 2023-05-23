@@ -42,6 +42,7 @@ public class ComBoardService {
         comBoard.setTitle(updatedComBoard.getTitle());
         comBoard.setContent(updatedComBoard.getContent());
         comBoard.setBN(updatedComBoard.getBN());
+        comBoard.setAnswer(updatedComBoard.getAnswer());
         return comBoardRepository.save(comBoard);
     }
 
