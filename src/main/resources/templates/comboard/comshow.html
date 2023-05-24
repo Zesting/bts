@@ -12,11 +12,11 @@
         <p>내용: <span th:text="${comBoard.content}"></span></p>
         <p>작성자: <span th:text="${comBoard.createdBy}"></span></p>
         <p>사업자 번호: <span th:text="${comBoard.BN}"></span></p>
-        <p>답변: <span th:text="${comBoard.answer}"></span></p>
 
         <form method="post">
             <button type="submit" formaction="/comboard/list">목록</button>
             <button type="submit" th:formaction="@{/comboard/modify/{id}(id=${comBoard.id})}" formmethod="get">수정</button>
+            <!-- <button type="submit" th:formaction="@{/comboard/answer/{id}(id=${comBoard.id})}" formmethod="get">답변</button> -->
             <!-- <button type="submit" th:formaction="@{/comboard/show/reply/{id}(id=${comBoard.id})}" formmethod="get">답변</button> -->
         </form>
         
@@ -26,16 +26,8 @@
             <button type="submit">삭제</button>
         </form>
         <hr>
-
         
         <h2>답변</h2>
-        <table>
-            <tr>
-                <td th:utext="${comBoard.getAnswer()}"></td>
-            </tr>
-        </table>
-        <!-- <tr>
-            <th><span th:text="${comBoard.answer}">dd</span>dd</th>
-        </tr> -->
+        <p><span th:text="${comBoard.answer}"></span></p>
 </body>
 </html>

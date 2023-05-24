@@ -61,18 +61,27 @@ public class ComBoardController {
     @GetMapping("/comboard/answer/{id}")
     public String answer(Model model, @PathVariable("id") Long id){
         ComBoard comBoard = comBoardService.findById(id);
+
+        if (comBoard != null){
         model.addAttribute("comBoard", comBoard);
         return "comboard/comboardanswer";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "comBoard not found");
+        }
     }
 
     @PostMapping("/comboard/answer")
     public String answerpost(@RequestParam("comboardId") Long id, @RequestParam("answer") String answer, Model model) {
 
+        System.out.println("comboardId: " + id);
+        System.out.println("answer: " + answer);
+        
         ComBoard comBoard = comBoardService.findById(id);
+        comBoard.setAnswer(answer);
+        comBoardService.save(comBoard);
         model.addAttribute("comBoard", comBoard);
         
          return "comboard/comshow";
-        //return "redirect:/";
     }
 
     // @PostMapping("/comboard/answer")

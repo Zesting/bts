@@ -59,7 +59,11 @@ public class ComBoardService {
     }
 
     public ComBoard findById(Long id) {
-        Optional<ComBoard> comBoard = Optional.ofNullable(comBoardRepository.findById(id));
-        return comBoard.orElse(null);
+        return comBoardRepository.findById(id);
     }
+
+    // public ComBoard findById(Long id) {
+    //     Optional<ComBoard> comBoard = Optional.ofNullable(comBoardRepository.findById(id));
+    //     return comBoard.orElse(null);
+    // }
 }
