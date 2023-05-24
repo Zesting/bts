@@ -24,13 +24,16 @@ public class KakaoPayApprovalVO {
     // 결제준비 요청 시각 / 결제승인 시각
     private Date created_at, approved_at;
 
-        public Payment paymentVoSave() {
+        public Payment paymentVoSave(Long memberId, Long gpId) {
             Payment payment = new Payment();
             payment.setAmount(amount.getTotal());
             payment.setApprovalDate(approved_at);
             payment.setPaymentType(payment_method_type);
             payment.setCardName(card_info.getIssuer_corp());
-            payment.setDiscount(amount.getDiscount());
+            payment.setTid(tid);
+            payment.setMemberId(memberId);
+            payment.setGroupPurchaseId(gpId);
+            payment.setProductName(item_name);
             return payment;
         }
 }
