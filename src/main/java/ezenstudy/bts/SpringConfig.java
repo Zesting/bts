@@ -118,4 +118,5 @@ public class SpringConfig {
         return new ComBoardService(comBoardRepository());
     }
 
+
 }

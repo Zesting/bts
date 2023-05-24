@@ -111,6 +111,17 @@ public class MemoryAddrRepository implements AddrRepository {
         a6.setStreetAddr("강원도 춘천시 대로면 구나읍 창쿠리 64-88");
         a6.setDetailAddr("논밭 지나 전원주택");
         save(a6);
+
+        for (int i = 1; i <= 9; i++) {
+            Addr a = new Addr();
+            a.setMemberId(7 + i);
+            a.setMemberName("유령회원" + i);
+            a.setZipCode("8472" + i);
+            a.setStreetAddr("서울특별시 관악구 가리봉동 더 조은 아파트 " + i + "동");
+            a.setDetailAddr(i + "2" + i + "호");
+            save(a);
+        }
+
     }
 
 }

@@ -43,6 +43,7 @@ public class MemoryComBoardRepository implements ComBoardRepository{
             existing.setCreatedBy(comBoard.getCreatedBy());
             existing.setBN(comBoard.getBN());
             existing.setFilled(comBoard.isFilled());
+            existing.setAnswer(comBoard.getAnswer());
         }
         comBoardMap.put(id,existing);
         return existing;
@@ -53,6 +54,35 @@ public class MemoryComBoardRepository implements ComBoardRepository{
         comBoardMap.remove(id);
     }
 
+    /* 더미 데이터 */
+    public MemoryComBoardRepository() {
+        ComBoard co0 = new ComBoard();
+        co0.setId(1L);
+        co0.setTitle("등록 요청합니다.");
+        co0.setContent("콜라보 신발 신청합니다.");
+        co0.setCreatedBy("김콜라");
+        co0.setBN("123");
+        co0.setCreateAt(LocalDateTime.now());
+        save(co0);
 
+        ComBoard co1 = new ComBoard();
+        co1.setId(3L);
+        co1.setTitle("등록 요청합니다.");
+        co1.setContent("콜라보 신발 신청합니다.");
+        co1.setCreatedBy("김콜라");
+        co1.setBN("123");
+        co1.setCreateAt(LocalDateTime.now());
+        save(co1);
+
+        ComBoard co2 = new ComBoard();
+        co2.setId(5L);
+        co2.setTitle("등록 요청합니다.");
+        co2.setContent("콜라보 신발 신청합니다.");
+        co2.setCreatedBy("김콜라");
+        co2.setBN("123");
+        co2.setCreateAt(LocalDateTime.now());
+        save(co2);
+
+    }
 
 }

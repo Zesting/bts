@@ -73,7 +73,7 @@ public class MemoryMemberRepository implements MemberRepository {
     public MemoryMemberRepository() {
         Member m0 = new Member();
         m0.setLogId("ez");
-        m0.setLogPwd("1234");
+        m0.setLogPwd("qwer1234");
         m0.setName("이젠");
         m0.setAge((byte) 25);
         m0.setSocialNum("001122");
@@ -154,6 +154,32 @@ public class MemoryMemberRepository implements MemberRepository {
         m6.setInnerDate(LocalDate.now());
         m6.setLogTime(LocalTime.now());
         save(m6);
+
+        Member m7 = new Member();
+        m7.setLogId("user1");
+        m7.setLogPwd("qwer1234");
+        m7.setName("유령회원1");
+        m7.setAge((byte) 24);
+        m7.setSocialNum("990112");
+        m7.setPhonNum("010-9876-1237");
+        m7.setEmail("user1@naver.com");
+        m7.setInnerDate(LocalDate.now());
+        m7.setLogTime(LocalTime.now());
+        save(m7);
+
+        for (int i = 2; i <= 9; i++) {
+            Member m = new Member();
+            m.setLogId("user" + i);
+            m.setLogPwd("qwer1234");
+            m.setName("유령회원" + i);
+            m.setAge((byte) (24 + i));
+            m.setSocialNum("990112");
+            m.setPhonNum("010-9876-123" + i);
+            m.setEmail("user" + i + "@naver.com");
+            m.setInnerDate(LocalDate.now());
+            m.setLogTime(LocalTime.now());
+            save(m);
+        }
     }
 
 }

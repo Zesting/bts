@@ -8,12 +8,18 @@
   </head>
   <body>
     <header th:replace="~{/fragments/header.html :: fragment-header}"></header>
-    <pre>
-[[${gp_name1}]]
-        [[${gp_price1}]]
-        [[${gp_img1}]]
-        [[${gp_color1}]]
-        [[${gp_size1}]]
+    <pre th:each="order : ${orderList}">
+      [[${order.getOrderId()}]]
+      [[${['gp_name' + order.getOrderId()]}]]
+      [[${['gp_color' + order.getOrderId]}]]
+      [[${['gp_size' + order.getOrderId]}]]
+      [[${['gp_price' + order.getOrderId]}]]
+      [[${['gp_image' + order.getOrderId]}]]
+      <img th:src="@{${['gp_image' + order.getOrderId()]}}" alt="" style="height: 200px; height: 200px;">
+      [[${['gp_pay' + order.getOrderId]}]]
+      [[${['gp_del' + order.getOrderId]}]]
+      [[${['gp_sa' + order.getOrderId]}]]
+      [[${['gp_da' + order.getOrderId]}]]
     </pre>
   </body>
 </html>

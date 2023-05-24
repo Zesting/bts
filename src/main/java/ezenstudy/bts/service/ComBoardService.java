@@ -42,6 +42,7 @@ public class ComBoardService {
         comBoard.setTitle(updatedComBoard.getTitle());
         comBoard.setContent(updatedComBoard.getContent());
         comBoard.setBN(updatedComBoard.getBN());
+        comBoard.setAnswer(updatedComBoard.getAnswer());
         return comBoardRepository.save(comBoard);
     }
 
@@ -58,7 +59,11 @@ public class ComBoardService {
     }
 
     public ComBoard findById(Long id) {
-        Optional<ComBoard> comBoard = Optional.ofNullable(comBoardRepository.findById(id));
-        return comBoard.orElse(null);
+        return comBoardRepository.findById(id);
     }
+
+    // public ComBoard findById(Long id) {
+    //     Optional<ComBoard> comBoard = Optional.ofNullable(comBoardRepository.findById(id));
+    //     return comBoard.orElse(null);
+    // }
 }
