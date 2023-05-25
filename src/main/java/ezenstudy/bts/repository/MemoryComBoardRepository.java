@@ -21,7 +21,7 @@ public class MemoryComBoardRepository implements ComBoardRepository{
 
     @Override
     public ComBoard save(ComBoard comBoard) {
-        if (comBoard.getId() == null) {
+        if (comBoard.getId() == null || !comBoardMap.containsKey(comBoard.getId())) {
             comBoard.setId(nextId.getAndIncrement());
         }
         comBoard.setCreateAt(LocalDateTime.now());
@@ -66,7 +66,7 @@ public class MemoryComBoardRepository implements ComBoardRepository{
         save(co0);
 
         ComBoard co1 = new ComBoard();
-        co1.setId(3L);
+        co1.setId(2L);
         co1.setTitle("등록 요청합니다.");
         co1.setContent("콜라보 신발 신청합니다.");
         co1.setCreatedBy("김콜라");
@@ -75,7 +75,7 @@ public class MemoryComBoardRepository implements ComBoardRepository{
         save(co1);
 
         ComBoard co2 = new ComBoard();
-        co2.setId(5L);
+        co2.setId(3L);
         co2.setTitle("등록 요청합니다.");
         co2.setContent("콜라보 신발 신청합니다.");
         co2.setCreatedBy("김콜라");
