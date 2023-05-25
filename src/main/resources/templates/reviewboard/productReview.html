@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품별 리뷰</title>
 </head>
+
 <body>
     <div class="container" th:fragment="fragment-productReview">
         <link rel="stylesheet" th:href="@{/css/reviewlist.css}">
@@ -38,7 +40,8 @@
                     </p>
                     <div class="review-images-grid">
                         <div th:each="image:${imageList}" class="review-image" id="review-image">
-                            <img th:if="${image.filePath!=null && image.reviewBoardId==review.id}" th:src="${image.filePath}">
+                            <img th:if="${image.filePath!=null && image.reviewBoardId==review.id}"
+                                th:src="${image.filePath}">
                         </div>
                     </div>
                 </div>
@@ -78,6 +81,7 @@
         });
 
     </script>
-    
+
 </body>
+
 </html>
