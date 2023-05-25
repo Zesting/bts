@@ -1,5 +1,6 @@
 package ezenstudy.bts.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import ezenstudy.bts.DTO.ReviewBoardDTO;
@@ -39,26 +41,30 @@ public class ReviewBoardController {
 
     @PostMapping("/reviewboard/save")
     public String save(ReviewBoardDTO reviewBoardDTO) throws Exception {
-        if (reviewBoardDTO.getFile().get(0).getOriginalFilename().equals("")) {
-            reviewBoardService.save(reviewBoardDTO.toSaveReviewBaord());
-            ReviewImage reviewImage = new ReviewImage();
-            Long reviewBoardId = reviewBoardService.reviewBoardNum();
-            reviewImage.setReviewBoardId(reviewBoardId);
-            reviewImageService.nullSave(reviewImage);
-        } else {
-            reviewBoardService.save(reviewBoardDTO.toSaveFileReviewBaord());
-            ReviewImage reviewImage;
-            Long reviewBoardId = reviewBoardService.reviewBoardNum();
-            for (MultipartFile file : reviewBoardDTO.getFile()) {
-                reviewImage = new ReviewImage();
+        String imgfile = reviewBoardDTO.getFile().get(0).getOriginalFilename();
+        if (imgfile != null) {
+            if (imgfile.equals("")) {
+                reviewBoardService.save(reviewBoardDTO.toSaveReviewBaord());
+                ReviewImage reviewImage = new ReviewImage();
+                Long reviewBoardId = reviewBoardService.reviewBoardNum();
                 reviewImage.setReviewBoardId(reviewBoardId);
-                reviewImage.setFile(file);
-                reviewImageService.fileSave(reviewImage);
+                reviewImageService.nullSave(reviewImage);
+            } else {
+                reviewBoardService.save(reviewBoardDTO.toSaveFileReviewBaord());
+                ReviewImage reviewImage;
+                Long reviewBoardId = reviewBoardService.reviewBoardNum();
+                for (MultipartFile file : reviewBoardDTO.getFile()) {
+                    reviewImage = new ReviewImage();
+                    reviewImage.setReviewBoardId(reviewBoardId);
+                    reviewImage.setFile(file);
+                    reviewImageService.fileSave(reviewImage);
+                }
             }
         }
         return "redirect:/reviewboard";
     }
 
+    // 전체리뷰
     @GetMapping("/reviewboardlist")
     public String findAll(Model model) {
         // db전체 게시글 데이터를 가져와서 보여줌
@@ -72,6 +78,24 @@ public class ReviewBoardController {
     }
 
 
+    // 상품별 리뷰
+    @GetMapping("/productReview")
+    public String productList(@RequestParam("productId") Long productId, Model model) {
+        int reviewSize = reviewBoardService.findByProductId(productId).size();
+        model.addAttribute("reviewSize", reviewSize);
+        List<ReviewBoard> reviewList = reviewBoardService.findByProductId(productId);
+        model.addAttribute("reviewList", reviewList);
+        List<ReviewImage> imageList = new ArrayList<>();
+        for(ReviewBoard reviewBoard : reviewList){
+            Long boardId = reviewBoard.getId();
+            ReviewImage img = reviewImageService.findOneImage(boardId);
+            imageList.add(img);
+        }
+        model.addAttribute("imageList", imageList);
+
+        return "reviewboard/productReview";
+    }
+
     @GetMapping("/reviewboard/{id}")
     public String findById(@PathVariable Long id, Model model) {
         // 게시글의 조회수를 하나 올리고 게시글 데이터를 가져와서 detail.html에 출력
@@ -81,7 +105,7 @@ public class ReviewBoardController {
         List<ReviewImage> reviewImage = reviewImageService.findByReviewImages(id);
         model.addAttribute("images", reviewImage);
         return "reviewboard/reviewdetail";
-    }   
+    }
 
     @GetMapping("/reviewboard/update/{id}")
     public String updateForm(@PathVariable Long id, Model model) {

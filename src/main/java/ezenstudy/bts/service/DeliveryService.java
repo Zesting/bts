@@ -13,6 +13,7 @@ public class DeliveryService {
         this.deliveryRepository = deliveryRepository;
     }
 
+
     public List<Delivery> getAllDelivery(){
         return deliveryRepository.findAll();
     }
@@ -24,4 +25,5 @@ public class DeliveryService {
     public List<Delivery> findAllDeliveries() {
         return deliveryRepository.findAll();
     }
+
 }

@@ -42,17 +42,19 @@ public class KakaoPayService {
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "caab353b4b3e2459f386010dd152803d");
-        headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
+        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-        params.add("cid", "TC0ONETIME");
-        params.add("partner_order_id", "306");
-        params.add("partner_user_id", "gorany");
-        params.add("item_name", productName);
-        params.add("quantity", "1");
-        params.add("total_amount", String.valueOf(gp.getPrice()));
-        params.add("tax_free_amount", "100");
+        //밑에 3개는 결제승인이랑 일치해야함
+        params.add("cid", "TC0ONETIME"); 
+        params.add("partner_order_id", "306"); 
+        params.add("partner_user_id", "gorany"); 
+        
+        params.add("item_name", productName); // 상품명 받아옴
+        params.add("quantity", "1"); 
+        params.add("total_amount", String.valueOf(gp.getPrice())); // 상품가격 받아옴
+        params.add("tax_free_amount", "100"); // 비과세금액 더미값
 
         params.add("approval_url", "http://localhost:8080/payment/paymentSuccess");
         params.add("cancel_url", "http://localhost:8080/paymentCancel");
@@ -105,11 +107,14 @@ public class KakaoPayService {
         params.add("partner_user_id", "gorany");
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
-
+        
+        // 카카오페이한테 kakaoPayApprovalVO 로 값받아오기
         try {
             kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body,
                     KakaoPayApprovalVO.class);
             log.info("" + kakaoPayApprovalVO);
+            
+            //여기서 카카오페이에서 kakaoPayApprovalVO 로 받은 값들 MemoryRepository에 저장
             paymentRepository.save(kakaoPayApprovalVO.paymentVoSave(memberId,gpId));
             
 
@@ -125,6 +130,8 @@ public class KakaoPayService {
         return null;
     }
 
+
+    //결제취소
     public KakaoCancelResponse kakaoCancel() {
 
          // 서버로 요청할 Header
