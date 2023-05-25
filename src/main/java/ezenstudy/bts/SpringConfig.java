@@ -118,5 +118,13 @@ public class SpringConfig {
         return new ComBoardService(comBoardRepository());
     }
 
+    @Bean
+    public DeliveryRepository deliveryRepository() {
+        return new MemoryDeliveryRepository();
+    }
 
+    @Bean
+    public DeliveryService deliveryService() {
+        return new DeliveryService(deliveryRepository());
+    }
 }
