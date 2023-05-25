@@ -118,4 +118,8 @@ public class SpringConfig {
         return new ComBoardService(comBoardRepository());
     }
 
+    @Bean
+    public UserBoardOfferService userBoardOfferService() {
+        return new UserBoardOfferService();
+    }
 }
