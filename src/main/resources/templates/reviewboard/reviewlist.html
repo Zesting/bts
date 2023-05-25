@@ -6,101 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>list</title>
-    <style>
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: left;
-            border-top: 2px solid #272424;
-            border-bottom: 1px solid ;
-        }
-
-        .review-images {
-            margin-top: 20px;
-        }
-
-        .review-images-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: left;
-            margin-top: 10px;
-        }
-
-        .review-images {
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
-
-        .review-list {
-            margin-top: 40px;
-        }
-
-        .review {
-            margin-bottom: 30px;
-            border-bottom: 2px solid rgb(169, 169, 169);
-
-        }
-
-        /* 상단 전체이미지 style */
-        .allImage {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .slides {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .slide {
-            flex-shrink: 0;
-            width: 19%;
-            margin-right: 1%;
-        }
-
-        .prev,
-        .next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 2rem;
-            height: 2rem;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-        }
-
-        .prev {
-            left: 0;
-        }
-
-        .next {
-            right: 0;
-        }
-
-        img {
-            width: 50px;
-            height: 50px;
-        }
-
-        .star-rating {
-            font-size: 24px;
-            letter-spacing: 2px;
-            display: inline-block;
-        }
-
-        .star {
-            color: #ccc;
-        }
-
-        .active {
-            color: #ffcc00;
-        }
-    </style>
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" th:fragment="fragment-review">
+        <link rel="stylesheet" th:href="@{/css/reviewlist.css}">
+
         <h2>고객 후기(<span th:text="${reviewSize}"></span>)</h2>
         <p>해당 상품 평점</p>
 
@@ -129,45 +40,54 @@
                     </p>
                     <div class="review-images-grid">
                         <div th:each="image:${imageList}" class="review-image" id="review-image">
-                            <img th:if="${image.filePath!=null && image.reviewBoardId==review.id}" th:src="${image.filePath}">
+                            <img th:if="${image.filePath!=null && image.reviewBoardId==review.id}"
+                                th:src="${image.filePath}">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <script>
+            const viewAllImagesBtn = document.getElementById('view-all-images-btn');
+            const reviewImagesGrid = document.querySelector('.review-images-grid');
+            const reviewImages = document.querySelectorAll('.review-image');
 
-    <script>
-        const viewAllImagesBtn = document.getElementById('view-all-images-btn');
-        const reviewImagesGrid = document.querySelector('.review-images-grid');
-        const reviewImages = document.querySelectorAll('.review-image');
+            viewAllImagesBtn.addEventListener('click', () => {
+                const uniqueImages = new Set();
 
-        viewAllImagesBtn.addEventListener('click', () => {
-            const popup = window.open('', '', 'width=800,height=600');
-            const popupContent = `
+                Array.from(reviewImages).forEach(reviewImage => {
+                    const imgSrc = reviewImage.querySelector('img').getAttribute('src');
+                    uniqueImages.add(imgSrc);
+                });
+
+                const popup = window.open('', '', 'width=800,height=600');
+                const popupContent = `
         <style>
-        .popup-images-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .popup-image {
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
+            .popup-images-grid {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .popup-image {
+                margin-right: 10px;
+                margin-bottom: 10px;
+            }
         </style>
         <div class="popup-images-grid">
-      ${Array.from(reviewImages).map(reviewImage => `
-        <div class="popup-image">
-          ${reviewImage.innerHTML}
+            ${Array.from(uniqueImages).map(imgSrc => `
+                <div class="popup-image">
+                    <img src="${imgSrc}">
+                </div>
+            `).join('')}
         </div>
-      `).join('')}
-    </div>
     `;
-            popup.document.write(popupContent);
-        });
 
-    </script>
+                popup.document.write(popupContent);
+            });
+        </script>
+    </div>
+
+
 </body>
 
 </html>

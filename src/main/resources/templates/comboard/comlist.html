@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+  <header th:replace="~{/fragments/header.html :: fragment-header}"></header>
 <h1>회사 요청 게시판</h1>
 <table>
   <thead>
@@ -23,6 +24,7 @@
     <td>
       <!-- <a th:href="@{/comboard/show/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a> -->
       <a th:href="@{/comboard/check-bn/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a>
+      <span th:if="${comBoard.answer != null}">(new)</span>
     </td>
     <td th:text="${comBoard.createdBy}"></td>
     <td th:text="${comBoard.createAt}"></td>
@@ -31,7 +33,6 @@
 </table>
 <form method="post">
 <button type="submit" th:formaction="@{/comboard/create}" formmethod="get">작성</button>
-<!-- <a th:href="@{/comboard/create}">작성</a> -->
 </form>
 </body>
 </html>

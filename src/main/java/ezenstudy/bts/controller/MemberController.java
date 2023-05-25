@@ -12,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ezenstudy.bts.DTO.DropMemberDTO;
@@ -24,6 +24,7 @@ import ezenstudy.bts.domain.Addr;
 import ezenstudy.bts.domain.Member;
 import ezenstudy.bts.service.AddrService;
 import ezenstudy.bts.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -94,17 +95,32 @@ public class MemberController {
 
     /** 로그인 GetMapping */
     @GetMapping("/members/logIn")
-    public String loginForm(@ModelAttribute LogInDTO logInDTO) {
+    public String loginForm(@ModelAttribute LogInDTO logInDTO, HttpSession session, HttpServletRequest request) {
+        session.setAttribute("previousURL", request.getHeader("Referer"));
+        System.out.println("get에서의 Referer1 : " + request.getHeader("Referer"));
         System.out.println("로그인 폼 이동");
         return "members/logInForm";
+    }
+
+    @GetMapping("/members/logIn/orderView")
+    public String logIn_orderView(HttpSession session) {
+        session.getAttribute("logInMember");
+        return "members/logIn_orderView";
+    }
+
+    @GetMapping("/members/logIn/myPage")
+    public String logIn_myPageView(HttpSession session) {
+        session.getAttribute("logInMember");
+        return "members/logIn_myPage";
     }
 
     /** 로그인 PostMapping */
     @PostMapping("/members/logIn")
     public String logIn(@ModelAttribute @Validated LogInDTO logInDTO,
             BindingResult bindingResult,
-            @RequestParam(defaultValue = "/") String redirectURL,
-            HttpSession session) {
+            /* @RequestParam(defaultValue = "/") String redirectURL, */
+            HttpSession session,
+            HttpServletRequest request) {
 
         /** 타입 미스 매치 또는 바인딩된 로그인 정보로 조회가 불가능하면 로그인 폼으로 리턴 */
 
@@ -118,10 +134,16 @@ public class MemberController {
             bindingResult.reject("logInFail", "아이디 또는 비밀번호가 맞지 않습니다.");
             return "members/logInForm";
         }
+
         session.setAttribute("logInMember", logInMember);
 
-        /** 로그인 성공하면 기본 화면으로 리턴 */
-        return "redirect:" + redirectURL;
+        String previousURL = (String) session.getAttribute("previousURL");
+        System.out.println("Post에서의 previousURL : " + previousURL);
+        if (previousURL == null) {
+            return "redirect:/";
+        }
+        /** 로그인 성공하면 이전 화면으로 리턴 */
+        return "redirect:" + previousURL;
     }
 
     /** 로그아웃 기능 */

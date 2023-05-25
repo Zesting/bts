@@ -14,8 +14,38 @@ public class ComBoard {
     private LocalDateTime createAt;  // 생성일자
     private String createdBy;  // 생성자
     private String BN;  // 사업자 번호
-    private boolean filled; // new property
+    private String answer; // 답변
+
+    private String filename; // 파일이름
+    private String filepath; // 파일경로
+
+    public String getFilename() {
+        return this.filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public String getFilepath() {
+        return this.filepath;
+    }
+
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
+    }
+
+    // private boolean filled; // new property
     //private MultipartFile file;
+
+
+    public String getAnswer() {
+        return this.answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
 
     public Long getId() {
         return id;
@@ -65,13 +95,13 @@ public class ComBoard {
         this.BN = BN;
     }
 
-    public boolean isFilled() {
-        return filled;
-    }
+    // public boolean isFilled() {
+    //     return filled;
+    // }
 
-    public void setFilled(boolean filled) {
-        this.filled = filled;
-    }
+    // public void setFilled(boolean filled) {
+    //     this.filled = filled;
+    // }
 
     public ComBoard orElse(Object object) {
         return null;

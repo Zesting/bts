@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+  </head>
+
+  <body>
+    결제일시: [[${info.approved_at}]]<br />
+    주문번호: [[${info.partner_order_id}]]<br />
+    상품명: [[${info.item_name}]]<br />
+    상품수량: [[${info.quantity}]]<br />
+    결제금액: [[${info.amount.total}]]<br />
+    결제방법: [[${info.payment_method_type}]]<br />
+
+    <tr th:each="pay : ${payment}">
+      <td th:text="${pay.id}"></td>
+      <td th:text="${pay.groupPurchaseId}"></td>
+      <td th:text="${pay.memberId}"></td>
+      <td th:text="${pay.productName}"></td>
+      <td th:text="${pay.amount}"></td>
+      <td th:text="${pay.approvalDate}"></td>
+      <td th:text="${pay.cardName}"></td>
+      <td th:text="${pay.paymentType}"></td>
+      <td th:text="${pay.tid}"></td>
+      <br /><br />
+    </tr>
+
+    <h2>[[${info}]]</h2>
+
+    <pre>
+    [[${orderId}]], [[${order_gpId}]], [[${order_mbId}]] , [[${order_gppoId}]]
+</pre
+    >
+  </body>
+</html>

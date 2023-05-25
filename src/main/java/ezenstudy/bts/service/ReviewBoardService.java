@@ -68,6 +68,7 @@ public class ReviewBoardService {
         return boardRepository.findAllSize();
     }
 
+
     //save boardId
     public Long reviewBoardNum() {
         return boardRepository.reviewNum();

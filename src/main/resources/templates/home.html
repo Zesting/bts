@@ -1,47 +1,64 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <style>
-      button {
-        height: 200px;
-        width: 400px;
-        background-color: rgb(200, 200, 200);
-        border: 10px outset gray;
-        margin: 300px auto 0;
-      }
-      button > a {
-        font-size: 40px;
-      }
-      p > a {
-        box-sizing: border-box;
-        float: left;
-        border: 3px solid hotpink;
-        background-color: black;
-        color: wheat;
-        font-size: large;
-        text-align: center;
-        margin-left: 3px;
-      }
-    </style>
-  </head>
-  <body>
-    <div th:replace="/fragments/header.html :: fragment-header"></div>
-    <div th:replace="/fragments/headnav.html :: fragment-nav"></div>
 
-    <button><a href="/grouppurchase">공동구매</a></button>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    button {
+      height: 200px;
+      width: 400px;
+      background-color: rgb(200, 200, 200);
+      border: 10px outset gray;
+      margin: 300px auto 0;
+    }
+
+    button>a {
+      font-size: 40px;
+    }
+
+    p>a {
+      box-sizing: border-box;
+      float: left;
+      border: 3px solid hotpink;
+      background-color: black;
+      color: wheat;
+      font-size: large;
+      text-align: center;
+      margin-left: 3px;
+    }
+    .functions{
+      width: 100%;
+      height: 40%;
+    }
+  </style>
+</head>
+
+<body>
+  <div th:replace="~{/fragments/header.html :: fragment-header}"></div>
+  <div th:replace="~{/fragments/headnav.html :: fragment-nav}"></div>
+
+  <br><br>
+  <div class="functions">
+    <p><a href="/grouppurchase">공동구매</a></p>
     <p><a href="/members">회원 리스트</a></p>
     <p><a href="/addr">주소 리스트</a></p>
-    <p><a href="/members/findId">아이디 찾기</a></p>
-    <p><a href="/members/findPwd">비밀번호 찾기</a></p>
-    <p><a href="/members/dropMember">회원 탈퇴</a></p>
     <p><a href="/reviewboard">리뷰게시판</a></p>
     <p><a href="/userBoard/Home">회원요청 게시판</a></p>
     <p><a href="/tracking/tracking">배송조회</a></p>
-    <a href="/comboard/list"><button>회사요청 리스트</button></a>
-  </body>
+    <p><a href="/comboard/list">회사요청 리스트</a></p>
+  </div>
+  <br><br><br>
+
+
+
+
+  <div th:replace="~{fragments/footer.html :: fragment-footer}"></div>
+</body>
+
 </html>

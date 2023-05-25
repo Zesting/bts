@@ -119,13 +119,16 @@ public class SpringConfig {
     }
 
     @Bean
-    public TrackingRepository trackingRepository() {
-        return new MemoryTrackingRepository();
+    public DeliveryRepository deliveryRepository() {
+        return new MemoryDeliveryRepository();
     }
 
     @Bean
-    public TrackingService trackingService() {
-        return new TrackingService(trackingRepository());
+    public DeliveryService deliveryService() {
+        return new DeliveryService(deliveryRepository());
     }
-
+    @Bean
+    public UserBoardOfferService userBoardOfferService() {
+        return new UserBoardOfferService();
+    }
 }
