@@ -1,8 +1,12 @@
 package ezenstudy.bts.service;
 
+import java.io.File;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import ezenstudy.bts.domain.ComBoard;
 import ezenstudy.bts.repository.ComBoardRepository;
@@ -42,13 +46,14 @@ public class ComBoardService {
         comBoard.setTitle(updatedComBoard.getTitle());
         comBoard.setContent(updatedComBoard.getContent());
         comBoard.setBN(updatedComBoard.getBN());
+        comBoard.setAnswer(updatedComBoard.getAnswer());
         return comBoardRepository.save(comBoard);
     }
-
+    //삭제
     public void delete(Long id) {
         comBoardRepository.delete(id);
     }
-
+    // BN입력창
     public ComBoard getComBoard(Long id, String BN) {
         ComBoard comBoard = comBoardRepository.findById(id).orElse(null);
         if (comBoard != null && comBoard.getBN().equals(BN)) {
@@ -58,7 +63,20 @@ public class ComBoardService {
     }
 
     public ComBoard findById(Long id) {
-        Optional<ComBoard> comBoard = Optional.ofNullable(comBoardRepository.findById(id));
-        return comBoard.orElse(null);
+        return comBoardRepository.findById(id);
+    }
+
+    public void addFile(ComBoard comBoard, MultipartFile file) throws Exception{
+
+        UUID uuid = UUID.randomUUID();
+
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/";
+        String fileName = uuid + "_" + file.getOriginalFilename();
+
+        File saveFile = new File(projectPath, fileName);
+
+        file.transferTo(saveFile);
+
+        comBoardRepository.save(comBoard);
     }
 }

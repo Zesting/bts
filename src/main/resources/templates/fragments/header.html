@@ -84,10 +84,10 @@
                 </li>
                 <!--비로그인이면 로그인 페이지/로그인이면 주문조회 페이지  -->
                 <li th:if="${session.logInMember == null}">
-                  <a id="order_button" onclick="order_confirm()">주문조회</a>
+                  <a id="order_button" onclick="order_confirm()">주문목록</a>
                 </li>
                 <li th:if="${session.logInMember != null}">
-                  <a th:href="@{/members/viewMemberInfo}">주문조회</a>
+                  <a th:href="@{/order/myOrder}">주문목록</a>
                 </li>
                 <!--비로그인이면 로그인 페이지/로그인이면 주문조회 페이지  -->
                 <li th:if="${session.logInMember == null}">
@@ -99,7 +99,22 @@
                   <a th:href="@{/members/viewMemberInfo}">마이페이지</a>
                 </li>
                 <!-- 회원 정보 찾기(아이디/ 비밀번호) -->
-                <li><a href="#">커뮤니티</a></li>
+                <li class="-layerMenuWarp">
+                  <a href="#">커뮤니티</a>
+                  <div class="layerMenu">
+                    <ul class="boardInfo">
+                      <li class="board-record">
+                        <a href="#">내공동구매요청</a>
+                      </li>
+                      <li class="board-record">
+                        <a href="#">내리뷰보기</a>
+                      </li>
+                      <li class="board-record">
+                        <a href="#">내댓글보기</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
                 <li><a href="#">찾기박스</a></li>
               </ul>
             </div>
@@ -108,6 +123,7 @@
         </div>
         <!-- full-frame -->
       </div>
+
       <div class="full-frame">
         <div class="sec02">
           <div class="ex-top-left">

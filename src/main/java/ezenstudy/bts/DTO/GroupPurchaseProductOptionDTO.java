@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class GroupPurchaseProductOptionDTO {
+    Long id;
     Long groupPurchaseId;
     Long productId;
     String optionColor;

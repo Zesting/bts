@@ -1,5 +1,6 @@
 package ezenstudy.bts.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -92,10 +93,19 @@ public class GroupPurchaseController {
             Product product = productService.findOnebyId(gp.getProductId()).get();
             List<ProductImage> images = productImageService.findListbyProductId(gp.getProductId());
             List<GroupPurchaseProductOption> GPPOList = groupPurchaseProductOptionService.findListbyGroupPurchaseId(id);
+            //옵션값을 꺼내서 대입해서 내보냄
+            List<GroupPurchaseProductOptionDTO> gppos = new ArrayList<>();
+            GPPOList.stream().forEach(gppo -> {
+                GroupPurchaseProductOptionDTO dto =  gppo.transferToDTO();
+                dto.setOptionColor(productOptionService.findOnebyId(gppo.getProductOptionId()).get().getColor());
+                dto.setOptionSize(productOptionService.findOnebyId(gppo.getProductOptionId()).get().getSize());
+                gppos.add(dto);
+            });
+
             model.addAttribute("gp", gp);
             model.addAttribute("product", product);
             model.addAttribute("images", images);
-            model.addAttribute("GPPOList", GPPOList);
+            model.addAttribute("GPPOList", gppos);
 
         }else{
             model.addAttribute("msg", "해당 판매글을 찾지 못했습니다.");

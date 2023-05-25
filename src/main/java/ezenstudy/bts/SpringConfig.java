@@ -119,6 +119,15 @@ public class SpringConfig {
     }
 
     @Bean
+    public DeliveryRepository deliveryRepository() {
+        return new MemoryDeliveryRepository();
+    }
+
+    @Bean
+    public DeliveryService deliveryService() {
+        return new DeliveryService(deliveryRepository());
+    }
+    @Bean
     public UserBoardOfferService userBoardOfferService() {
         return new UserBoardOfferService();
     }

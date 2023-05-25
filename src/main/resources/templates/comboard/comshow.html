@@ -13,43 +13,23 @@
         <p>작성자: <span th:text="${comBoard.createdBy}"></span></p>
         <p>사업자 번호: <span th:text="${comBoard.BN}"></span></p>
 
+        <p><a th:href="@{${comBoard.filepath}}">다운받기</a></p>
+
         <form method="post">
             <button type="submit" formaction="/comboard/list">목록</button>
             <button type="submit" th:formaction="@{/comboard/modify/{id}(id=${comBoard.id})}" formmethod="get">수정</button>
-            <button type="submit" th:formaction="@{/comboard/show/reply/{id}(id=${comBoard.id})}" formmethod="get">답변</button>
+            <!-- <button type="submit" th:formaction="@{/comboard/answer/{id}(id=${comBoard.id})}" formmethod="get">답변</button> -->
+            <!-- <button type="submit" th:formaction="@{/comboard/show/reply/{id}(id=${comBoard.id})}" formmethod="get">답변</button> -->
         </form>
         
-        <!-- <a type="button" th:href="@{/comboard/reply}">답변</a> -->
 
         <form th:action= "@{/comboard/delete/{id}(id=${comBoard.id})}" method="POST">
             <input type="hidden" name="_method" value="DELETE">
             <button type="submit">삭제</button>
         </form>
-
-        <!-- 댓글  -->
-        <form th:action="@{/comcomment(id=${comBoard.id})}" method="post" id="comment-form">
-            <p>
-                <label>작성자</label> <input type="text" name="writer">
-            </p>
-            <p>
-                <label>
-                    <textarea name="content" rows="5" cols="50"></textarea>
-                </label>
-            </p>
-            <p>
-                <button type="submit">댓글 작성</button>
-            </p>
-            <script>
-        // 댓글 작성 후 페이지 새로고침
-        document.querySelector('#comment-form').addEventListener('submit', function() {
-            location.reload();
-        });
-    </script>
-        </form>
-        <script>
-            document.querySelector('#comment-form').addEventListener('submit', function() {
-                location.reload();
-            });
-        </script>
+        <hr>
+        
+        <h2>답변</h2>
+        <p><span th:text="${comBoard.answer}"></span></p>
 </body>
 </html>
