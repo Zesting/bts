@@ -32,7 +32,7 @@
                 <div class="gp-infoArea">
                     <div class="gp-info-row">
                         <h3 th:text="${product.name}"></h3>
-                        <p th:if="${product.brand}" th:text="${product.brand}"></p>
+                        <p th:if="${product.brand}" th:text="${product.brand}" style="font-weight: 800;"></p>
                     </div>
                     <div class="gp-info-row">
                         <pre>[[${gp.information}]]</pre>
@@ -40,11 +40,11 @@
                     <div class="gp-info-row"></div>
                     <div class="gp-info-row">
                         <span>소비자가</span>
-                        <span style="text-decoration: line-through;" th:text="${product.originalPrice}"></span>
+                        <span style="text-decoration: line-through;" th:text="${#numbers.formatDecimal(product.originalPrice, 0, 'COMMA', 0, 'POINT')+'원'}"></span>
                     </div>
                     <div class="gp-info-row">
                         <span>판매가</span>
-                        <span th:text="${gp.price}"></span>
+                        <span th:text="${#numbers.formatDecimal(gp.price, 0, 'COMMA', 0, 'POINT')+'원'}" style="width:auto"></span>
                         <span id="discount_rate"></span>
                     </div>
                     <hr>
