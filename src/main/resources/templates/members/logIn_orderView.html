@@ -1,0 +1,26 @@
+<html lang="ko" xmlns="http://www.thymeleaf.org">
+  <!-- <body sessionId="${sessionId}" />
+
+  <script>
+    var sessionId = document.body.getAttribute("sessionId");
+    console.log(sessionId);
+    if (sessionId === null) {
+      alert("로그인이 필요한 항목입니다. 로그인을 수행해주세요.");
+      window.location.href = "/members/logIn";
+    } else {
+      window.location.href = "/order/myOrder ";
+    }
+  </script> -->
+
+  <p th:if="${session.logInMember == null}">
+    <script>
+      alert("로그인일 필요한 항목입니다. 로그인을 수행해주세요.");
+      window.location.href = "/members/logIn";
+    </script>
+  </p>
+  <p th:if="${session.logInMember != null}">
+    <script>
+      window.location.href = "/order/myOrder";
+    </script>
+  </p>
+</html>
