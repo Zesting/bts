@@ -57,4 +57,14 @@ public class UserBoardCommentService {
     LocalDateTime now = LocalDateTime.now();
     return LocalDateTime.parse(now.format(formatter), formatter);
   }
+
+  public Long update(UserBoardComment userBoardComment){
+    UserBoardComment original = userBoardCommentRepository.findById(userBoardComment.getId()).get();
+    userBoardComment.setBoardId(original.getBoardId());
+    // userBoardComment.setCommentContent(userBoardComment.getCommentContent()); 
+    userBoardComment.setMemberId(original.getMemberId());
+    userBoardComment.setCommentDate(FormDateTime());
+    userBoardCommentRepository.updateComment(userBoardComment);
+    return userBoardComment.getId();
+  }
 }

@@ -6,13 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        footer * {
+            list-style-type: none;
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        .-footer .footerinfowrap .footerinfo .title {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0 0 15px;
+        }
+
         .-footer {
             width: 100%;
             margin: 0px 0 0 0;
             font-size: 13px;
             background: #fff;
             border-top: 1px solid #e8e8e8;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
         }
 
         footer {
@@ -20,14 +38,10 @@
         }
 
         .-footer .footerinfowrap {
-            padding: 50px 0;
+            padding: 30px 0;
         }
 
-        @media screen and (max-width: 767px) {
-            .-framefull {
-                padding: 0 60px;
-            }
-        }
+
 
         .-framefull {
             position: relative;
@@ -46,25 +60,15 @@
             display: table-column-group;
         }
 
-        table {
+        footer table {
             width: 100%;
             border: 0;
             border-spacing: 0;
             border-collapse: collapse;
-        }
-
-        table {
-            width: 100%;
-            border: 0;
-            border-spacing: 0;
-            border-collapse: collapse;
-        }
-
-        table {
-            border-collapse: separate;
             text-indent: initial;
-            border-spacing: 2px;
         }
+
+
 
         .-footer .copyrightinfo {
             border-top: 1px solid #e8e8e8;
@@ -83,12 +87,98 @@
             -o-box-sizing: border-box;
             box-sizing: border-box;
         }
+
+        .-footer .footerinfowrap table td {
+            vertical-align: top;
+            word-break: break-all;
+            word-wrap: break-word;
+            text-align: left;
+            padding: 0 30px;
+            border: 0;
+        }
+
+        .-framefull table tbody tr {
+
+            display: table-row;
+            vertical-align: inherit;
+            border-color: inherit;
+
+        }
+
+        #snswrapper {
+            height: 100%;
+            display: flex;
+            margin: 0 auto;
+            max-width: 1180px;
+            padding: 0;
+            overflow: auto;
+        }
+
+        #snswrapper a {
+            height: 35px;
+            width: 35px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-size: 17px;
+            color: rgb(240, 240, 240);
+            background: rgb(0, 0, 0);
+            margin: 0 4px;
+            border: 2px solid rgb(254, 254, 254);
+            transition: all 0.3s ease;
+        }
+
+        #snswrapper a:hover {
+            color: rgb(0, 0, 0);
+            background-color: white;
+        }
+
+        .businesscard ul {
+            text-align: left;
+            padding-bottom: 20px;
+        }
+
+        .businesscard ul li span {
+            font-size: 12px;
+        }
+
+        .-footer .copyrightinfo .copyright {
+            float: left;
+        }
+
+        .guideLink ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: right;
+        }
+
+        .guideLink ul li {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .guideLink ul li:first-child {
+            margin-left: 0;
+        }
+
+        .callnum {
+            font-size: 15px;
+        }
+
+        .call p {
+            margin: 12px 0;
+        }
+
+        .footerinfo .footerinfocontent p {
+            margin: 12px 0;
+        }
     </style>
 </head>
 
 <body>
 
-    <footer id="-footer" class="-footer">
+    <footer id="-footer" class="-footer" th:fragment="fragment-footer">
+        <link rel="stylesheet" th:href="@{/css/footer.css}" />
         <div class="footerinfowrap">
             <div class="-framefull">
                 <table border="0" summary="" cellspacing="0" cellpadding="0">
@@ -103,76 +193,60 @@
                             <td scope="col" class="a">
                                 <div class="footerinfo">
                                     <div class="title">COMPANY INFO</div>
-                                    <div class="xans-element- xans-layout xans-layout-footer companyInfo d1_fc_kor ">
+                                    <div class="businesscard">
                                         <ul>
                                             <li>
-                                                <span class="dd">루나</span>
-                                                <span class="dd"><b>대표.</b> 디자인102</span>
-                                                <span class="dd"><b>TEL.</b> 1800-6102</span>
-                                                <span class="dd"><b>사업자등록번호.</b> <a
-                                                        href="javascript:confirmBusinessInformation(6071912345);"
-                                                        class="btn">607-19-12345</a></span>
+                                                <span class="dd">BTS</span>
+                                                <span class="dd"><b>대표.</b> 100</span>
+                                                <span class="dd"><b>TEL.</b> 1588-1588</span>
+                                                <span class="dd"><b>사업자등록번호.</b> <a class="btn">123-45-12345</a></span>
                                             </li>
                                             <li>
-                                                <span class="dd"><b>주소.</b> 서울특별시 강남구 테헤란로 114 (역삼동) 임시주소</span>
+                                                <span class="dd"><b>주소.</b> 서울특별시 강남구 테헤란로 555 (역삼동) 임시주소</span>
                                             </li>
                                             <li>
 
-                                                <span class="dd"><b>통신판매신고번호.</b> 제2020-서울부산-00001호</span>
+                                                <span class="dd"><b>통신판매신고번호.</b> 제2023-서울부산-00001호</span>
                                                 <span class="dd"><b>개인정보취급관리자.</b> <a href="mailto:help@design102.co.kr"
-                                                        class="-smo">루나</a></span>
+                                                        class="-smo">BTS</a></span>
                                             </li>
                                             <li>
-                                                <span class="dd"><b>호스팅제공자.</b> 심플렉스인터넷(주)</span>
+                                                <span class="dd"><b>호스팅제공자.</b> BTS컴퍼니(주)</span>
                                             </li>
                                         </ul>
                                     </div>
 
                                     <div class="snswrap">
-                                        <ul>
-                                            <li class="-sns_blog"><a href="#none" target="_blank"><i
-                                                        class="xi-naver"></i></a></li>
-                                            <li class="-sns_facebook"><a href="#none" target="_blank"><i
-                                                        class="xi-facebook"></i></a></li>
-                                            <li class="-sns_instagram"><a href="#none" target="_blank"><i
-                                                        class="xi-instagram"></i></a></li>
-                                            <li class="-sns_katalk"><a href="#none" target="_blank"><i
-                                                        class="xi-kakaotalk"></i></a></li>
-                                            <li class="-sns_youtube"><a href="#none" target="_blank"><i
-                                                        class="xi-youtube"></i></a></li>
+                                        <div id="snswrapper">
+                                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                            <a href="#"><i class="fab fa-twitter"></i></a>
+                                            <a href="#"><i class="fab fa-instagram"></i></a>
+                                            <a href="#"><i class="fab fa-youtube"></i></a>
+                                        </div>
                                     </div>
                             </td>
                             <td scope="col" class="b">
                                 <div class="footerinfo">
                                     <div class="title">CALL CENTER</div>
-                                    <div class="data d1_fc_kor">
-                                        <p class="call"><span client="callnumber"></span></p>
-                                        <p class="call"><span client="callnumber2"></span></p>
-                                        <p><span client="openinfo1"></span></p>
-                                        <p><span client="openinfo2"></span></p>
-                                        <p><span client="openinfo3"></span></p>
-                                        <p><span client="openinfo4"></span></p>
-                                        <p><span client="openinfo5"></span></p>
-                                        <p><span client="openinfo6"></span></p>
-                                        <p><span client="openinfo7"></span></p>
+                                    <div class="call">
+                                        <p><span class="callnum">1588-1588</span></p>
+                                        <p><span>월요일-금요일 10:00 ~ 18:00</span></p>
+                                        <p><span>점심시간 12:00 ~ 13:00</span></p>
+                                        <p><span>토.일.공휴일 OFF</span></p>
                                     </div>
                                 </div>
                             </td>
                             <td scope="col" class="c">
                                 <div class="footerinfo">
                                     <div class="title">BANK INFO</div>
-                                    <div class="data -bank d1_fc_kor">
-                                        <p><span client="bank1a"></span><span client="bank1b"></span></p>
-                                        <p><span client="bank2a"></span><span client="bank2b"></span></p>
-                                        <p><span client="bank3a"></span><span client="bank3b"></span></p>
-                                        <p><span client="bank4a"></span><span client="bank4b"></span></p>
-                                        <p><span client="bank5a"></span><span client="bank5b"></span></p>
-                                        <p><span client="bank6a"></span><span client="bank6b"></span></p>
-                                        <p><span client="bank7a"></span><span client="bank7b"></span></p>
-                                        <p client="account"></p>
+                                    <div class="footerinfocontent">
+                                        <p><span>신한은행102-1234-567-8</span></p>
+                                        <p><span>국민은행548-7890-123-4</span></p>
+                                        <p><span>우리은행1002-0123-456-7</span></p>
+
+                                        <p><span>예금주 : BTS컴퍼니</span></p>
                                         <div class="gobank">
-                                            <select
-                                                onchange="window.open(this.options[this.selectedIndex].value,'_blank')">
+                                            <select>
                                                 <option value="pop">인터넷뱅킹바로가기</option>
                                                 <option value="//www.kbstar.com/">국민은행</option>
                                                 <option value="//banking.nonghyup.com/">농협</option>
@@ -191,26 +265,8 @@
                             <td scope="col" class="d">
                                 <div class="footerinfo">
                                     <div class="title">RETURN / EXCHANGE</div>
-                                    <div class="data d1_fc_kor">
-                                        <p><span client="retData1"></span></p>
-                                        <p><span client="retData2"></span></p>
-                                        <p><span client="retData3"></span></p>
-                                        <p><span client="retData4"></span></p>
-                                        <p><span client="retData5"></span></p>
-                                    </div>
-                                    <div class="escrowinfo">
-                                        <div>
-                                            <a href="#none" client_p_link="escrowurl" class="escrow -escrow_inicis"></a>
-                                        </div>
-                                    </div>
-                                    <div class="copinfo">
-                                        <ul>
-                                            <li><a href="//www.cafe24.com/" target="_blank"><img
-                                                        src="/_d1/img/escrow/cafe24.png" /></a></li>
-                                            <li><a href="//www.ftc.go.kr/" target="_blank"><img
-                                                        src="/_d1/img/escrow/ftc.png" /></a></li>
-                                        </ul>
-                                    </div>
+                                    <br>
+                                    <p><span>자세한 교환 및 반품절차는 공지사항을 참고해주시기 바랍니다.</span></p>
                                 </div>
                             </td>
                         </tr>
@@ -220,16 +276,16 @@
         </div>
         <div class="copyrightinfo">
             <div class="-framefull">
-                <div class="xans-element- xans-layout xans-layout-footer copyright "><span>Copyright © <b>루나</b> all
+                <div class="xans-element- xans-layout xans-layout-footer copyright "><span>Copyright © <b>BTS</b> all
                         rights reserved.</span>
-                    <span class="fc_gray">design by design102</span>
+                    <span class="fc_gray">design by 조정래</span>
                 </div>
 
                 <div class="guideLink">
                     <ul>
                         <li><a href="/shopinfo/company.html">회사소개</a></li>
                         <li><a href="/member/agreement.html">이용약관</a></li>
-                        <li><a href="/member/privacy.html"><b>개인정보취급방침</b></a></li>
+                        <li><a href="/member/privacy.html">개인정보취급방침</a></li>
                         <li><a href="/shopinfo/guide.html">이용안내</a></li>
                     </ul>
                 </div>

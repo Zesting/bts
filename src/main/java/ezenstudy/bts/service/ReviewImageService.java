@@ -18,12 +18,15 @@ public class ReviewImageService {
         this.reviewImageRepository = reviewImageRepository;
     }
 
+    // 파일첨부가 안된 경우
     public void nullSave(ReviewImage reviewImage){
         reviewImage.setFile(null);
         reviewImage.setFileName(null);
         reviewImage.setFilePath(null);
         reviewImageRepository.save(reviewImage);
     }
+
+    // 파일첨부가 된 경우
     public void fileSave(ReviewImage reviewImage) {
 
         // 랜덤 파일명(중복안되게)
@@ -58,6 +61,10 @@ public class ReviewImageService {
 
     public List<ReviewImage> findByReviewImages(Long boardId) {
         return reviewImageRepository.findByReviewBoardId(boardId);
+    }
+
+    public ReviewImage findOneImage(Long boardId){
+        return reviewImageRepository.findByOneReviewBoardId(boardId);
     }
 
 

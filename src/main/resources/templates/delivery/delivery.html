@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배송 조회</title>
+</head>
+<body>
+    <h1>배송 조회</h1>
+    <form method="post" th:action="@{/delivery/show}">
+        <div>
+            <label for="addrId">받는 사람 주소 :</label>
+            <div id="addrId" name="addrId">
+                <span th:each="addr : ${addrId}" th:value="${addr.id}" th:text="${addr.address}"></span>
+            </div>
+        </div>
+        <div>
+            <label for="orderId">주문 정보 :</label>
+            <div id="orderId" name="orderId">
+                <span th:each="order : ${orderId}" th:value="${order.id}" th:text="${order.orderInfo}"></span>
+            </div>
+        </div>
+        <div>
+            <label for="status">배송 상태</label>
+            <select>
+                <option value="0">배송 준비 중</option>
+                <option value="1">배송 중</option>
+                <option value="2">배송 완료</option>
+            </select>
+        </div>
+    </form>
+</body>
+</html>

@@ -25,8 +25,8 @@ public class MemoryPaymentRepository implements PaymentRepository {
     }
 
     @Override
-    public Optional<Payment> findOne(Long memberId) {
-        return Optional.ofNullable(store.get(memberId));
+    public Optional<Payment> findOne(Long id) {
+        return Optional.ofNullable(store.get(id));
     }
 
     @Override

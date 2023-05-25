@@ -13,6 +13,10 @@ public class UserBoardOfferService {
     this.userBoardOfferRepository = userBoardOfferRepository;
   }
 
+  public UserBoardOfferService() {
+    this.userBoardOfferRepository=null;
+  }
+
   public UserBoardOffer save(UserBoardOffer userBoardOffer){
     return userBoardOfferRepository.save(userBoardOffer);
   }

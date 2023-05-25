@@ -36,5 +36,12 @@ public class MemoryReviewImageRepository implements ReviewImageRepository {
         filter(rb -> rb.getReviewBoardId() == reviewBoardId).
         collect(Collectors.toList());
     }
+    @Override
+    public ReviewImage findByOneReviewBoardId(Long reviewBoardId) {
+        return store.values().stream()
+            .filter(rb -> rb.getReviewBoardId() == reviewBoardId)
+            .findFirst()
+            .orElse(null);
+    }
 
 }

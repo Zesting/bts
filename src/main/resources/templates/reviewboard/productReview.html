@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>list</title>
+    <title>상품별 리뷰</title>
 </head>
-
 <body>
-    <div class="container" th:fragment="fragment-review">
+    <div class="container" th:fragment="fragment-productReview">
         <link rel="stylesheet" th:href="@{/css/reviewlist.css}">
 
         <h2>고객 후기(<span th:text="${reviewSize}"></span>)</h2>
@@ -25,7 +23,7 @@
         </div>
 
         <div class="review-list">
-            <div th:each="review : ${boardList}">
+            <div th:each="review : ${reviewList}">
                 <div class="review">
                     <h3 th:text="${review.title}"></h3>
                     <p>
@@ -40,54 +38,46 @@
                     </p>
                     <div class="review-images-grid">
                         <div th:each="image:${imageList}" class="review-image" id="review-image">
-                            <img th:if="${image.filePath!=null && image.reviewBoardId==review.id}"
-                                th:src="${image.filePath}">
+                            <img th:if="${image.filePath!=null && image.reviewBoardId==review.id}" th:src="${image.filePath}">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script>
-            const viewAllImagesBtn = document.getElementById('view-all-images-btn');
-            const reviewImagesGrid = document.querySelector('.review-images-grid');
-            const reviewImages = document.querySelectorAll('.review-image');
-
-            viewAllImagesBtn.addEventListener('click', () => {
-                const uniqueImages = new Set();
-
-                Array.from(reviewImages).forEach(reviewImage => {
-                    const imgSrc = reviewImage.querySelector('img').getAttribute('src');
-                    uniqueImages.add(imgSrc);
-                });
-
-                const popup = window.open('', '', 'width=800,height=600');
-                const popupContent = `
-        <style>
-            .popup-images-grid {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .popup-image {
-                margin-right: 10px;
-                margin-bottom: 10px;
-            }
-        </style>
-        <div class="popup-images-grid">
-            ${Array.from(uniqueImages).map(imgSrc => `
-                <div class="popup-image">
-                    <img src="${imgSrc}">
-                </div>
-            `).join('')}
-        </div>
-    `;
-
-                popup.document.write(popupContent);
-            });
-        </script>
+        <script th:src="@{/js/reviewlist.js}"></script>
     </div>
 
+    <script>
+        const viewAllImagesBtn = document.getElementById('view-all-images-btn');
+        const reviewImagesGrid = document.querySelector('.review-images-grid');
+        const reviewImages = document.querySelectorAll('.review-image');
 
+        viewAllImagesBtn.addEventListener('click', () => {
+            const popup = window.open('', '', 'width=800,height=600');
+            const popupContent = `
+        <style>
+        .popup-images-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .popup-image {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        </style>
+        <div class="popup-images-grid">
+      ${Array.from(reviewImages).map(reviewImage => `
+        <div class="popup-image">
+          ${reviewImage.innerHTML}
+        </div>
+      `).join('')}
+    </div>
+    `;
+            popup.document.write(popupContent);
+        });
+
+    </script>
+    
 </body>
-
 </html>

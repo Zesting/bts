@@ -1,0 +1,169 @@
+footer * {
+    list-style-type: none;
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.-footer .footerinfowrap .footerinfo .title {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 15px;
+}
+
+.-footer {
+    width: 100%;
+    margin: 0px 0 0 0;
+    font-size: 13px;
+    background: #fff;
+    border-top: 1px solid #e8e8e8;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+footer {
+    display: block;
+}
+
+.-footer .footerinfowrap {
+    padding: 30px 0;
+}
+
+
+
+.-framefull {
+    position: relative;
+    width: 100%;
+    min-width: 1260px;
+    padding: 0 60px;
+    -webkit-box-sizing: border-box;
+    -khtml-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+colgroup {
+    display: table-column-group;
+}
+
+footer table {
+    width: 100%;
+    border: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    text-indent: initial;
+}
+
+
+
+.-footer .copyrightinfo {
+    border-top: 1px solid #e8e8e8;
+    padding: 30px 0;
+}
+
+.-framefull {
+    position: relative;
+    width: 100%;
+    min-width: 1260px;
+    padding: 0 60px;
+    -webkit-box-sizing: border-box;
+    -khtml-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.-footer .footerinfowrap table td {
+    vertical-align: top;
+    word-break: break-all;
+    word-wrap: break-word;
+    text-align: left;
+    padding: 0 30px;
+    border: 0;
+}
+
+.-framefull table tbody tr {
+
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+
+}
+
+#snswrapper {
+    height: 100%;
+
+    display: flex;
+
+    margin: 0 auto;
+    max-width: 1180px;
+    padding: 0;
+    overflow: auto;
+}
+
+#snswrapper a {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+
+    text-align: center;
+    line-height: 35px;
+    font-size: 17px;
+    color: rgb(240, 240, 240);
+
+    background: rgb(0, 0, 0);
+
+    margin: 0 4px;
+
+    border: 2px solid rgb(254, 254, 254);
+    transition: all 0.3s ease;
+}
+
+#snswrapper a:hover {
+    color: rgb(0, 0, 0);
+    background-color: white;
+}
+
+.businesscard ul {
+    text-align: left;
+    padding-bottom: 20px;
+}
+
+.businesscard ul li span {
+    font-size: 12px;
+}
+
+.-footer .copyrightinfo .copyright {
+    float: left;
+}
+
+.guideLink ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: right;
+}
+
+.guideLink ul li {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.guideLink ul li:first-child {
+    margin-left: 0;
+}
+
+.callnum {
+    font-size: 15px;
+}
+
+.call p {
+    margin: 12px 0;
+}
+
+.footerinfo .footerinfocontent p {
+    margin: 12px 0;
+}

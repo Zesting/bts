@@ -24,6 +24,7 @@
     <td>
       <!-- <a th:href="@{/comboard/show/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a> -->
       <a th:href="@{/comboard/check-bn/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a>
+      <span th:if="${comBoard.answer != null}">(new)</span>
     </td>
     <td th:text="${comBoard.createdBy}"></td>
     <td th:text="${comBoard.createAt}"></td>
@@ -32,7 +33,6 @@
 </table>
 <form method="post">
 <button type="submit" th:formaction="@{/comboard/create}" formmethod="get">작성</button>
-<!-- <a th:href="@{/comboard/create}">작성</a> -->
 </form>
 </body>
 </html>

@@ -31,7 +31,7 @@
       <textarea name="userBoardContent" id="userBoardContent" cols="50" rows="10" th:value="${userBoardRead.userBoardContent}" th:text="${userBoardRead.userBoardContent}"></textarea><br>
     </div>
     <div>
-      <textarea name="MemberId" id="MemberId" cols="50" rows="1" th:value="${userBoardRead.MemberId}" th:text="${userBoardRead.MemberId}"></textarea><br>
+      <textarea name="MemberId" id="MemberId" cols="50" rows="1" th:value="${userBoardRead.MemberId}" th:text="${userBoardRead.MemberId}" readonly></textarea><br>
     </div>
     <button type="submit" class="btn btn-primary">수정update</button>
   </form>
