@@ -1,7 +1,7 @@
 package ezenstudy.bts.service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -17,8 +17,10 @@ public class PaymentService {
     }
 
  
-    public Optional<Payment> findOne(Long memberId) {
-        return paymentRepository.findOne(memberId);
+    public List<Payment> findOne(Long memberId) {
+        return paymentRepository.findAll().stream().
+        filter(mp->mp.getMemberId().equals(memberId)).
+        collect(Collectors.toList());
     }
     
     public List<Payment> findAll(){

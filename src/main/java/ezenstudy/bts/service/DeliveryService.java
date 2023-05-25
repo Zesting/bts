@@ -6,5 +6,8 @@ public class DeliveryService {
     
     private final DeliveryRepository deliveryRepository;
 
-    public 
+    public DeliveryService(DeliveryRepository deliveryRepository) {
+        this.deliveryRepository = deliveryRepository;
+    }
+
 }

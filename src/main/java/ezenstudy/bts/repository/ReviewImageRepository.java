@@ -10,4 +10,5 @@ public interface ReviewImageRepository {
     public Optional<ReviewImage> findById(Long id);
     public List<ReviewImage> findAll();
     public List<ReviewImage> findByReviewBoardId(Long reviewBoardId);
+    public ReviewImage findByOneReviewBoardId(Long boardId);
 }

@@ -67,10 +67,7 @@ public class ReviewBoardService {
     public Integer reviewSize(){
         return boardRepository.findAllSize();
     }
-    //각 상품 리뷰 갯수
-    public Integer oneReviewSize(){
-        return null;
-    }
+
 
     //save boardId
     public Long reviewBoardNum() {
