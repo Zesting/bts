@@ -91,6 +91,27 @@
     border-radius: 10px;
     text-transform: uppercase;
 }
-#gp-select>option{
-
+.form-main-button{
+    width: 100%;
+    border: 0.3px solid gray;
+    background-color: black;
+    color: white;
+    margin-top: 30px;
+    height: 50px;
+    font-size: 20px;
+}
+.form-kakao-button{
+    width:100%;
+    border:0.3px solid yellow;
+    background-color:yellow;
+    color:black;
+    margin-top:20px;
+    height:50px;
+    font-size:20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form-kakao-button>img{
+    height:70%;
 }
