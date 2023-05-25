@@ -42,7 +42,7 @@ public class MemoryComBoardRepository implements ComBoardRepository{
             existing.setContent(comBoard.getContent());
             existing.setCreatedBy(comBoard.getCreatedBy());
             existing.setBN(comBoard.getBN());
-            existing.setFilled(comBoard.isFilled());
+            // existing.setFilled(comBoard.isFilled());
             existing.setAnswer(comBoard.getAnswer());
         }
         comBoardMap.put(id,existing);

@@ -45,14 +45,17 @@ public class ComBoardController {
 
     /* upload */
     @PostMapping("/comboard/create")
-    public String addFile(@RequestParam String filename,
-                            @RequestParam MultipartFile file) throws IOException {
-        System.out.println("filename = " + filename);
+    public String addFile(@RequestParam("filename") String filename,
+                            @RequestParam("file") MultipartFile file) throws IOException {
+        System.out.println("file = " + file.getOriginalFilename());
 
         if(!file.isEmpty()){
-            String fullPath = "/C:/image/" + file.getOriginalFilename();
+            String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/";
+            String fullPath = projectPath + filename;
+
             System.out.println("파일 저장 fullPath = " + fullPath);
-            file.transferTo(new File(fullPath));
+            File saveFile = new File(fullPath);
+            file.transferTo(saveFile);
         }
 
         return "comboard/comshow";
