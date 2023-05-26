@@ -7,29 +7,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-        <h1>회사 요청 게시판</h1>
-        <p>제목: <span th:text="${comBoard.title}"></span></p>
-        <p>내용: <span th:text="${comBoard.content}"></span></p>
-        <p>작성자: <span th:text="${comBoard.createdBy}"></span></p>
-        <p>사업자 번호: <span th:text="${comBoard.BN}"></span></p>
+    <h1>회사 요청 게시판</h1>
+    <p>제목: <span th:text="${comBoard.title}"></span></p>
+    <p>내용: <span th:text="${comBoard.content}"></span></p>
+    <p>작성자: <span th:text="${comBoard.createdBy}"></span></p>
+    <p>사업자 번호: <span th:text="${comBoard.BN}"></span></p>
 
-        <p><a th:href="@{${comBoard.filepath}}">다운받기</a></p>
+    <p><a th:href="@{'/files/' + ${comBoard.fileName}}" download>다운로드</a></p>
 
-        <form method="post">
-            <button type="submit" formaction="/comboard/list">목록</button>
-            <button type="submit" th:formaction="@{/comboard/modify/{id}(id=${comBoard.id})}" formmethod="get">수정</button>
-            <!-- <button type="submit" th:formaction="@{/comboard/answer/{id}(id=${comBoard.id})}" formmethod="get">답변</button> -->
-            <!-- <button type="submit" th:formaction="@{/comboard/show/reply/{id}(id=${comBoard.id})}" formmethod="get">답변</button> -->
-        </form>
-        
+    <form method="post">
+        <button type="submit" formaction="/comboard/list">목록</button>
+        <button type="submit" th:formaction="@{/comboard/modify/{id}(id=${comBoard.id})}" formmethod="get">수정</button>
+    </form>
 
-        <form th:action= "@{/comboard/delete/{id}(id=${comBoard.id})}" method="POST">
-            <input type="hidden" name="_method" value="DELETE">
-            <button type="submit">삭제</button>
-        </form>
-        <hr>
-        
-        <h2>답변</h2>
-        <p><span th:text="${comBoard.answer}"></span></p>
+    <form th:action="@{/comboard/delete/{id}(id=${comBoard.id})}" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit">삭제</button>
+    </form>
+    <hr>
+
+    <h2>답변</h2>
+    <p><span th:text="${comBoard.answer}"></span></p>
 </body>
 </html>
