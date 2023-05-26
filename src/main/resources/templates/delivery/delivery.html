@@ -12,13 +12,15 @@
         <div>
             <label for="addrId">받는 사람 주소 :</label>
             <div id="addrId" name="addrId">
-                <span th:each="addr : ${addrId}" th:value="${addr.id}" th:text="${addr.address}"></span>
+                <p><span th:each="addr : ${zipCodeList}" th:value="${addr.getAddrId()}" th:text="${addr.getZipCode()}">우편번호</span></p> 
+                <p><span th:each="addr : ${streetAddrList}" th:value="${addr.getAddrId()}" th:text="${addr.getStreetAddr()}">도로명 주소</span></p>
+                <p><span th:each="addr : ${detailAddrList}" th:value="${addr.getAddrId()}" th:text="${addr.getDetailAddr()}">상세 주소</span></p>
             </div>
         </div>
         <div>
             <label for="orderId">주문 정보 :</label>
             <div id="orderId" name="orderId">
-                <span th:each="order : ${orderId}" th:value="${order.id}" th:text="${order.orderInfo}"></span>
+                <span th:each="order : ${orderId}" th:value="${order.getId()}" th:text="${order.getOrderInfo()}"></span>
             </div>
         </div>
         <div>
@@ -29,6 +31,13 @@
                 <option value="2">배송 완료</option>
             </select>
         </div>
+        <!-- <div>
+            <h2>배송 결과</h2>
+            <div>
+                <p>받는 사람 주소: <span th:text="${addr.getStreetAddr()}">도로명 주소</span> <span th:text="${addr.getDetailAddr()}">상세 주소</span></p>
+                <p>주문 정보: <span th:text="${order.getOrderInfo()}"></span></p>
+            </div>
+        </div> -->
     </form>
 </body>
 </html>
