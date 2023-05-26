@@ -127,4 +127,8 @@ public class SpringConfig {
     public DeliveryService deliveryService() {
         return new DeliveryService(deliveryRepository());
     }
+    @Bean
+    public UserBoardOfferService userBoardOfferService() {
+        return new UserBoardOfferService();
+    }
 }

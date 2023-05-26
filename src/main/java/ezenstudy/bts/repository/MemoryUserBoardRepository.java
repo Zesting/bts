@@ -87,6 +87,18 @@ public class MemoryUserBoardRepository implements UserBoardRepository {
     u3.setUpdateDateTime(LocalDateTime.now());
     u3.setOfferCount(0);
     save(u3);
+
+    for (int i = 5; i <= 10; i++) {
+      UserBoard u = new UserBoard();
+      u.setUserBoardNumber(i);
+      u.setUserBoardTitle("제목" + i + "입니다.");
+      u.setUserBoardContent("내용" + i + "입니다.");
+      u.setMemberId(i);
+      u.setDateTime(LocalDateTime.now());
+      u.setUpdateDateTime(LocalDateTime.now());
+      u.setOfferCount(0);
+      save(u);
+  }
   }
 
 

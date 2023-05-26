@@ -84,16 +84,17 @@
                 </li>
                 <!--비로그인이면 로그인 페이지/로그인이면 주문조회 페이지  -->
                 <li th:if="${session.logInMember == null}">
-                  <a id="order_button" onclick="order_confirm()">주문목록</a>
+                  <a th:href="@{/members/logIn/orderView}">주문목록</a>
                 </li>
                 <li th:if="${session.logInMember != null}">
                   <a th:href="@{/order/myOrder}">주문목록</a>
                 </li>
                 <!--비로그인이면 로그인 페이지/로그인이면 주문조회 페이지  -->
                 <li th:if="${session.logInMember == null}">
-                  <a id="memberInfo_button" onclick="memberInfo()"
+                  <!-- <a id="memberInfo_button" onclick="memberInfo()"
                     >마이페이지</a
-                  >
+                  > -->
+                  <a th:href="@{/members/logIn/myPage}">마이페이지</a>
                 </li>
                 <li th:if="${session.logInMember != null}">
                   <a th:href="@{/members/viewMemberInfo}">마이페이지</a>
@@ -104,18 +105,17 @@
                   <div class="layerMenu">
                     <ul class="boardInfo">
                       <li class="board-record">
-                        <a href="#">내공동구매요청</a>
+                        <a href="#">공지사항</a>
                       </li>
                       <li class="board-record">
-                        <a href="#">내리뷰보기</a>
+                        <a href="#">상품목록</a>
                       </li>
                       <li class="board-record">
-                        <a href="#">내댓글보기</a>
+                        <a href="#">상품후기</a>
                       </li>
                     </ul>
                   </div>
                 </li>
-                <li><a href="#">찾기박스</a></li>
               </ul>
             </div>
           </div>

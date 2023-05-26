@@ -32,7 +32,7 @@
                 <div class="gp-infoArea">
                     <div class="gp-info-row">
                         <h3 th:text="${product.name}"></h3>
-                        <p th:if="${product.brand}" th:text="${product.brand}"></p>
+                        <p th:if="${product.brand}" th:text="${product.brand}" style="font-weight: 800;"></p>
                     </div>
                     <div class="gp-info-row">
                         <pre>[[${gp.information}]]</pre>
@@ -40,35 +40,38 @@
                     <div class="gp-info-row"></div>
                     <div class="gp-info-row">
                         <span>소비자가</span>
-                        <span th:text="${product.originalPrice}"></span>
+                        <span style="text-decoration: line-through;"
+                            th:text="${#numbers.formatDecimal(product.originalPrice, 0, 'COMMA', 0, 'POINT')+'원'}"></span>
                     </div>
                     <div class="gp-info-row">
                         <span>판매가</span>
-                        <span th:text="${gp.price}"></span>
+                        <span th:text="${#numbers.formatDecimal(gp.price, 0, 'COMMA', 0, 'POINT')+'원'}"
+                            style="width:auto"></span>
                         <span id="discount_rate"></span>
                     </div>
                     <hr>
                     <div class="gp-info-row">
                         <form action="/payment" method="post">
-                            <select th:if="${session.logInMember}" id="gp-select" name="groupPurchaseProductOptionId">
+                            <select id="gp-select" name="groupPurchaseProductOptionId">
                                 <option disabled selected>옵션을 선택해주세요</option>
                                 <option class="gp-option" th:each="gppo : ${GPPOList}" th:value="${gppo.id}">
                                     [[${gppo.optionColor}]] | [[${gppo.optionSize}]] | 남은수량: [[${gppo.quantity}]]
                                 </option>
                             </select>
-                            <input th:if="${session.logInMember}" th:value="${session.logInMember.id}"
-                                name="memberId" />
-                            <input th:value="${gp.id}" name="groupPurchaseId" />
-                            <p th:unless="${session.logInMember}">상품을 구매하려면 로그인이 필요합니다.</p>
-                            <a th:unless="${session.logInMember}" href="/members/logIn"><button
+                            <input th:if="${session.logInMember}" th:value="${session.logInMember.id}" name="memberId"
+                                style="display:none;" />
+                            <input th:value="${gp.id}" name="groupPurchaseId" style="display:none;" />
+                            <a th:unless="${session.logInMember}" href="/members/logIn"><button class="form-main-button"
                                     type="button">로그인</button></a>
+                            <p th:unless="${session.logInMember}">상품을 구매하려면 로그인이 필요합니다.</p>
+                            <a style="text-decoration: none;" href="#"><button class="form-kakao-button"><img src="/images/kakaotalk.png" />카카오톡 상담</button></a>
                             <button th:if="${session.logInMember}" type="submit">바로구매</button>
                         </form>
                     </div>
                 </div>
             </div>
             <div class="gp-detail">
-
+                <img th:src="${product.bannerImagePath}" />
             </div>
             <div class="gp-review">
 

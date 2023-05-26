@@ -97,9 +97,21 @@ public class MemberController {
     @GetMapping("/members/logIn")
     public String loginForm(@ModelAttribute LogInDTO logInDTO, HttpSession session, HttpServletRequest request) {
         session.setAttribute("previousURL", request.getHeader("Referer"));
-        System.out.println(request.getHeader("Referer"));
+        System.out.println("get에서의 Referer1 : " + request.getHeader("Referer"));
         System.out.println("로그인 폼 이동");
         return "members/logInForm";
+    }
+
+    @GetMapping("/members/logIn/orderView")
+    public String logIn_orderView(HttpSession session) {
+        session.getAttribute("logInMember");
+        return "members/logIn_orderView";
+    }
+
+    @GetMapping("/members/logIn/myPage")
+    public String logIn_myPageView(HttpSession session) {
+        session.getAttribute("logInMember");
+        return "members/logIn_myPage";
     }
 
     /** 로그인 PostMapping */
@@ -122,10 +134,11 @@ public class MemberController {
             bindingResult.reject("logInFail", "아이디 또는 비밀번호가 맞지 않습니다.");
             return "members/logInForm";
         }
+
         session.setAttribute("logInMember", logInMember);
 
         String previousURL = (String) session.getAttribute("previousURL");
-        System.out.println(previousURL);
+        System.out.println("Post에서의 previousURL : " + previousURL);
         if (previousURL == null) {
             return "redirect:/";
         }

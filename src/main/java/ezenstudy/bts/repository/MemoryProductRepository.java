@@ -39,7 +39,7 @@ public class MemoryProductRepository implements ProductRepository{
         p1.setBrand("nike");
         p1.setName("나이키 덩크 로우 레트로 SE");
         p1.setCategory("러닝");
-        p1.setBannerImagePath("/images/banner/나이키덩크로우레트로배너");
+        p1.setBannerImagePath("/images/banner/나이키덩크로우레트로배너.jpg");
         p1.setOriginalPrice(129000);
         save(p1);
 
@@ -47,8 +47,8 @@ public class MemoryProductRepository implements ProductRepository{
         p2.setBrand("drmartens");
         p2.setName("마일즈");
         p2.setCategory("샌들");
-        p1.setBannerImagePath("");
-        p1.setOriginalPrice(170000);
+        p2.setBannerImagePath("");
+        p2.setOriginalPrice(170000);
         save(p2);
 
         Product p3 = new Product();

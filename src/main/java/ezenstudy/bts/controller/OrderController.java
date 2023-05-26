@@ -2,6 +2,7 @@ package ezenstudy.bts.controller;
 
 /* import java.util.ArrayList; */
 import java.util.List;
+/* import java.util.stream.Collectors; */
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,11 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ezenstudy.bts.domain.GroupPurchase;
 import ezenstudy.bts.domain.Member;
 import ezenstudy.bts.domain.Order;
+/* import ezenstudy.bts.domain.Payment; */
 import ezenstudy.bts.domain.ProductOption;
 import ezenstudy.bts.service.AddrService;
 import ezenstudy.bts.service.GroupPurchaseProductOptionService;
 import ezenstudy.bts.service.GroupPurchaseService;
 import ezenstudy.bts.service.OrderService;
+/* import ezenstudy.bts.service.PaymentService; */
 import ezenstudy.bts.service.ProductImageService;
 import ezenstudy.bts.service.ProductOptionService;
 import ezenstudy.bts.service.ProductService;
@@ -32,6 +35,23 @@ public class OrderController {
     private final ProductOptionService productOptionService;
     private final ProductService productService;
     private final AddrService addrService;
+    /* private final PaymentService paymentService; */
+
+    @GetMapping("/order/oneMyOrder")
+    public String oneOrderForm(HttpSession session, Model model) {
+        /*
+         * Member sessionMember = (Member) session.getAttribute("logInMember");
+         * 
+         * if (sessionMember != null) {
+         * List<Order> orders = orderService.findAllByMember(sessionMember.getId());
+         * for (Order order : orders) {
+         * 
+         * }
+         * }
+         */
+
+        return "members/logInForm";
+    }
 
     @GetMapping("/order/myOrder")
     public String listForm(Model model, HttpSession session) {
