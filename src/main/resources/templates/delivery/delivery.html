@@ -8,30 +8,44 @@
 </head>
 <body>
     <h1>배송 조회</h1>
-    <!-- <pre th:each="addr : ${delList}">
-        [[${['zip' + addr.getAddrId()]}]]
-        [[${['str' + addr.getAddrId()]}]]
-        [[${['dlt' + addr.getAddrId()]}]]
-    </pre> -->
-    <div>
-        <h4>받는 사람 주소</h4>
-        
-        <p>
-            <span>우편번호: [[${delivery.zipCode}]]</span>
-        </p>
-        <p>
-            <span>도로명 주소: [[${delivery.streetAddr}]]</span>
-        </p>
-        <p>
-            <span>상세 주소: [[${delivery.detailAddr}]]</span>
-        </p>
-    </div>
-    <div>
+    <pre th:each="addr : ${addr}">
+        [[${['zip' + addr.getId()]}]]
+        [[${['str' + addr.getId()]}]]
+        [[${['dlt' + addr.getId()]}]]
+    </pre>
+    <form method="get" th:action="@{/delivery/delivery/{id}}" th:object="${delivery}">
+        <!-- <div>
+            <label for="addrId">받는 사람 주소 :</label>
+            <p>
+                <span th:each="addr : ${delList}">
+                    <input type="hidden" name="addrId" th:value="${addr.addrId}">
+                    <span th:text="${addr.zipCode}">우편번호</span>
+                </span>
+            </p> 
+            <p>
+                <span th:each="addr : ${delList}">
+                    <input type="hidden" name="addrId" th:value="${addr.addrId}">
+                    <span th:text="${addr.streetAddr}">도로명 주소</span>
+                </span>
+            </p>
+            <p>
+                <span th:each="addr : ${delList}">
+                    <input type="hidden" name="addrId" th:value="${addr.addrId}">
+                    <span th:text="${addr.detailAddr}">상세 주소</span>
+                </span>
+            </p>
+        </div>
+        <div>
+            <label for="orderId">주문 정보 :</label>
+            <div id="orderId" name="orderId">
+                <span th:each="order : ${orderList}" th:value="${order.orderId}" th:text="${order.orderInfo}"></span>
+            </div>
+        </div> -->
         <h4>배송상태</h4>
         <p>
             <span id="statusText"></span>
         </p>
-    </div>
+    </form>
 </body>
 <script>
     // <span> 요소 선택

@@ -35,29 +35,37 @@ public class DeliveryController {
                 
                 Member member = (Member) session.getAttribute("logInMember");
                 List<Delivery> deliveryList = deliveryService.findAllByMember(member.getId());
+                 Addr addr = addrService.findAddr(member.getId()).get();
+
+                 model.addAttribute("zip", addr.getZipCode());
+                 model.addAttribute("str", addr.getStreetAddr());
+                 model.addAttribute("dlt", addr.getDetailAddr());
+                 System.out.println(addr);
                 
-                deliveryList.stream().forEach(delivery -> {
+                /* deliveryList.stream().forEach(delivery -> {
 
                     Long deliveryId = delivery.getId();
                     
                     String addrZipCode = addrService.findAddr(member.getId()).get().getZipCode();
                     String addrStreetAddr = addrService.findAddr(member.getId()).get().getStreetAddr();
                     String addrDetailAddr = addrService.findAddr(member.getId()).get().getDetailAddr();
+                    System.out.println(addrDetailAddr + addrStreetAddr + addrZipCode);
 
                     model.addAttribute("delList", deliveryList);
                     model.addAttribute("zip" + deliveryId, addrZipCode);
                     model.addAttribute("str" + deliveryId, addrStreetAddr);
                     model.addAttribute("dlt" + deliveryId, addrDetailAddr);
-                });
+                }); */
                 
 
-                 return "orders/orderListForm";
+                 return "delivery/delivery";
             }
-            @PostMapping("/delivery/delivery/{id}")
-             public String handleDeliveryShow(Model model, @ModelAttribute("delivery") Delivery delivery) {
-                 model.addAttribute("message", "POST 요청이 정상적으로 처리되었습니다.");
-                return "delivery/delivery";
-             }
+            //@PostMapping("/delivery/delivery/{id}")
+            // public String handleDeliveryShow(Model model, @ModelAttribute("delivery") Delivery delivery) {
+            //     Order order = orderService.findAllByMember(memberId)
+            //     model.addAttribute("message", "POST 요청이 정상적으로 처리되었습니다.");
+            //    return "delivery/delivery";
+            // }
     }
 
     // @GetMapping("/delivery/delivery/{id}")
