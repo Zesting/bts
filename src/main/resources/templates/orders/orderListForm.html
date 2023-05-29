@@ -20,6 +20,7 @@
       [[${['gp_del' + order.getOrderId]}]]
       [[${['gp_sa' + order.getOrderId]}]]
       [[${['gp_da' + order.getOrderId]}]]
+      <!-- 정수 배송 조회 -->
       <form method="post" th:action="@{/delivery/delivery/{id}(id=${order.getOrderId()})}">
         <button type="submit">배송 조회</button>
       </form>

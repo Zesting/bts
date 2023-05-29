@@ -26,11 +26,11 @@ public class DeliveryService {
         return deliveryRepository.findAll();
     }
     public Delivery findDeliveryById(Long id) {
-        // Implement the logic to find a delivery by its ID
-        // This could involve querying a database or accessing a repository
-        
-        // For example, assuming you have a delivery repository
         return deliveryRepository.findById(id);
+    }
+
+    public List<Delivery> findAllByMember(Long memberId) {
+        return deliveryRepository.findAll_memberId(memberId);
     }
 
 }
