@@ -4,29 +4,37 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import ezenstudy.bts.domain.Addr;
+import ezenstudy.bts.domain.Member;
 import ezenstudy.bts.service.AddrService;
-import ezenstudy.bts.service.DeliveryService;
-import ezenstudy.bts.service.OrderService;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 
+
+@RequiredArgsConstructor
 @Controller
 public class DeliveryController {
     
-    private final  DeliveryService deliveryService;
-    private final AddrService addrService;
-    private final OrderService orderService;
+            private final AddrService addrService;
 
-    public DeliveryController(DeliveryService deliveryService, AddrService addrService, OrderService orderService) {
-        this.deliveryService = deliveryService;
-        this.addrService = addrService;
-        this.orderService = orderService;
-    }
+            
 
-    @GetMapping("/delivery/delivery/{id}")
-    public String delivery(Model model) {
-        model.addAttribute("addrId", addrService.findAllAddr());
-        model.addAttribute("orderId", orderService.findAllOrder());
-        model.addAttribute("status", deliveryService.findAllDeliveries());
-        return "redirect:/";
-    }
+            
+            @GetMapping("/delivery/delivery/{id}")
+            public String delivery(HttpSession session, Model model) {
+                
+                Member member = (Member) session.getAttribute("logInMember");
+                Addr addr = addrService.findAddr(member.getId()).get();
+                model.addAttribute("zip", addr.getZipCode());
+                model.addAttribute("str", addr.getStreetAddr());
+                model.addAttribute("dlt", addr.getDetailAddr());
+                System.out.println(addr);
+            
+            
+            
+                return "delivery/delivery";
+            }
+        }
+        
 
-}
+    

@@ -13,10 +13,6 @@ public class UserBoardOfferService {
     this.userBoardOfferRepository = userBoardOfferRepository;
   }
 
-  public UserBoardOfferService() {
-    this.userBoardOfferRepository=null;
-  }
-
   public UserBoardOffer save(UserBoardOffer userBoardOffer){
     return userBoardOfferRepository.save(userBoardOffer);
   }
@@ -32,5 +28,18 @@ public class UserBoardOfferService {
 
   public List<UserBoardOffer> findAll(){
     return userBoardOfferRepository.findAll();
+  }
+
+  public Long findIdByOptions(Long memberId, Long userBoardId){
+    return userBoardOfferRepository.findIdByFields(memberId, userBoardId);
+  }
+
+  public Long findCountByBoardId(Long userBoardId){
+    return userBoardOfferRepository.findAll()
+    .stream().filter(offer -> offer.getUserBoardId() == userBoardId).count();
+  }
+
+  public Optional<UserBoardOffer> delete(Long id){
+    return userBoardOfferRepository.delete(id);
   }
 }

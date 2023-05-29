@@ -12,65 +12,74 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
+  <link rel="stylesheet" th:href="@{/css/userBoard.css}">
   <!-- 제이쿼리 -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <style>
-    /* 임시 테이블 스타일 */
-    .tdLine {
-      border: 1px solid red;
-      text-align: center;
-    }
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
 
-    .commentTr {
-      border: 1px solid red;
-      text-align: center;
-    }
-
-    /* 추천 하트 스타일 */
-    #offerBtn {
-      border: none;
-      background-color: white;
-      font-size: 20px;
-    }
-  </style>
+  </script>
 </head>
 
 <body>
-  <h1>User Board Read</h1>
-  <p>게시물 조회 페이지</p>
-  - 이미지 파일도 넣으면 나오게 하기 <br>
+  <!-- 헤더와 네비바 -->
+  <header th:replace="~{/fragments/header.html :: fragment-header}"></header>
+  <div th:replace="~{/fragments/headnav.html :: fragment-nav}"></div>
 
+  <div class="userBoardHome">
+    <h1>User Board Read</h1>
+    <p>게시물 조회 페이지</p>
+  </div>
+  <!-- - 이미지 파일도 넣으면 나오게 하기 <br> -->
+  <hr>
+  <!-- 게시물 불러오기 -->
   <div th:each="userBoard : ${userBoardRead}">
-    <p th:text="'Title:' + ${userBoard.userBoardTitle}">제목</p>
-    <p th:text="'Content:' + ${userBoard.userBoardContent}"></p>
-    <p th:text="${userBoard.MemberId}" th:id="${userBoard.MemberId}">멤버 아이디</p>
-    <p th:text="'DateTime:' + ${userBoard.UpdateDateTime}">작성시간</p>
+    <!-- 게시판 윗 부분 -->
+    <div>
+      <div class="userBoardReadTitle">
+        <div class="div20">제목</div>
+        <!-- 하트 추천수  -->
+        <div th:text="'Title:' + ${userBoard.userBoardTitle + '♥' + offerCount}" class="div80">제목</div>
+      </div>
+      <div class="userBoardReadTitle">
+        <div class="div20">작성자</div>
+        <div th:text="${userBoard.MemberId}" th:id="${userBoard.MemberId}" class="div80">멤버 아이디</div>
+      </div>
+    </div>
+    <!-- 게시판 body -->
+    <div class="boardBody">
+      <div th:text="'DateTime:' + ${userBoard.UpdateDateTime}">작성시간</div>
+      <pre th:utext="${userBoard.userBoardContent}"></pre>
+    </div>
     <!-- 수정버튼 -->
     <a th:href="@{|/userBoard/Update/${id}|}">
-      <button type="button" class="btn btn-primary"
+      <button type="button" class="btn-runa"
         th:if="${userBoard.MemberId}==${session.logInMember.getId()}">수정</button></a>
     <!-- 삭제버튼 -->
     <a th:href="@{|/userBoard/Delete/${id}|}">
-      <button type="button" class="btn btn-primary" th:onclick="deleteBtn()"
+      <button type="button" class="btn-runa" th:onclick="deleteBtn()"
         th:if="${userBoard.MemberId}==${session.logInMember.getId()}">삭제</button></a>
     <!-- 목록버튼 -->
-    <a href="http://localhost:8080/userBoard/Home"><button type="button" class="btn btn-primary">리스트</button></a>
+    <a href="http://localhost:8080/userBoard/Home"><button type="button" class="btn-runa">리스트</button></a>
   </div>
   <!-- 추천하트 -->
-  <button id="offerBtn">&#129293;</button>
+  <button id="offerBtn" th:if="${offerId} == -1">&#129293;</button>
+  <button id="offerBtn" th:if="${offerId} != -1">&#10084;</button>
 
   <!-- 댓글등록 -->
-  <p style="display: block;">
-  <form th:action="@{|/userBoard/comment/${id}|}" method="post" id="commentBtn">
-    <textarea name="commentContent" id="userBoardComment" cols="100" rows="3" placeholder="댓글을 입력하세요."></textarea>
-  </form>
-  <button type="submit" class="btn btn-primary" form="commentBtn">등록</button>
-  <table>
-    <thead>
-      <tr class="commentTr">
-        <th>BoardId</th>
+    <div class="commentForm">
+      <form th:action="@{|/userBoard/comment/${id}|}" method="post" id="commentBtn">
+        <div class="commentInput">
+          <textarea name="commentContent" id="userBoardComment" rows="3" placeholder="댓글을 입력하세요."></textarea>
+        </div>
+      </form>
+    </div>
+  <button type="submit" class="btn-runa" form="commentBtn">등록</button>
+  <table class="homeTable">
+    <thead class="table-light">
+      <tr>
+        <!-- <th>BoardId</th> -->
         <th>commentId</th>
-        <th style="color: blue;">memberId</th>
+        <th style="color: #222;">memberId</th>
         <th>commentContent</th>
         <th>commentDate</th>
       </tr>
@@ -79,15 +88,15 @@
       <!-- 댓글 읽기 -->
       <tr th:each="comment : ${comments}">
         <form th:action="@{|/userBoard/comment/update/${id}|}" method="post" id="#">
-          <td th:text="${comment.boardId}" class="tdLine"></td>
+          <!-- <td th:text="${comment.boardId}" class="tdLine"></td> -->
           <td th:text="${comment.id}" class="tdLine" th:id="'id'+${comment.id}"></td>
           <td th:text="${comment.memberId}" class="tdLine" th:id="${comment.memberId}"></td>
           <td>
-            <textarea th:id="'content'+${comment.id}" name="commentContent"
+            <textarea th:id="'content'+${comment.id}" name="commentContent" style="white-space: pre;" 
               disabled>[[${comment.commentContent}]]</textarea>
             <input th:name="id" th:value="${comment.id}" style="display:none;">
           </td>
-          <td th:text="'작성시간: '+${comment.commentDate}" class="tdLine"></td>
+          <td th:text="${comment.commentDate}" class="tdLine"></td>
           <td><button th:onclick="'modifyComment(' + ${comment.id} + ')'" class="btn btn-primary" type="button"
               th:id="'modifyBtn'+${comment.id}" th:if="${comment.memberId}==${session.logInMember.getId()}">수정btn
               [[${comment.id}]]</button></td>
@@ -102,48 +111,71 @@
     </tbody>
   </table>
   <!-- js 파일 만들어서 변경할것. -->
-  <script>
+  <script th:inline="javascript">
 
     //하트 누르면 빨간색/하얀색 토글. 추천기능
-    document.getElementById("offerBtn").addEventListener("click", offerClick);
-    const redHeart = `&#129293;`;
-    const whiteHeart = `&#10084;`;
+    const whiteHeart = `&#129293;`;
+    const redHeart = `&#10084;`;
+    const userBoardId = /*[[${userBoardRead.userBoardNumber}]]*/"";
+    let offerId = /*[[${offerId}]]*/"";
+
     const offerBtn = document.getElementById("offerBtn");
-    let value = false;
 
     function offerClick() {
-      if (value == true) {
-        // 상품id, 멤버id, offer상태 카운트+1 저장하여 전송해야함
+      if (offerId == -1) {//빨간 하트 및 카운트 증가
         let form = document.createElement("form");
-        let userBoardId = /*[[${userBoardRead.userBoardNumber}]]*/"";
-        // if (userBoardId === "") return;
+        if (userBoardId == "") { console.log("userBoardId = null"); return; };
         let userBoardInput = document.createElement("input");
 
         form.appendChild(userBoardInput);
 
         userBoardInput.setAttribute("name", "userBoardId");
-        userBoardInput.setAttribute("value", "userBoardId");
-        userBoardInput.innerHTML;
-        // userBoardInput.style.display = "none";
+        userBoardInput.setAttribute("value", userBoardId);
+        userBoardInput.style.display = "none";
         document.body.appendChild(form);
         $.ajax({
           url: "/userBoard/offer/save",
           type: "post",
           data: $(form).serialize(),
-          success: (data => {
-            value = data;
+          success: (result => {
+            offerId = result;
+            offerBtn.innerHTML = redHeart;
           }),
-          error: ((xhr, status, error) => { console.log("offer save error"); })
+          error: ((xhr, status, error) => { console.log(xhr + "////" + error); })
         });
-        offerBtn.innerHTML = redHeart;
-      } else {
-        offerBtn.innerHTML = whiteHeart;
-        //상품id, 멤버id, offer상태 카운트-1 삭제하기
+      } else {//하트 해제 및 카운트 감소
+        let form = document.createElement("form"); //폼태그 생성
+        if (offerId == "") { console.log("offerId = null"); return; };
+        let userBoardInput = document.createElement("input");
+
+        form.appendChild(userBoardInput);
+
+        userBoardInput.setAttribute("name", "offerId");
+        userBoardInput.setAttribute("value", offerId);
+        console.log(offerId)
+        userBoardInput.style.display = "none";
+        document.body.appendChild(form);
+        $.ajax({
+          url: "/userBoard/offer/delete",
+          type: "post",
+          data: $(form).serialize(),
+          success: (result => {//ajax 실행 후 뒤에 코드들은 이 안에 넣어야 동작이 된다.
+            offerBtn.innerHTML = whiteHeart;
+            offerId = -1;
+          }),
+          error: ((xhr, status, error) => { console.log(xhr + "////" + error); })
+        });
       }
-      value = !value;
     }
+    offerBtn.addEventListener("click", offerClick);
+
   </script>
-  <script type="text/javascript" th:src="@{/js/userBoard.js}"></script>
+
+
+<div th:replace="~{fragments/footer.html :: fragment-footer}"></div>
+<script type="text/javascript" th:src="@{/js/userBoard.js}"></script>
+
+
 </body>
 
 

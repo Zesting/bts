@@ -16,6 +16,7 @@ import ezenstudy.bts.DTO.KakaoCancelResponse;
 import ezenstudy.bts.DTO.KakaoPayApprovalVO;
 import ezenstudy.bts.DTO.PaymentDTO;
 import ezenstudy.bts.domain.GroupPurchase;
+import ezenstudy.bts.domain.Payment;
 import ezenstudy.bts.repository.PaymentRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.java.Log;
@@ -120,7 +121,11 @@ public class KakaoPayService {
             log.info("" + kakaoPayApprovalVO);
 
             // 여기서 카카오페이에서 kakaoPayApprovalVO 로 받은 값들 MemoryRepository에 저장
-            paymentRepository.save(kakaoPayApprovalVO.paymentVoSave(memberId, gpId));
+            Payment payment = paymentRepository.save(kakaoPayApprovalVO.paymentVoSave(memberId, gpId));
+            Long paymentId = payment.getId();
+            session.setAttribute("paymentId", paymentId);
+            System.out.println(paymentId);
+            System.out.println("카카오페이에서 payment 객체 생성 및 session에 저장");
 
             return kakaoPayApprovalVO;
 

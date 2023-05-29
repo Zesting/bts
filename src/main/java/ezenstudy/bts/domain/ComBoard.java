@@ -3,6 +3,8 @@ package ezenstudy.bts.domain;
 
 import java.time.LocalDateTime;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -16,27 +18,27 @@ public class ComBoard {
     private String BN;  // 사업자 번호
     private String answer; // 답변
 
-    private String filename; // 파일이름
-    private String filepath; // 파일경로
+    private String fileName; // 파일이름
+    private String filePath; // 파일경로
+    private MultipartFile file;
 
-    public String getFilename() {
-        return this.filename;
+    public String getFileName() {
+        return this.fileName;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
-    public String getFilepath() {
-        return this.filepath;
+    public String getFilePath() {
+        return this.filePath;
     }
 
-    public void setFilepath(String filepath) {
-        this.filepath = filepath;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     // private boolean filled; // new property
-    //private MultipartFile file;
 
 
     public String getAnswer() {

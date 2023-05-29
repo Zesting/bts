@@ -1,0 +1,19 @@
+
+<div class="container" th:fragment="group_purchase_gallery(groupPurchaseList)">
+    <div class="gallery_top">
+
+    </div>
+    <div class="gallery_list">
+        <div class="gallery_content" th:each="gallery : ${galleryList}" 
+        th:style="'background-image:url(' + ${gallery.imagePath} + ');background-size:cover;width:100px;height:100px;'">
+        </div>
+    </div>
+    <div class="gallrey_botoom">
+
+    </div>
+
+</div>
+
+
+
+

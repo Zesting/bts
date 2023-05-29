@@ -129,6 +129,10 @@ public class SpringConfig {
     }
     @Bean
     public UserBoardOfferService userBoardOfferService() {
-        return new UserBoardOfferService();
+        return new UserBoardOfferService(userBoardOfferRepository());
+    }
+    @Bean
+    public UserBoardOfferRepository userBoardOfferRepository(){
+        return new MemoryUserBoardOfferRepository();
     }
 }

@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 
 import ezenstudy.bts.domain.GroupPurchase;
 
-public class MemoryGroupPurchaseRepository implements GroupPurchaseRepository{
-    
+public class MemoryGroupPurchaseRepository implements GroupPurchaseRepository {
+
     private Map<Long, GroupPurchase> store = new HashMap<>();
     private static long sequence = 0l;
 
@@ -21,31 +21,37 @@ public class MemoryGroupPurchaseRepository implements GroupPurchaseRepository{
         store.put(groupPurchase.getId(), groupPurchase);
         return groupPurchase;
     }
+
     @Override
     public Optional<GroupPurchase> findbyId(Long id) {
         return Optional.ofNullable(store.get(id));
     }
+
     @Override
     public List<GroupPurchase> findAll() {
         return new ArrayList<>(store.values());
     }
+
     @Override
     public List<GroupPurchase> findbyProductId(Long productId) {
         return store.values().stream().filter(gp -> gp.getId() == productId).collect(Collectors.toList());
     }
+
     @Override
     public Long delete(Long id) {
         store.remove(id);
         return id;
     }
+
     @Override
     public Optional<GroupPurchase> modify(Long id, GroupPurchase groupPurchase) {
         groupPurchase.setId(id);
-        store.put(groupPurchase.getId(),groupPurchase);
+        store.put(groupPurchase.getId(), groupPurchase);
         return Optional.of(groupPurchase);
     }
-    //더미파일
-    public MemoryGroupPurchaseRepository(){
+
+    // 더미파일
+    public MemoryGroupPurchaseRepository() {
         GroupPurchase gp1 = new GroupPurchase();
         gp1.setProductId(1l);
         gp1.setPrice(56000);
@@ -57,6 +63,7 @@ public class MemoryGroupPurchaseRepository implements GroupPurchaseRepository{
         save(gp1);
         GroupPurchase gp2 = new GroupPurchase();
         gp2.setProductId(2l);
+        gp2.setPrice(73000);
         gp2.setInformation("봄맞이 닥터마틴 단 10일간 특가판매이벤트");
         gp2.setSaleStart(LocalDateTime.of(2023, 4, 7, 12, 0, 0));
         gp2.setSaleEnd(LocalDateTime.of(2023, 4, 17, 12, 0, 0));
@@ -72,5 +79,25 @@ public class MemoryGroupPurchaseRepository implements GroupPurchaseRepository{
         gp3.setMinQuantity(100);
         gp3.setSaleRequestId(15l);
         save(gp3);
+
+        GroupPurchase gp4 = new GroupPurchase();
+        gp4.setProductId(4l);
+        gp4.setPrice(25000);
+        gp4.setInformation("싸다싸");
+        gp4.setSaleStart(LocalDateTime.of(2023, 5, 1, 12, 0, 0));
+        gp4.setSaleEnd(LocalDateTime.of(2023, 9, 30, 12, 0, 0));
+        gp4.setMinQuantity(2);
+        gp4.setSaleRequestId(17l);
+        save(gp4);
+
+        GroupPurchase gp5 = new GroupPurchase();
+        gp5.setProductId(5l);
+        gp5.setPrice(82000);
+        gp5.setInformation("에어에어에어에어에어");
+        gp5.setSaleStart(LocalDateTime.of(2023, 5, 1, 12, 0, 0));
+        gp5.setSaleEnd(LocalDateTime.of(2023, 9, 30, 12, 0, 0));
+        gp5.setMinQuantity(3);
+        gp5.setSaleRequestId(17l);
+        save(gp5);
     }
 }

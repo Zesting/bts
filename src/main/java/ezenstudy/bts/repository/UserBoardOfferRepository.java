@@ -10,7 +10,8 @@ public interface UserBoardOfferRepository {
     public Optional<UserBoardOffer> findById(Long id);
     public List<UserBoardOffer> findAll();
     public UserBoardOffer save(UserBoardOffer userBoardOffer);
-    public Optional<UserBoardOffer> delete(Long memberId);
+    public Optional<UserBoardOffer> delete(Long id);
+    public Long findIdByFields(Long memberId,Long userBoardId);
     
 }
   

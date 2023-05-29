@@ -5,30 +5,86 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>배송 조회</title>
+    <style>
+        body .do {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        div {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 40px auto;
+            max-width: 400px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        #statusText {
+            color: #333;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
+    <div class="do">
     <h1>배송 조회</h1>
-    <form method="post" th:action="@{/delivery/show}">
-        <div>
-            <label for="addrId">받는 사람 주소 :</label>
-            <div id="addrId" name="addrId">
-                <span th:each="addr : ${addrId}" th:value="${addr.id}" th:text="${addr.address}"></span>
-            </div>
-        </div>
-        <div>
-            <label for="orderId">주문 정보 :</label>
-            <div id="orderId" name="orderId">
-                <span th:each="order : ${orderId}" th:value="${order.id}" th:text="${order.orderInfo}"></span>
-            </div>
-        </div>
-        <div>
-            <label for="status">배송 상태</label>
-            <select>
-                <option value="0">배송 준비 중</option>
-                <option value="1">배송 중</option>
-                <option value="2">배송 완료</option>
-            </select>
-        </div>
-    </form>
+    <div>
+        <label>받는 사람 주소</label>
+        <p>우편번호: <span th:text="${zip}"></span></p>
+        <p>도로명 주소: <span th:text="${str}"></span></p>
+        <p><span th:text="${dlt}"></span></p>
+    </div>
+    
+        <h4>배송상태</h4>
+        <p>
+            <span id="statusText"></span>
+        </p>
+    </div>
+    
 </body>
+<script>
+    // <span> 요소 선택
+    const statusTextElement = document.getElementById("statusText");
+
+    // 랜덤 인덱스 생성
+    const randomIndex = Math.floor(Math.random() * 3);
+
+    // 랜덤 옵션 선택
+    let statusText;
+    switch (randomIndex) {
+        case 0:
+            statusText = "배송 준비 중";
+            break;
+        case 1:
+            statusText = "배송 중";
+            break;
+        case 2:
+            statusText = "배송 완료";
+            break;
+        default:
+            statusText = "";
+    }
+
+    // <span> 요소에 텍스트 설정
+    statusTextElement.textContent = statusText;
+</script>
 </html>
