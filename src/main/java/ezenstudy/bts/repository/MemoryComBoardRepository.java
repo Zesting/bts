@@ -21,10 +21,12 @@ public class MemoryComBoardRepository implements ComBoardRepository{
 
     @Override
     public ComBoard save(ComBoard comBoard) {
+        comBoard.setCreateAt(LocalDateTime.now());
+
         if (comBoard.getId() == null || !comBoardMap.containsKey(comBoard.getId())) {
             comBoard.setId(nextId.getAndIncrement());
         }
-        comBoard.setCreateAt(LocalDateTime.now());
+        
         comBoardMap.put(comBoard.getId(), comBoard);
         return comBoard;
     }

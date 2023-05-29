@@ -9,4 +9,5 @@ public interface DeliveryRepository {
     Delivery save(Delivery delivery);
     List<Delivery> findAll();
     Delivery update(Long id, Delivery delivery);
+    List<Delivery> findAll_memberId(Long memberId);
 }

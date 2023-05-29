@@ -5,34 +5,60 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body { min-width: 1260px; }
+    .titleArea {
+        position: relative;
+        margin: 60px 0 40px 0;
+        text-align: center;
+    }
+    tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+    }
+    th, td {
+        vertical-align: middle;
+    }
+    .titlelist {
+      margin: 100px;
+      padding: 0;
+    }
+  </style>
+  
 </head>
 <body>
   <header th:replace="~{/fragments/header.html :: fragment-header}"></header>
-<h1>회사 요청 게시판</h1>
-<table>
-  <thead>
-  <tr>
-    <th>번호</th>
-    <th>제목</th>
-    <th>작성자</th>
-    <th>날짜</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="comBoard : ${comBoardList}">
-    <td th:text="${comBoard.id}"></td>
-    <td>
-      <!-- <a th:href="@{/comboard/show/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a> -->
-      <a th:href="@{/comboard/check-bn/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a>
-      <span th:if="${comBoard.answer != null}">(new)</span>
-    </td>
-    <td th:text="${comBoard.createdBy}"></td>
-    <td th:text="${comBoard.createAt}"></td>
-  </tr>
-  </tbody>
+  <div th:replace="~{/fragments/headnav.html :: fragment-nav}"></div>
+<h1 class="titleArea">회사 요청 게시판</h1>
+<table class="titlelist">
+  <div>
+    <thead>
+    <tr>
+      <th>번호</th>
+      <th>제목</th>
+      <th>작성자</th>
+      <th>날짜</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="comBoard : ${comBoardList}">
+      <td th:text="${comBoard.id}"></td>
+      <td>
+        <!-- <a th:href="@{/comboard/show/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a> -->
+        <a th:href="@{/comboard/check-bn/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a>
+        <span th:if="${comBoard.answer != null}">(new)</span>
+      </td>
+      <td th:text="${comBoard.createdBy}"></td>
+      <td th:text="${comBoard.createAt}"></td>
+    </tr>
+    </tbody>
+  </div>
 </table>
 <form method="post">
 <button type="submit" th:formaction="@{/comboard/create}" formmethod="get">작성</button>
 </form>
+<div th:replace="~{fragments/footer.html :: fragment-footer}"></div>
 </body>
 </html>
