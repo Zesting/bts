@@ -9,7 +9,7 @@
 <body>
     <header th:replace="~{/fragments/header.html :: fragment-header}"></header>
 <h1>Create ComBoard</h1>
-    <form method="post" th:action="@{/show}" enctype="multipart/form-data">
+    <form method="post" th:action="@{/comboard/create}" enctype="multipart/form-data"> <!-- th:action="@{/show}"건들지마 -->
         <div>
             <label for="title">제목:</label>
             <input type="text" id="title" name="title" required>
