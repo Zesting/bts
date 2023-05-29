@@ -5,34 +5,109 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+    }
+    
+    .titleArea {
+        text-align: center;
+        margin-top: 40px;
+        color: #333;
+    }
+
+    .titlelist {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .titlelist th, .titlelist td {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    .titlelist th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .titlelist td {
+        text-align: center;
+    }
+
+    .titlelist a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .titlelist a:hover {
+        text-decoration: underline;
+    }
+
+    .titlelist span {
+        font-weight: bold;
+        color: #ff0000;
+    }
+
+    form {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 10px;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+  
 </head>
 <body>
   <header th:replace="~{/fragments/header.html :: fragment-header}"></header>
-<h1>회사 요청 게시판</h1>
-<table>
-  <thead>
-  <tr>
-    <th>번호</th>
-    <th>제목</th>
-    <th>작성자</th>
-    <th>날짜</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="comBoard : ${comBoardList}">
-    <td th:text="${comBoard.id}"></td>
-    <td>
-      <!-- <a th:href="@{/comboard/show/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a> -->
-      <a th:href="@{/comboard/check-bn/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a>
-      <span th:if="${comBoard.answer != null}">(new)</span>
-    </td>
-    <td th:text="${comBoard.createdBy}"></td>
-    <td th:text="${comBoard.createAt}"></td>
-  </tr>
-  </tbody>
+  <div th:replace="~{/fragments/headnav.html :: fragment-nav}"></div>
+<h1 class="titleArea">회사 요청 게시판</h1>
+<table class="titlelist">
+  <div>
+    <thead>
+    <tr>
+      <th>번호</th>
+      <th>제목</th>
+      <th>작성자</th>
+      <th>날짜</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="comBoard : ${comBoardList}">
+      <td th:text="${comBoard.id}"></td>
+      <td>
+        <!-- <a th:href="@{/comboard/show/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a> -->
+        <a th:href="@{/comboard/check-bn/{id}(id=${comBoard.id})}" th:text="${comBoard.title}"></a>
+        <span th:if="${comBoard.answer != null}">(new)</span>
+      </td>
+      <td th:text="${comBoard.createdBy}"></td>
+      <td th:text="${#temporals.format(comBoard.createAt, 'yyyy:MM:dd')}"></td>
+    </tr>
+    </tbody>
+  </div>
 </table>
 <form method="post">
 <button type="submit" th:formaction="@{/comboard/create}" formmethod="get">작성</button>
 </form>
+<div th:replace="~{fragments/footer.html :: fragment-footer}"></div>
 </body>
 </html>

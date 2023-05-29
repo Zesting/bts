@@ -58,7 +58,7 @@ public class UserBoardService {
 
   //날짜와 시간 포멧팅(DataTimeFormatter)
   public LocalDateTime FormDateTime() {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd a hh:mm:ss");
     LocalDateTime now = LocalDateTime.now();
     return LocalDateTime.parse(now.format(formatter), formatter);
   }
