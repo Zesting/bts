@@ -5,33 +5,61 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>배송 조회</title>
+    <style>
+        body .do {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        div {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 40px auto;
+            max-width: 400px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        #statusText {
+            color: #333;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
+    <div class="do">
     <h1>배송 조회</h1>
-    <!-- <pre th:each="addr : ${delList}">
-        [[${['zip' + addr.getAddrId()]}]]
-        [[${['str' + addr.getAddrId()]}]]
-        [[${['dlt' + addr.getAddrId()]}]]
-    </pre> -->
     <div>
-        <h4>받는 사람 주소</h4>
-        
-        <p>
-            <span>우편번호: [[${delivery.zipCode}]]</span>
-        </p>
-        <p>
-            <span>도로명 주소: [[${delivery.streetAddr}]]</span>
-        </p>
-        <p>
-            <span>상세 주소: [[${delivery.detailAddr}]]</span>
-        </p>
+        <label>받는 사람 주소</label>
+        <p>우편번호: <span th:text="${zip}"></span></p>
+        <p>도로명 주소: <span th:text="${str}"></span></p>
+        <p><span th:text="${dlt}"></span></p>
     </div>
-    <div>
+    
         <h4>배송상태</h4>
         <p>
             <span id="statusText"></span>
         </p>
     </div>
+    
 </body>
 <script>
     // <span> 요소 선택
