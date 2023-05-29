@@ -8,27 +8,55 @@
 </head>
 <body>
     <h1>배송 조회</h1>
-    <form method="post" th:action="@{/delivery/show}">
-        <div>
-            <label for="addrId">받는 사람 주소 :</label>
-            <div id="addrId" name="addrId">
-                <span th:each="addr : ${addrId}" th:value="${addr.id}" th:text="${addr.address}"></span>
-            </div>
-        </div>
-        <div>
-            <label for="orderId">주문 정보 :</label>
-            <div id="orderId" name="orderId">
-                <span th:each="order : ${orderId}" th:value="${order.id}" th:text="${order.orderInfo}"></span>
-            </div>
-        </div>
-        <div>
-            <label for="status">배송 상태</label>
-            <select>
-                <option value="0">배송 준비 중</option>
-                <option value="1">배송 중</option>
-                <option value="2">배송 완료</option>
-            </select>
-        </div>
-    </form>
+    <!-- <pre th:each="addr : ${delList}">
+        [[${['zip' + addr.getAddrId()]}]]
+        [[${['str' + addr.getAddrId()]}]]
+        [[${['dlt' + addr.getAddrId()]}]]
+    </pre> -->
+    <div>
+        <h4>받는 사람 주소</h4>
+        
+        <p>
+            <span>우편번호: [[${delivery.zipCode}]]</span>
+        </p>
+        <p>
+            <span>도로명 주소: [[${delivery.streetAddr}]]</span>
+        </p>
+        <p>
+            <span>상세 주소: [[${delivery.detailAddr}]]</span>
+        </p>
+    </div>
+    <div>
+        <h4>배송상태</h4>
+        <p>
+            <span id="statusText"></span>
+        </p>
+    </div>
 </body>
+<script>
+    // <span> 요소 선택
+    const statusTextElement = document.getElementById("statusText");
+
+    // 랜덤 인덱스 생성
+    const randomIndex = Math.floor(Math.random() * 3);
+
+    // 랜덤 옵션 선택
+    let statusText;
+    switch (randomIndex) {
+        case 0:
+            statusText = "배송 준비 중";
+            break;
+        case 1:
+            statusText = "배송 중";
+            break;
+        case 2:
+            statusText = "배송 완료";
+            break;
+        default:
+            statusText = "";
+    }
+
+    // <span> 요소에 텍스트 설정
+    statusTextElement.textContent = statusText;
+</script>
 </html>

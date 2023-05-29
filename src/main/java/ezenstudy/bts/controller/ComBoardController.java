@@ -1,7 +1,5 @@
 package ezenstudy.bts.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,18 +43,8 @@ public class ComBoardController {
 
     /* upload */
     @PostMapping("/comboard/create")
-    public String addFile(@RequestParam("filename") String filename,
-                            @RequestParam("file") MultipartFile file) throws IOException {
-        System.out.println("file = " + file.getOriginalFilename());
-
-        if(!file.isEmpty()){
-            String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/";
-            String fullPath = projectPath + filename;
-
-            System.out.println("파일 저장 fullPath = " + fullPath);
-            File saveFile = new File(fullPath);
-            file.transferTo(saveFile);
-        }
+    public String addFile(@ModelAttribute ComBoard comBoard, @RequestParam("file") MultipartFile file) throws Exception {
+        comBoardService.addFile(comBoard, file);
 
         return "comboard/comshow";
     }
@@ -138,12 +126,14 @@ public class ComBoardController {
 
     @GetMapping("/comboard/show/{id}")
     public String showComBoard(@PathVariable("id") Long id, Model model) {
-        Optional<ComBoard> comBoard = Optional.ofNullable(comBoardService.getComBoardById(id));
-        if (comBoard.isPresent()) {
-            model.addAttribute("comBoard", comBoard.get());
+        ComBoard comBoard = comBoardService.getComBoardById(id);
+        if (comBoard != null) {
+            model.addAttribute("comBoard", comBoard);
             return "comboard/comshow";
-        }else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ComBoard no");
+        } else {
+            // 오류 처리 방식을 변경하거나 다른 처리를 수행하세요.
+            // 예를 들어, 오류 페이지를 표시하거나 메시지를 반환할 수 있습니다.
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ComBoard not found");
         }
     }
 
