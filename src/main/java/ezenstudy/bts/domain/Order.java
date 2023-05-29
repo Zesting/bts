@@ -14,11 +14,5 @@ public class Order {
     private Long groupPurchaseProductOptionId;
     /** 주문에 해당하는 결제 고유번호 */
     private Long paymentId;
-    /** 주문에 해당하는 배송 고유번호 */
-    // private Long deliveryId;
 
-    /* 결제 여부 예시 */
-    private String payment;
-    /* 배송 여부 예시 */
-    private String delivery;
 }

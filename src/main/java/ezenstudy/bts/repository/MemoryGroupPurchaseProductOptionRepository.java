@@ -9,15 +9,15 @@ import java.util.stream.Collectors;
 
 import ezenstudy.bts.domain.GroupPurchaseProductOption;
 
-public class MemoryGroupPurchaseProductOptionRepository implements GroupPurchaseProductOptionRepository{
+public class MemoryGroupPurchaseProductOptionRepository implements GroupPurchaseProductOptionRepository {
 
-    Map<Long,GroupPurchaseProductOption> store = new HashMap<>();
+    Map<Long, GroupPurchaseProductOption> store = new HashMap<>();
     private static long sequence = 0l;
 
     @Override
     public GroupPurchaseProductOption save(GroupPurchaseProductOption groupPurchaseProductOption) {
         groupPurchaseProductOption.setId(++sequence);
-        store.put(groupPurchaseProductOption.getId(),groupPurchaseProductOption);
+        store.put(groupPurchaseProductOption.getId(), groupPurchaseProductOption);
         return groupPurchaseProductOption;
     }
 
@@ -34,13 +34,13 @@ public class MemoryGroupPurchaseProductOptionRepository implements GroupPurchase
     @Override
     public List<GroupPurchaseProductOption> findbyGroupPurchaseId(Long id) {
         return store.values().stream().filter(gppo -> gppo.getGroupPurchaseId() == id)
-        .collect(Collectors.toList());
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<GroupPurchaseProductOption> findbyProductOptionId(Long id) {
         return store.values().stream().filter(gppo -> gppo.getProductOptionId() == id)
-        .collect(Collectors.toList());
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -52,11 +52,19 @@ public class MemoryGroupPurchaseProductOptionRepository implements GroupPurchase
     @Override
     public Optional<GroupPurchaseProductOption> modify(Long id, GroupPurchaseProductOption newGPPO) {
         newGPPO.setId(id);
-        store.put(newGPPO.getId(),newGPPO);
+        store.put(newGPPO.getId(), newGPPO);
         return Optional.ofNullable(store.get(id));
     }
-    
-    public MemoryGroupPurchaseProductOptionRepository(){
+
+    @Override
+    public Long amountDecrement(Long id) {
+        GroupPurchaseProductOption gppo = store.get(id);
+        gppo.setQuantity(gppo.getQuantity() - 1);
+        store.put(id, gppo);
+        return id;
+    };
+
+    public MemoryGroupPurchaseProductOptionRepository() {
         GroupPurchaseProductOption gppo1 = new GroupPurchaseProductOption();
         gppo1.setGroupPurchaseId(1l);
         gppo1.setProductOptionId(1l);
@@ -86,7 +94,7 @@ public class MemoryGroupPurchaseProductOptionRepository implements GroupPurchase
         gppo5.setProductOptionId(5l);
         gppo5.setQuantity(34);
         save(gppo5);
-//--
+        // --
         GroupPurchaseProductOption gppo6 = new GroupPurchaseProductOption();
         gppo6.setGroupPurchaseId(3l);
         gppo6.setProductOptionId(6l);

@@ -15,26 +15,36 @@ public class GroupPurchaseProductOptionService {
         this.groupPurchaseProductOptionRepository = groupPurchaseProductOptionRepository;
     }
 
-    public Long register(GroupPurchaseProductOption groupPurchaseProductOption){
+    public Long register(GroupPurchaseProductOption groupPurchaseProductOption) {
         return groupPurchaseProductOptionRepository.save(groupPurchaseProductOption).getId();
     }
-    public Optional<GroupPurchaseProductOption> findOnebyId(Long id){
+
+    public Optional<GroupPurchaseProductOption> findOnebyId(Long id) {
         return groupPurchaseProductOptionRepository.findbyId(id);
     }
-    public List<GroupPurchaseProductOption> findGroupPurchases(){
+
+    public List<GroupPurchaseProductOption> findGroupPurchases() {
         return groupPurchaseProductOptionRepository.findAll();
     }
-    public List<GroupPurchaseProductOption> findListbyGroupPurchaseId(Long groupPurchaseId){
+
+    public List<GroupPurchaseProductOption> findListbyGroupPurchaseId(Long groupPurchaseId) {
         return groupPurchaseProductOptionRepository.findbyGroupPurchaseId(groupPurchaseId);
     }
-    public List<GroupPurchaseProductOption> findListbyProductOptionId(Long productOptionId){
+
+    public List<GroupPurchaseProductOption> findListbyProductOptionId(Long productOptionId) {
         return groupPurchaseProductOptionRepository.findbyProductOptionId(productOptionId);
     }
-    public Long remove(Long id){
+
+    public Long remove(Long id) {
         return groupPurchaseProductOptionRepository.delete(id);
     }
-    public Optional<GroupPurchaseProductOption> modify(Long id, GroupPurchaseProductOption newGPPO){
+
+    public Optional<GroupPurchaseProductOption> modify(Long id, GroupPurchaseProductOption newGPPO) {
         return groupPurchaseProductOptionRepository.modify(id, newGPPO);
     }
-    
+
+    public Long soldCount(Long id) {
+        return groupPurchaseProductOptionRepository.amountDecrement(id);
+    }
+
 }
