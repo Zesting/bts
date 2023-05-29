@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import ezenstudy.bts.domain.Delivery;
 
@@ -31,6 +32,12 @@ public class MemoryDeliveryRepository implements DeliveryRepository{
     @Override
     public Delivery update(Long id, Delivery delivery) {
         return deliveryMap.put(delivery.getId(), delivery);
+    }
+
+    @Override
+    public List<Delivery> findAll_memberId(Long memberId) {
+        return new ArrayList<>(deliveryMap.values().stream().filter(delivery -> delivery.getMemberId().equals(memberId))
+                .collect(Collectors.toList()));
     }
     
 }

@@ -1,15 +1,17 @@
 package ezenstudy.bts.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 import ezenstudy.bts.domain.ComBoard;
 import ezenstudy.bts.repository.ComBoardRepository;
+import jakarta.servlet.ServletContext;
 
 public class ComBoardService {
 
@@ -21,12 +23,12 @@ public class ComBoardService {
     }
 
     public ComBoard getComBoardById(Long id) {
-        Optional<ComBoard> comBoard = Optional.ofNullable(comBoardRepository.findById(id));
-        if (comBoard.isPresent()) {
-            return comBoard.get();
-        } else {
-            throw new NoSuchElementException( id + "no search.");
-        }
+        ComBoard comBoard = comBoardRepository.findById(id);
+    if (comBoard != null) {
+        return comBoard;
+    } else {
+        throw new NoSuchElementException(id + "no search.");
+    }
     }
 
 
@@ -66,17 +68,31 @@ public class ComBoardService {
         return comBoardRepository.findById(id);
     }
 
-    public void addFile(ComBoard comBoard, MultipartFile file) throws Exception{
+    @Autowired
+private ServletContext servletContext;
+
+public void addFile(ComBoard comBoard, MultipartFile file) throws Exception {
+    String projectPath = servletContext.getRealPath("/files/");
+
+        File uploadDirectory = new File(projectPath);
+            if (!uploadDirectory.exists()) {
+                uploadDirectory.mkdirs();
+            }
 
         UUID uuid = UUID.randomUUID();
-
-        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/";
         String fileName = uuid + "_" + file.getOriginalFilename();
+        String fullPath = projectPath + fileName;
+        File saveFile = new File(fullPath);
 
-        File saveFile = new File(projectPath, fileName);
-
-        file.transferTo(saveFile);
-
-        comBoardRepository.save(comBoard);
+        try {
+            file.transferTo(saveFile);
+            comBoard.setFileName(fileName);
+            comBoard.setFilePath(fullPath);
+            comBoardRepository.save(comBoard);
+        } catch (IOException e) {
+            System.out.println("파일 저장 실패");
+            e.printStackTrace();
+            throw new Exception("파일을 불러오지 못했습니다." + e.getMessage());
+        }
     }
 }

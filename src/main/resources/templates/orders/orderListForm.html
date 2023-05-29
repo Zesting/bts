@@ -32,6 +32,12 @@
     </div>
 
     <hr style="margin: 30px 0px" />
+    <!-- 정수 배송 조회 -->
+    <form
+      method="post"
+      th:action="@{/delivery/delivery/{id}(id=${order.getOrderId()})}">
+      <button type="submit">배송 조회</button>
+    </form>
 
     <!-- Footer 부분 -->
     <div th:replace="~{fragments/footer.html :: fragment-footer}"></div>

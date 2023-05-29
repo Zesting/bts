@@ -25,5 +25,12 @@ public class DeliveryService {
     public List<Delivery> findAllDeliveries() {
         return deliveryRepository.findAll();
     }
+    public Delivery findDeliveryById(Long id) {
+        return deliveryRepository.findById(id);
+    }
+
+    public List<Delivery> findAllByMember(Long memberId) {
+        return deliveryRepository.findAll_memberId(memberId);
+    }
 
 }
