@@ -79,5 +79,25 @@ public class MemoryGroupPurchaseRepository implements GroupPurchaseRepository {
         gp3.setMinQuantity(100);
         gp3.setSaleRequestId(15l);
         save(gp3);
+
+        GroupPurchase gp4 = new GroupPurchase();
+        gp4.setProductId(4l);
+        gp4.setPrice(25000);
+        gp4.setInformation("싸다싸");
+        gp4.setSaleStart(LocalDateTime.of(2023, 5, 1, 12, 0, 0));
+        gp4.setSaleEnd(LocalDateTime.of(2023, 9, 30, 12, 0, 0));
+        gp4.setMinQuantity(2);
+        gp4.setSaleRequestId(17l);
+        save(gp4);
+
+        GroupPurchase gp5 = new GroupPurchase();
+        gp5.setProductId(5l);
+        gp5.setPrice(82000);
+        gp5.setInformation("에어에어에어에어에어");
+        gp5.setSaleStart(LocalDateTime.of(2023, 5, 1, 12, 0, 0));
+        gp5.setSaleEnd(LocalDateTime.of(2023, 9, 30, 12, 0, 0));
+        gp5.setMinQuantity(3);
+        gp5.setSaleRequestId(17l);
+        save(gp5);
     }
 }

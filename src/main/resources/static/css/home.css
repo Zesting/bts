@@ -1,0 +1,45 @@
+button {
+    height: 200px;
+    width: 400px;
+    background-color: rgb(200, 200, 200);
+    border: 10px outset gray;
+    margin: 300px auto 0;
+  }
+
+  button>a {
+    font-size: 40px;
+  }
+
+  p>a {
+    box-sizing: border-box;
+    float: left;
+    border: 3px solid hotpink;
+    background-color: black;
+    color: wheat;
+    font-size: large;
+    text-align: center;
+    margin-left: 3px;
+  }
+  .functions{
+    width: 100%;
+    height: 40%;
+  }
+  .gallery_imgbox{
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position: center;
+    height:300px;
+    width:270px;
+  }
+  .gallery_imgbox:hover{
+    border:2px solid black;
+    cursor: pointer;
+  }
+  .gallery_content{
+    margin: 10px;
+  }
+  .gallery_list{
+    display:flex;
+    flex-wrap: wrap;
+    margin: 50px 50px 20px;
+  }
