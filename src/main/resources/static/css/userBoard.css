@@ -107,6 +107,11 @@ td a {
 
 /* 게시판 BODY */
 .boardBody {
-  border: 1px solid blue;
+  border: 1px solid #222;
   height: 300px;
+}
+
+/* 댓글 입력 */
+.commentInput textarea{
+  width: 100%;
 }

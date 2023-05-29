@@ -39,17 +39,15 @@
     </thead>
     <tbody>
       <tr th:each="userBoard : ${userBoards}" id="userBoardTr">
-        <td><a th:href="@{|/userBoard/Read/${userBoard.userBoardNumber}|}" th:text="${userBoard.userBoardNumber}"></a>
-        </td>
+        <td><a th:href="@{|/userBoard/Read/${userBoard.userBoardNumber}|}" th:text="${userBoard.userBoardNumber}"></a></td>
         <!-- 타임리프에서 쓰려면 이렇게 써야 번호가 나온다 -->
-        <td><a th:href="@{|/userBoard/Read/${userBoard.userBoardNumber}|}" th:text="${userBoard.userBoardTitle}"></a>
-        </td>
-        <!-- <td><a th:href="@{|/userBoard/Read/${userBoard.userBoardNumber}|}" th:text="${userBoard.userBoardContent}"></a> -->
-        <!-- </td> -->
-        <td th:text="${userBoard.memberId}"></td>
+        <td><a th:href="@{|/userBoard/Read/${userBoard.userBoardNumber}|}" th:text="${userBoard.userBoardTitle}"></a></td>
+        <!-- <td><a th:href="@{|/userBoard/Read/${userBoard.userBoardNumber}|}" th:text="${userBoard.userBoardContent}"></a></td> -->
+        <!-- 작성자 / 멤버ID 및 로그인아이디 -->
+        <td class="userBoardMemberId" th:text="${userBoard.memberId}"></td>
         <!-- <td th:text="${userBoard.DateTime}"></td>  -->
         <td th:text="${userBoard.UpdateDateTime}"></td>
-        <td th:text="${userBoard.offerCount}"></td>
+        <td th:text="${offerCount}"></td>
         <!-- <td th:text="${userBoard.img}"></td>  -->
       </tr>
     
@@ -59,6 +57,22 @@
   <a href="/"><input type="button" value="홈으로" class="btn-runa"></a>
 
   <div th:replace="~{fragments/footer.html :: fragment-footer}"></div>
+
+    
+  <script th:inline="javascript">
+    //멤버 아이디를 로그인 아이디로 바꿔주는 방법(/컨트롤러)
+    "use strict"
+  {// 괄호를 쳐주면 이 안에서만 변수쓴다.
+    const userBoards = /*[[${userBoards}]]*/""; 
+    const members = /*[[${memberNames}]]*/""; 
+    const userBoardNode = document.getElementsByClassName("userBoardMemberId");
+    let tmp;
+    for(let i = 0; i< userBoards.length; i++){
+      tmp = userBoardNode[i].innerHTML;
+      userBoardNode[i].innerHTML = members[tmp];
+    }
+  }
+  </script>
 
 </body>
 

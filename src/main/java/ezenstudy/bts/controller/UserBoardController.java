@@ -1,5 +1,6 @@
 package ezenstudy.bts.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,7 @@ import ezenstudy.bts.domain.Member;
 import ezenstudy.bts.domain.UserBoard;
 import ezenstudy.bts.domain.UserBoardComment;
 import ezenstudy.bts.domain.UserBoardOffer;
+import ezenstudy.bts.service.MemberService;
 import ezenstudy.bts.service.UserBoardCommentService;
 import ezenstudy.bts.service.UserBoardOfferService;
 import ezenstudy.bts.service.UserBoardService;
@@ -27,18 +29,36 @@ public class UserBoardController {
   private final UserBoardService userBoardService;
   private final UserBoardCommentService userBoardCommentService;
   private final UserBoardOfferService userBoardOfferService;
+  private final MemberService memberService;
 
   public UserBoardController(UserBoardService userBoardService, UserBoardCommentService userBoardCommentService,
-      UserBoardOfferService userBoardOfferService) {
+      UserBoardOfferService userBoardOfferService, MemberService memberService) {
     this.userBoardService = userBoardService;
     this.userBoardCommentService = userBoardCommentService;
     this.userBoardOfferService = userBoardOfferService;
+    this.memberService = memberService;
   }
 
   @GetMapping("/userBoard/Home")
-  public String UserBoardHome(Model model, UserBoard userBoard) {
-    
+  public String UserBoardHome(Model model) {
+    //게시물 목록
     model.addAttribute("userBoards", userBoardService.findUserBoard());
+    //멤버에서 로그인아이디를 가져오기 위한 코드
+    List<Member> members = memberService.findAllMembers();
+    List<String> memberNames = new ArrayList<>();
+    memberNames.add("");
+    for (int index = 0; index < members.size(); index++) {
+      memberNames.add(members.get(index).getName());
+    }
+    model.addAttribute("memberNames", memberNames);
+    //추천수 가져오기
+    // List<UserBoardOffer> boardNumber = userBoardOfferService.findAll();
+    // List<Long> offerCounts = new ArrayList<>();
+    // offerCounts.add(null);
+    // for(int index = 0; index < boardNumber.size(); index++) {
+    //   offerCounts.add(boardNumber.get(index).getUserBoardId());
+    // }
+  
 
     return "userBoard/userBoardHome";
   }
@@ -60,13 +80,13 @@ public class UserBoardController {
     if (session.getAttribute("logInMember") instanceof Member member) {
       userBoard.setMemberId(member.getId());
     }
-    if(userBoard.getUserBoardTitle() !="" && userBoard.getUserBoardContent()!="") {
-      //게시물 저장
+    if (userBoard.getUserBoardTitle() != "" && userBoard.getUserBoardContent() != "") {
+      // 게시물 저장
       userBoardService.save(userBoard);// 3~4줄을 객체로 하나로 묶어서 줄여줌
-    } else if(userBoard.getUserBoardContent()==""){
+    } else if (userBoard.getUserBoardContent() == "") {
       model.addAttribute("msg", "Content을 입력해주세요");
       return "exception/goback_with_message";
-    } else{
+    } else {
       model.addAttribute("msg", "Title을 입력해주세요");
       return "exception/goback_with_message";
     }
@@ -94,12 +114,13 @@ public class UserBoardController {
       // 1. id로 데이터를 가져옴
       Optional<UserBoard> userBoard = userBoardService.findOne(boardId);
       List<UserBoardComment> comment = userBoardCommentService.findListByBoardId(boardId);
+
       Long memberId = null;
-      if(session.getAttribute("logInMember") instanceof Member member){
+      if (session.getAttribute("logInMember") instanceof Member member) {
         memberId = member.getId();
       }
       Long offerId = userBoardOfferService.findIdByOptions(memberId, boardId);
-      
+
       // 2. 가져온 데이터를 모델에 등록
       model.addAttribute("userBoardRead", userBoard.get());
       model.addAttribute("comments", comment);// 게시물 아이디로 리스트
@@ -134,7 +155,7 @@ public class UserBoardController {
   // 댓글 수정
   @PostMapping("/userBoard/comment/update/{id}")
   public String updateComment(@PathVariable("id") Long boardId,
-  UserBoardComment userBoardComment) throws Exception {
+      UserBoardComment userBoardComment) throws Exception {
     UserBoardComment newUserBoardComment = new UserBoardComment();
     // 뷰에서 disabled로 textarea에서 막고 있어서 값이 null로 나왔었음..
     newUserBoardComment.setCommentContent(userBoardComment.getCommentContent());
@@ -146,14 +167,14 @@ public class UserBoardController {
   // 현재 문제점이 보드id의 기준으로 선택되어 저장이 커맨트id로 수정되고잇음
 
   // 게시물 지우기
-  @GetMapping("/userBoard/Delete/{id}") 
+  @GetMapping("/userBoard/Delete/{id}")
   public String delete(@PathVariable Long id) {
     userBoardService.delete(id);
     return "redirect:/userBoard/Home";
   }
 
   // 댓글지우기
-  @GetMapping("/userBoard/Delete/{bId}/comment/{cId}") 
+  @GetMapping("/userBoard/Delete/{bId}/comment/{cId}")
   public String deleteomment(@PathVariable("bId") Long boardId, @PathVariable("cId") Long commentId) {
     userBoardCommentService.delete(commentId);
     return "redirect:/userBoard/Read/" + boardId;
@@ -179,6 +200,7 @@ public class UserBoardController {
     if (session.getAttribute("logInMember") instanceof Member member) {
       UserBoardOffer userBoardOffer = new UserBoardOffer();
       userBoardOffer.setMemberId(member.getId());
+      member.getName();
       userBoardOffer.setUserBoardId(userBoardId);
       UserBoardOffer newOffer = userBoardOfferService.save(userBoardOffer);
       return "" + newOffer.getId();
@@ -190,12 +212,12 @@ public class UserBoardController {
 
   @ResponseBody
   @PostMapping("/userBoard/offer/delete")
-  public String offerDelete(Model model, HttpSession session, @RequestParam("offerId") Long offerId){
+  public String offerDelete(Model model, HttpSession session, @RequestParam("offerId") Long offerId) {
     if (session.getAttribute("logInMember") instanceof Member member) {
       UserBoardOffer userBoardOffer = new UserBoardOffer();
       userBoardOffer.setId(offerId);
       return "" + userBoardOfferService.delete(offerId);
-    }else {
+    } else {
       model.addAttribute("msg", "로그인 후에 이용해주세요");
       return "exception/goback_with_message";
     }

@@ -17,7 +17,7 @@
 //   UserBoardFile save(UserBoardFile userBoardFile){
 //     //원래 파일이름 추출
 //     String fileName = userBoardFile.getFileName();
-//     //파일 이름으로 쓸 UUID생성
+//     //파일 이름으로 쓸 UUID생성, 중복생성 안되게 랜덤 이름 생성
 //     String uuid = UUID.randomUUID().toString();
 //     //확장자 추출(ex: .png)
 //     String extension = fileName.substring(fileName.lastIndexOf("."));

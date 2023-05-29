@@ -16,7 +16,7 @@
   <!-- 제이쿼리 -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script>
-    
+
   </script>
 </head>
 
@@ -37,17 +37,18 @@
     <div>
       <div class="userBoardReadTitle">
         <div class="div20">제목</div>
+        <!-- 하트 추천수  -->
         <div th:text="'Title:' + ${userBoard.userBoardTitle + '♥' + offerCount}" class="div80">제목</div>
       </div>
       <div class="userBoardReadTitle">
         <div class="div20">작성자</div>
-        <div th:text="${userBoard.MemberId}" th:id="${userBoard.MemberId}">멤버 아이디</div>
+        <div th:text="${userBoard.MemberId}" th:id="${userBoard.MemberId}" class="div80">멤버 아이디</div>
       </div>
     </div>
     <!-- 게시판 body -->
     <div class="boardBody">
       <div th:text="'DateTime:' + ${userBoard.UpdateDateTime}">작성시간</div>
-      <div th:text="'Content:' + ${userBoard.userBoardContent}" class="div80"></div>
+      <pre th:utext="${userBoard.userBoardContent}"></pre>
     </div>
     <!-- 수정버튼 -->
     <a th:href="@{|/userBoard/Update/${id}|}">
@@ -65,10 +66,13 @@
   <button id="offerBtn" th:if="${offerId} != -1">&#10084;</button>
 
   <!-- 댓글등록 -->
-  <pre style="display: block;">
-  <form th:action="@{|/userBoard/comment/${id}|}" method="post" id="commentBtn">
-    <textarea name="commentContent" id="userBoardComment" cols="100" rows="3" placeholder="댓글을 입력하세요."></textarea>
-  </form>
+    <div class="commentForm">
+      <form th:action="@{|/userBoard/comment/${id}|}" method="post" id="commentBtn">
+        <div class="commentInput">
+          <textarea name="commentContent" id="userBoardComment" rows="3" placeholder="댓글을 입력하세요."></textarea>
+        </div>
+      </form>
+    </div>
   <button type="submit" class="btn-runa" form="commentBtn">등록</button>
   <table class="homeTable">
     <thead class="table-light">
@@ -168,8 +172,8 @@
   </script>
 
 
-  <script type="text/javascript" th:src="@{/js/userBoard.js}"></script>
-  <div th:replace="~{fragments/footer.html :: fragment-footer}"></div>
+<div th:replace="~{fragments/footer.html :: fragment-footer}"></div>
+<script type="text/javascript" th:src="@{/js/userBoard.js}"></script>
 
 
 </body>
