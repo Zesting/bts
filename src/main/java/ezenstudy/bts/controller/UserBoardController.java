@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ezenstudy.bts.domain.Member;
@@ -36,8 +36,10 @@ public class UserBoardController {
   }
 
   @GetMapping("/userBoard/Home")
-  public String UserBoardHome(Model model) {
+  public String UserBoardHome(Model model, UserBoard userBoard) {
+    
     model.addAttribute("userBoards", userBoardService.findUserBoard());
+
     return "userBoard/userBoardHome";
   }
 
@@ -92,10 +94,18 @@ public class UserBoardController {
       // 1. id로 데이터를 가져옴
       Optional<UserBoard> userBoard = userBoardService.findOne(boardId);
       List<UserBoardComment> comment = userBoardCommentService.findListByBoardId(boardId);
-
+      Long memberId = null;
+      if(session.getAttribute("logInMember") instanceof Member member){
+        memberId = member.getId();
+      }
+      Long offerId = userBoardOfferService.findIdByOptions(memberId, boardId);
+      
       // 2. 가져온 데이터를 모델에 등록
       model.addAttribute("userBoardRead", userBoard.get());
       model.addAttribute("comments", comment);// 게시물 아이디로 리스트
+      model.addAttribute("offerId", offerId);
+      model.addAttribute("offerCount", userBoardOfferService.findCountByBoardId(boardId));
+
       // 3. 보여줄 페이지를 설정
       return "userBoard/userBoardRead";
     }
@@ -165,13 +175,27 @@ public class UserBoardController {
 
   @ResponseBody
   @PostMapping("/userBoard/offer/save")
-  public String offerSave(Model model, HttpSession session, @ModelAttribute("userBoardId") Long userBoardId) {
+  public String offerSave(Model model, HttpSession session, @RequestParam("userBoardId") Long userBoardId) {
     if (session.getAttribute("logInMember") instanceof Member member) {
       UserBoardOffer userBoardOffer = new UserBoardOffer();
       userBoardOffer.setMemberId(member.getId());
       userBoardOffer.setUserBoardId(userBoardId);
-      return "" + userBoardOfferService.save(userBoardOffer).getId();
+      UserBoardOffer newOffer = userBoardOfferService.save(userBoardOffer);
+      return "" + newOffer.getId();
     } else {
+      model.addAttribute("msg", "로그인 후에 이용해주세요");
+      return "exception/goback_with_message";
+    }
+  }
+
+  @ResponseBody
+  @PostMapping("/userBoard/offer/delete")
+  public String offerDelete(Model model, HttpSession session, @RequestParam("offerId") Long offerId){
+    if (session.getAttribute("logInMember") instanceof Member member) {
+      UserBoardOffer userBoardOffer = new UserBoardOffer();
+      userBoardOffer.setId(offerId);
+      return "" + userBoardOfferService.delete(offerId);
+    }else {
       model.addAttribute("msg", "로그인 후에 이용해주세요");
       return "exception/goback_with_message";
     }

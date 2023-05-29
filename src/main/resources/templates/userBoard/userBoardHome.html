@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,66 +11,55 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
-
-  <style>
-    th {
-      border: 1px solid ;
-      text-align: center;
-    }
-    
-    td {
-      border: 1px solid red;
-      text-align: center;
-      width: 200px;
-      overflow: hidden;
-    }
-    td a {
-      text-decoration: none;
-    }
-    
-    tr:hover {
-      background-color: beige;
-      
-    }
+  <link rel="stylesheet" th:href="@{/css/userBoard.css}">
  
-  </style>
 </head>
-<body>
 
-  <h1>User Board Home</h1>
-  <p>게시물 리스트</p>
-   
-    <a href="/userBoard/Create"><input type="button" value="등록"></a>
-    <a href="/"><input type="button" value="홈으로"></a>
-    <table>
-      <thead>
-        <tr>
-          <th class="shortText">BoardNo</th>
-          <th class="longText" style="color: blue;">userBoardTitle</th>
-          <th class="longText">userBoardContent</th>
-          <th class="shortText">memberId</th>
-          <th class="longText">DateTime</th>
-          <th class="longText">UpdateDateTime</th>
-          <th class="shortText">offerCount</th>
-          <th class="shortText">img</th>
-        </tr>
-      </thead>
-      <tbody>
-         <tr th:each="userBoard : ${userBoards}">
-          <td><a th:href="@{|/userBoard/Read/${userBoard.userBoardNumber}|}" th:text="${userBoard.userBoardNumber}"></a></td>
-          <!-- 타임리프에서 쓰려면 이렇게 써야 번호가 나온다 -->
-          <td><a th:href="@{|/userBoard/Read/${userBoard.userBoardNumber}|}" th:text="${userBoard.userBoardTitle}"></a></td>
-          <td><a th:href="@{|/userBoard/Read/${userBoard.userBoardNumber}|}" th:text="${userBoard.userBoardContent}"></a></td> 
-          <td th:text="${userBoard.memberId}"></td> 
-          <td th:text="${userBoard.DateTime}"></td> 
-          <td th:text="${userBoard.UpdateDateTime}" ></td> 
-          <td th:text="${userBoard.offerCount}"></td> 
-          <!-- <td th:text="${userBoard.img}"></td>  -->
-        </tr>
-      </tbody>
-    </table> 
-     
-  
+<body>
+  <header th:replace="~{/fragments/header.html :: fragment-header}"></header>
+  <div th:replace="~{/fragments/headnav.html :: fragment-nav}"></div>
+
+  <div class="userBoardHome">
+    <h1>User Board Home</h1>
+    <p>게시물 리스트</p>
+  </div>
+  <table class="homeTable">
+    <thead class="table-light">
+      <tr id="userBoardTr">
+        <th>번호</th>
+        <!-- <th>내용</th> -->
+        <th>제목</th>
+        <th>작성자</th>
+        <!-- 수정하면 수정일을 확인하기위해 표시함 -->
+        <!-- <th class="longText">DateTime</th> -->
+        <th>작성일</th>
+        <th>추천수</th>
+        <!-- <th>img</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="userBoard : ${userBoards}" id="userBoardTr">
+        <td><a th:href="@{|/userBoard/Read/${userBoard.userBoardNumber}|}" th:text="${userBoard.userBoardNumber}"></a>
+        </td>
+        <!-- 타임리프에서 쓰려면 이렇게 써야 번호가 나온다 -->
+        <td><a th:href="@{|/userBoard/Read/${userBoard.userBoardNumber}|}" th:text="${userBoard.userBoardTitle}"></a>
+        </td>
+        <!-- <td><a th:href="@{|/userBoard/Read/${userBoard.userBoardNumber}|}" th:text="${userBoard.userBoardContent}"></a> -->
+        <!-- </td> -->
+        <td th:text="${userBoard.memberId}"></td>
+        <!-- <td th:text="${userBoard.DateTime}"></td>  -->
+        <td th:text="${userBoard.UpdateDateTime}"></td>
+        <td th:text="${userBoard.offerCount}"></td>
+        <!-- <td th:text="${userBoard.img}"></td>  -->
+      </tr>
+    
+    </tbody>
+  </table>
+  <a href="/userBoard/Create"><input type="button" value="등록" class="btn-runa"></a>
+  <a href="/"><input type="button" value="홈으로" class="btn-runa"></a>
+
+  <div th:replace="~{fragments/footer.html :: fragment-footer}"></div>
+
 </body>
 
 </html>

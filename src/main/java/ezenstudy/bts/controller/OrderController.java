@@ -1,8 +1,10 @@
 package ezenstudy.bts.controller;
 
-/* import java.util.ArrayList; */
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
-/* import java.util.stream.Collectors; */
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,13 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ezenstudy.bts.domain.GroupPurchase;
 import ezenstudy.bts.domain.Member;
 import ezenstudy.bts.domain.Order;
-/* import ezenstudy.bts.domain.Payment; */
+import ezenstudy.bts.domain.Payment;
 import ezenstudy.bts.domain.ProductOption;
-import ezenstudy.bts.service.AddrService;
 import ezenstudy.bts.service.GroupPurchaseProductOptionService;
 import ezenstudy.bts.service.GroupPurchaseService;
 import ezenstudy.bts.service.OrderService;
-/* import ezenstudy.bts.service.PaymentService; */
+import ezenstudy.bts.service.PaymentService;
 import ezenstudy.bts.service.ProductImageService;
 import ezenstudy.bts.service.ProductOptionService;
 import ezenstudy.bts.service.ProductService;
@@ -34,33 +35,20 @@ public class OrderController {
     private final ProductImageService productImageService;
     private final ProductOptionService productOptionService;
     private final ProductService productService;
-    private final AddrService addrService;
-    /* private final PaymentService paymentService; */
+    private final PaymentService paymentService;
 
-    @GetMapping("/order/oneMyOrder")
-    public String oneOrderForm(HttpSession session, Model model) {
-        /*
-         * Member sessionMember = (Member) session.getAttribute("logInMember");
-         * 
-         * if (sessionMember != null) {
-         * List<Order> orders = orderService.findAllByMember(sessionMember.getId());
-         * for (Order order : orders) {
-         * 
-         * }
-         * }
-         */
-
-        return "members/logInForm";
-    }
-
+    // 모든 주문 보기//
     @GetMapping("/order/myOrder")
-    public String listForm(Model model, HttpSession session) {
+    public String oneOrderForm(HttpSession session, Model model) {
 
-        Member member = (Member) session.getAttribute("logInMember");
-        List<Order> member_orderList = orderService.findAllByMember(member.getId());
+        /** 로그인된 회원 객체 */
+        Member sessionMember = (Member) session.getAttribute("logInMember");
+        /** 상기 회원의 모든 주문 리스트 */
+        List<Order> orders = orderService.findAllByMember(sessionMember.getId());
+        /** 주문 리스트에 포함한 주문 객체에 존재하는 데이터를 저장한 리스트 */
+        List<Map<String, Object>> member_orderList = new ArrayList<>();
 
-        member_orderList.stream().forEach(order -> {
-            /* 리스트에 존재하는 주문 객체의 주문 고유 번호 */
+        orders.stream().forEach(order -> {
             Long orderId = order.getOrderId();
             /** 주문에 저장된 공동구매 고유 번호 */
             Long gpId = order.getGroupPurchaseId();
@@ -73,28 +61,34 @@ public class OrderController {
             String pn = productService.findOnebyId(gp.getProductId()).get().getName();
             /** 공동 구매 대상 상품 이미지 경로 */
             String pi = productImageService.findListbyProductId(gp.getProductId()).get(0).getImagePath();
-            /** 결제 여부 변수 */
-            String pay = orderService.findOneByOrder(orderId).get().getPayment();
 
-            /** 배송 상태 변수 */
-            String del = orderService.findOneByOrder(orderId).get().getDelivery();
-            // String order = orderService.findOneByOrder(orderId).get
+            /** 결제 완료 시간 */
+            /* 회원(영진), 예약(나), 관리자(정래), 결제(재영) */
 
-            String memberStreetAddr = addrService.findAddr(member.getId()).get().getStreetAddr();
-            String memberDetailAddr = addrService.findAddr(member.getId()).get().getDetailAddr();
+            /** 결제 여부 */
 
-            model.addAttribute("orderList", member_orderList);
-            model.addAttribute("gp_name" + orderId, pn);
-            model.addAttribute("gp_color" + orderId, po.getColor());
-            model.addAttribute("gp_size" + orderId, po.getSize());
-            model.addAttribute("gp_price" + orderId, gp.getPrice());
-            model.addAttribute("gp_image" + orderId, pi);
-            model.addAttribute("gp_pay" + orderId, pay);
-            model.addAttribute("gp_del" + orderId, del);
-            model.addAttribute("gp_sa" + orderId, memberStreetAddr);
-            model.addAttribute("gp_da" + orderId, memberDetailAddr);
+            Map<String, Object> orderMap = new LinkedHashMap<>();
+
+            orderMap.put("orderId", orderId);
+            orderMap.put("gp_name", pn);
+            orderMap.put("gp_color", po.getColor());
+            orderMap.put("gp_size", po.getSize());
+            orderMap.put("gp_price", gp.getPrice());
+            orderMap.put("gp_imagePath", pi);
+            /*
+             * orderMap.put("approvalDate", approvalDate);
+             * orderMap.put("paymentApproval", paymentApproval);
+             */
+
+            member_orderList.add(orderMap);
+
+            /** 오더 리스트 view로 전달(Model) */
+
         });
 
+        model.addAttribute("member_orderList", member_orderList);
+
+        System.out.println(member_orderList);
         return "orders/orderListForm";
     }
 

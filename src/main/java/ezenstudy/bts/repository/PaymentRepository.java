@@ -7,6 +7,10 @@ import ezenstudy.bts.domain.Payment;
 
 public interface PaymentRepository {
     public Payment save(Payment payment);
-    public Optional<Payment> findOne(Long memberId);
+
+    public Optional<Payment> findOneByMemberId(Long memberId);
+
+    public Optional<Payment> findOneById(Long paymentId);
+
     public List<Payment> findAll();
 }

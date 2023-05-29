@@ -25,7 +25,7 @@ public class MemoryUserBoardOfferRepository implements UserBoardOfferRepository{
 
     @Override
     public Integer offerCount(Integer userBoardOfferCount) {
-        //offerCount가 트루일때만 카운팅해주는 조건문 필요
+        //사용안해서 삭제
         return userBoardOfferCount;
     }
 
@@ -37,8 +37,19 @@ public class MemoryUserBoardOfferRepository implements UserBoardOfferRepository{
     }
 
     @Override
-    public Optional<UserBoardOffer> delete(Long memberId) {
-       return Optional.ofNullable(store.remove(memberId));
+    public Optional<UserBoardOffer> delete(Long id) {
+       return Optional.ofNullable(store.remove(id));
+    }
+
+    @Override
+    public Long findIdByFields(Long memberId, Long userBoardId) {
+        Optional<UserBoardOffer> target = store.values().stream()
+        .filter(offer -> offer.getMemberId() == memberId 
+        && offer.getUserBoardId() == userBoardId).findAny();
+        if(target.isPresent()){
+            return target.get().getId();
+        }
+        return -1l;
     }
 
     

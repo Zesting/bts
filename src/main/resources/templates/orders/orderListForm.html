@@ -8,22 +8,38 @@
   </head>
   <body>
     <header th:replace="~{/fragments/header.html :: fragment-header}"></header>
-    <pre th:each="order : ${orderList}">
-      [[${order.getOrderId()}]]
-      [[${['gp_name' + order.getOrderId()]}]]
-      [[${['gp_color' + order.getOrderId]}]]
-      [[${['gp_size' + order.getOrderId]}]]
-      [[${['gp_price' + order.getOrderId]}]]
-      [[${['gp_image' + order.getOrderId]}]]
-      <img th:src="@{${['gp_image' + order.getOrderId()]}}" alt="" style="height: 200px; height: 200px;">
-      [[${['gp_pay' + order.getOrderId]}]]
-      [[${['gp_del' + order.getOrderId]}]]
-      [[${['gp_sa' + order.getOrderId]}]]
-      [[${['gp_da' + order.getOrderId]}]]
-      <!-- 정수 배송 조회 -->
-      <form method="get" th:action="@{/delivery/delivery/{id}(id=${order.getOrderId()})}">
-        <button type="submit">배송 조회</button>
-      </form>
-    </pre>
+    <div th:replace="~{/fragments/headnav.html :: fragment-nav}"></div>
+    <!-- 전체 복붙하고 이아래로 내용 넣어주시면됩니다. -->
+    <!-- 메인 시작 -->
+    <div th:each="orderList : ${member_orderList}">
+      <pre>
+        <div th:text="${orderList.orderId}"></div>
+        <div th:text="${orderList.gp_name}"></div>
+        <div th:text="${orderList.gp_color}"></div>
+        <div th:text="${orderList.gp_size}"></div>
+        <div th:text="${orderList.gp_price}"></div>
+        <img th:src="${orderList.gp_imagePath}" alt="주문 대표 이미지" style="width: 200px; height: 170px;">
+       <!--  <div th:if="${orderList.paymentApproval} == null">
+          <p>결제 대기</p>
+        </div>
+        <div th:if="${orderList.paymentApproval} != null">
+          <p>결제 완료</p>
+        </div>
+        <div
+        th:text="${#dates.format(orderList.approvalDate, 'yyyy-MM-dd')}"></div> -->
+      </pre>
+      <hr />
+    </div>
+
+    <hr style="margin: 30px 0px" />
+    <!-- 정수 배송 조회 -->
+    <form
+      method="get"
+      th:action="@{/delivery/delivery/{id}(id=${order.getOrderId()})}">
+      <button type="submit">배송 조회</button>
+    </form>
+
+    <!-- Footer 부분 -->
+    <div th:replace="~{fragments/footer.html :: fragment-footer}"></div>
   </body>
 </html>

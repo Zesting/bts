@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ezenstudy.bts.domain.GroupPurchase;
 import ezenstudy.bts.domain.Order;
+import ezenstudy.bts.service.GroupPurchaseProductOptionService;
 import ezenstudy.bts.service.GroupPurchaseService;
 import ezenstudy.bts.service.KakaoPayService;
 import ezenstudy.bts.service.MemberService;
@@ -21,6 +22,7 @@ import lombok.extern.java.Log;
 @Log
 public class PaymentController {
     private final GroupPurchaseService groupPurchaseService;
+    private final GroupPurchaseProductOptionService groupPurchaseProductOptionService;
     private final MemberService memberService;
     private final KakaoPayService kakaopay;
     private final ProductService productService;
@@ -29,13 +31,14 @@ public class PaymentController {
 
     public PaymentController(GroupPurchaseService groupPurchaseService, MemberService memberService,
             KakaoPayService kakaopay, ProductService productService, PaymentService paymentService,
-            OrderService orderService) {
+            OrderService orderService, GroupPurchaseProductOptionService groupPurchaseProductOptionService) {
         this.groupPurchaseService = groupPurchaseService;
         this.memberService = memberService;
         this.kakaopay = kakaopay;
         this.productService = productService;
         this.paymentService = paymentService;
         this.orderService = orderService;
+        this.groupPurchaseProductOptionService = groupPurchaseProductOptionService;
     }
 
     @GetMapping("/payment")
@@ -86,6 +89,7 @@ public class PaymentController {
             order.setMemberId(memberId);
             order.setGroupPurchaseId(groupPurchaseId);
             order.setGroupPurchaseProductOptionId(groupPurchaseProductOptionId);
+
             orderService.orderJoin(order);
             session.removeAttribute("groupPurchaseProductOptionId");
             session.removeAttribute("memberId");
@@ -97,6 +101,7 @@ public class PaymentController {
             log.info("오더에 저장된 것." + order.getOrderId() + "|" + groupPurchaseId + "|"
                     + memberId + "|"
                     + groupPurchaseProductOptionId);
+            groupPurchaseProductOptionService.soldCount(groupPurchaseId);
         }
         model.addAttribute("payment", paymentService.findAll());
     }

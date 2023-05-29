@@ -1,0 +1,112 @@
+/* 게시판의 제목 */
+.userBoardHome {
+  text-align: center;
+}
+
+/* 게시판 테이블 */
+.homeTable {
+  color: #222;
+  width: 100%;
+  font-family: 'Poppins', 'Spoqa han sans kr', '맑은고딕', 'Malgun Gothic', '돋움', Dotum, Helvetica, Arial, AppleGothic, sans-serif;
+  font-size: 12px;
+}
+
+/* 테이블 헤드 CSS */
+.table-light {
+  text-align: center;
+  background-color: #eaeaea;
+  font-size: 15px;
+}
+
+/* 테이블 CSS */
+.table-light th {
+  padding: 12px 12px;
+}
+
+.homeTable td {
+  border-top: 1px solid #eaeaea;
+  text-align: center;
+  padding: 12px 12px;
+}
+
+td a {
+  text-decoration: none;
+  color: #222;
+}
+
+#userBoardTr:hover {
+  background-color: #eaeaea;
+
+}
+
+/* 버튼 CSS */
+.btn-runa {
+  background-color: #222;
+  color: #eaeaea;
+  width: 96px;
+  vertical-align: middle;
+  font-size: 12px;
+  padding: 6px 8px;
+  box-sizing: border-box;
+  border-radius: 2px;
+  line-height: 22px;
+  word-spacing: -0.5px;
+  word-break: keep-all;
+  word-wrap: break-word;
+  float: right;
+  margin: 10px 5px;
+}
+
+.btn-runa:hover {
+  background-color: #747474;
+  border: 1px solid #747474;
+}
+
+
+/* userBoardCreate CSS */
+
+
+
+
+/* userBoardRead CSS */
+/* 임시 테이블 스타일 */
+.table {
+  text-align: center;
+}
+
+.commentTr {
+  border: 1px solid red;
+  text-align: center;
+}
+
+/* 추천 하트 스타일 */
+#offerBtn {
+  border: none;
+  background-color: white;
+  font-size: 20px;
+}
+
+/* 게시판 상세 조회 제목 */
+.userBoardReadTitle {
+  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+  display: flex;
+}
+
+.userBoardReadTitle div {
+  padding: 12px 12px;
+}
+
+.userBoardReadTitle .div20 {
+  width: 20%;
+  background-color: #f5f5f5;
+}
+.userBoardReadTitle .div80 {
+  width: 80%;
+}
+
+/* 게시판 BODY */
+.boardBody {
+  border: 1px solid blue;
+  height: 300px;
+}
