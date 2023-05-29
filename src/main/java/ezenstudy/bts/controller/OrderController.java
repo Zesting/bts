@@ -61,9 +61,11 @@ public class OrderController {
             String pn = productService.findOnebyId(gp.getProductId()).get().getName();
             /** 공동 구매 대상 상품 이미지 경로 */
             String pi = productImageService.findListbyProductId(gp.getProductId()).get(0).getImagePath();
+            Payment payment = paymentService.findById(order.getPaymentId()).get();
 
-            /** 결제 완료 시간 */
-            /* 회원(영진), 예약(나), 관리자(정래), 결제(재영) */
+            Date approvalDate = payment.getApprovalDate();
+            Byte paymentApproval = payment.getPaymentApproval();
+            Date orderCompleteDate = orderService.findOneByOrder(orderId).get().getOrder_completeDate();
 
             /** 결제 여부 */
 
@@ -75,10 +77,9 @@ public class OrderController {
             orderMap.put("gp_size", po.getSize());
             orderMap.put("gp_price", gp.getPrice());
             orderMap.put("gp_imagePath", pi);
-            /*
-             * orderMap.put("approvalDate", approvalDate);
-             * orderMap.put("paymentApproval", paymentApproval);
-             */
+            orderMap.put("approvalDate", approvalDate);
+            orderMap.put("paymentApproval", paymentApproval);
+            orderMap.put("orderCompleteDate", orderCompleteDate);
 
             member_orderList.add(orderMap);
 
@@ -87,8 +88,8 @@ public class OrderController {
         });
 
         model.addAttribute("member_orderList", member_orderList);
+        System.out.println("member_orderList.size() :" + member_orderList.size());
 
-        System.out.println(member_orderList);
         return "orders/orderListForm";
     }
 

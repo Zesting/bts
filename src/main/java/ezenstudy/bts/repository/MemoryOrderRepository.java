@@ -1,5 +1,7 @@
 package ezenstudy.bts.repository;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,6 +63,7 @@ public class MemoryOrderRepository implements OrderRepository {
         o1.setGroupPurchaseId(1L);
         o1.setGroupPurchaseProductOptionId(1l);
         o1.setPaymentId(1l);
+        o1.setOrder_completeDate(Timestamp.valueOf(LocalDateTime.of(2023, 4, 29, 15, 48, 0)));
         save(o1);
 
         Order o2 = new Order();
@@ -68,6 +71,7 @@ public class MemoryOrderRepository implements OrderRepository {
         o2.setGroupPurchaseId(1L);
         o2.setGroupPurchaseProductOptionId(2l);
         o2.setPaymentId(2l);
+        o2.setOrder_completeDate(Timestamp.valueOf(LocalDateTime.of(2023, 4, 10, 15, 15, 0)));
         save(o2);
 
         Order o3 = new Order();
@@ -75,6 +79,7 @@ public class MemoryOrderRepository implements OrderRepository {
         o3.setGroupPurchaseId(3L);
         o3.setGroupPurchaseProductOptionId(1l);
         o3.setPaymentId(3l);
+        o3.setOrder_completeDate(Timestamp.valueOf(LocalDateTime.of(2023, 3, 29, 15, 15, 0)));
         save(o3);
 
         Order o4 = new Order();
@@ -82,13 +87,24 @@ public class MemoryOrderRepository implements OrderRepository {
         o4.setGroupPurchaseId(2L);
         o4.setGroupPurchaseProductOptionId(2l);
         o4.setPaymentId(4l);
+        o4.setOrder_completeDate(Timestamp.valueOf(LocalDateTime.of(2023, 2, 9, 15, 1, 0)));
         save(o4);
 
         Order o5 = new Order();
         o5.setMemberId(2l);
         o5.setGroupPurchaseId(3L);
+        o5.setGroupPurchaseProductOptionId(2l);
         o5.setPaymentId(5l);
+        o5.setOrder_completeDate(Timestamp.valueOf(LocalDateTime.of(2023, 1, 11, 15, 11, 0)));
         save(o5);
+
+        Order o6 = new Order();
+        o6.setMemberId(2l);
+        o6.setGroupPurchaseId(2L);
+        o6.setGroupPurchaseProductOptionId(2l);
+        o6.setPaymentId(6l);
+        o1.setOrder_completeDate(Timestamp.valueOf(LocalDateTime.of(2023, 4, 13, 11, 15, 0)));
+        save(o6);
     }
 
 }

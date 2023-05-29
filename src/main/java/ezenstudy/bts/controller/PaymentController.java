@@ -82,13 +82,15 @@ public class PaymentController {
 
         if (session.getAttribute("groupPurchaseProductOptionId") instanceof Long groupPurchaseProductOptionId &&
                 session.getAttribute("memberId") instanceof Long memberId &&
-                session.getAttribute("groupPurchaseId") instanceof Long groupPurchaseId) {
+                session.getAttribute("groupPurchaseId") instanceof Long groupPurchaseId &&
+                session.getAttribute("paymentId") instanceof Long paymentId) {
             System.out.println("if문 정상 동작");
 
             Order order = new Order();
             order.setMemberId(memberId);
             order.setGroupPurchaseId(groupPurchaseId);
             order.setGroupPurchaseProductOptionId(groupPurchaseProductOptionId);
+            order.setPaymentId(paymentId);
 
             orderService.orderJoin(order);
             session.removeAttribute("groupPurchaseProductOptionId");

@@ -16,6 +16,7 @@ import ezenstudy.bts.DTO.KakaoCancelResponse;
 import ezenstudy.bts.DTO.KakaoPayApprovalVO;
 import ezenstudy.bts.DTO.PaymentDTO;
 import ezenstudy.bts.domain.GroupPurchase;
+import ezenstudy.bts.domain.Payment;
 import ezenstudy.bts.repository.PaymentRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.java.Log;
@@ -28,7 +29,6 @@ public class KakaoPayService {
     private PaymentDTO paymentDTO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
     private final PaymentRepository paymentRepository;
-
 
     public KakaoPayService(PaymentRepository paymentRepository) {
         this.paymentRepository = paymentRepository;
@@ -46,13 +46,13 @@ public class KakaoPayService {
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-        //밑에 3개는 결제승인이랑 일치해야함
-        params.add("cid", "TC0ONETIME"); 
-        params.add("partner_order_id", "306"); 
-        params.add("partner_user_id", "gorany"); 
-        
+        // 밑에 3개는 결제승인이랑 일치해야함
+        params.add("cid", "TC0ONETIME");
+        params.add("partner_order_id", "306");
+        params.add("partner_user_id", "gorany");
+
         params.add("item_name", productName); // 상품명 받아옴
-        params.add("quantity", "1"); 
+        params.add("quantity", "1");
         params.add("total_amount", String.valueOf(gp.getPrice())); // 상품가격 받아옴
         params.add("tax_free_amount", "100"); // 비과세금액 더미값
 
@@ -81,9 +81,9 @@ public class KakaoPayService {
     }
 
     // ---------------------------------결제승인요청------------------------------------------
-    public KakaoPayApprovalVO kakaoPayInfo(String pg_token,HttpSession session) {
+    public KakaoPayApprovalVO kakaoPayInfo(String pg_token, HttpSession session) {
         Long memberId = (Long) session.getAttribute("memberId");
-        Long gpId = (Long)session.getAttribute("groupPurchaseId");
+        Long gpId = (Long) session.getAttribute("groupPurchaseId");
 
         log.info("KakaoPayInfoVO............................................");
         log.info("-----------------------------");
@@ -99,24 +99,27 @@ public class KakaoPayService {
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 
-        params.add("tid", paymentDTO.getTid()); //결제준비api응답에 포함
-        params.add("pg_token", pg_token); //결제승인 요청을인증하는 토큰
-        //결제준비랑 똑같아야함
+        params.add("tid", paymentDTO.getTid()); // 결제준비api응답에 포함
+        params.add("pg_token", pg_token); // 결제승인 요청을인증하는 토큰
+        // 결제준비랑 똑같아야함
         params.add("cid", "TC0ONETIME");
         params.add("partner_order_id", "306");
         params.add("partner_user_id", "gorany");
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
-        
+
         // 카카오페이한테 kakaoPayApprovalVO 로 값받아오기
         try {
             kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body,
                     KakaoPayApprovalVO.class);
             log.info("" + kakaoPayApprovalVO);
-            
-            //여기서 카카오페이에서 kakaoPayApprovalVO 로 받은 값들 MemoryRepository에 저장
-            paymentRepository.save(kakaoPayApprovalVO.paymentVoSave(memberId,gpId));
-            
+
+            // 여기서 카카오페이에서 kakaoPayApprovalVO 로 받은 값들 MemoryRepository에 저장
+            Payment payment = paymentRepository.save(kakaoPayApprovalVO.paymentVoSave(memberId, gpId));
+            Long paymentId = payment.getId();
+            session.setAttribute("paymentId", paymentId);
+            System.out.println(paymentId);
+            System.out.println("카카오페이에서 payment 객체 생성 및 session에 저장");
 
             return kakaoPayApprovalVO;
 
@@ -130,15 +133,14 @@ public class KakaoPayService {
         return null;
     }
 
-
-    //결제취소
+    // 결제취소
     public KakaoCancelResponse kakaoCancel() {
 
-         // 서버로 요청할 Header
-         HttpHeaders headers = new HttpHeaders();
-         headers.add("Authorization", "KakaoAK " + "caab353b4b3e2459f386010dd152803d");
-         headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+        // 서버로 요청할 Header
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "KakaoAK " + "caab353b4b3e2459f386010dd152803d");
+        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 
         // 카카오페이 요청
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
@@ -149,17 +151,16 @@ public class KakaoPayService {
 
         // 파라미터, 헤더
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, headers);
-    
+
         // 외부에 보낼 url
         RestTemplate restTemplate = new RestTemplate();
-    
+
         KakaoCancelResponse cancelResponse = restTemplate.postForObject(
                 "https://kapi.kakao.com/v1/payment/cancel",
                 requestEntity,
                 KakaoCancelResponse.class);
-                
+
         return cancelResponse;
     }
-    
 
 }

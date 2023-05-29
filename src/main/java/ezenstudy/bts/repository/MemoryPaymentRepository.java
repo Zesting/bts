@@ -104,6 +104,16 @@ public class MemoryPaymentRepository implements PaymentRepository {
         dm5.setTid("r20g12193939rwe1203");
         save(dm5);
 
+        Payment dm6 = new Payment();
+        dm6.setAmount(73000);
+        dm6.setApprovalDate(
+                Timestamp.valueOf(LocalDateTime.of(2023, 4, 13, 11, 17, 33, 0)));
+        dm6.setGroupPurchaseId(2L);
+        dm6.setMemberId(2L);
+        dm6.setPaymentType("CASH");
+        dm6.setTid("r20g12193939rwe1203");
+        save(dm6);
+
     }
 
 }
