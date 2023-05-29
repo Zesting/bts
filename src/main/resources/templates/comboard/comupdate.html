@@ -5,32 +5,102 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 40px;
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            height: 150px;
+        }
+
+        button[type="submit"],
+        button[type="button"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover,
+        button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+
+        button[type="submit"],
+        button[type="button"] {
+            margin-right: 10px;
+        }
+    </style>
 </head>
-<body>
-        <h1>내용 수정</h1>
-        <form method="post" th:object="${comBoard}" th:action="@{/comboard/modify/{id}(id=${comBoard.id})}">
-            <input type="hidden" th:field="*{id}"/>
-            <p>
-                <label for="title">제목</label>
-                <input type="text" id="title" th:field="*{title}" required="required"/>
-            </p>
-            <p>
-                <label for="content">내용</label>
-                <textarea id="content" th:field="*{content}" rows="10" required="required"></textarea>
-            </p>
-            <p>
-                <label for="BN">사업자 번호</label>
-                <input type="text" id="BN" th:field="*{BN}" required="required"/>
-            </p>
-            <p>
-                <button type="submit">수정</button>
-                <button type="button" onclick="location.href='/comboard/list'">취소</button>
-            </p>
-        </form>
+    <body>
+        <div th:replace="~{/fragments/header.html :: fragment-header}"></div>
+        <div th:replace="~{/fragments/headnav.html :: fragment-nav}"></div>
+
+            <h1>내용 수정</h1>
+            <form method="post" th:object="${comBoard}" th:action="@{/comboard/modify/{id}(id=${comBoard.id})}">
+                <input type="hidden" th:field="*{id}"/>
+                <p>
+                    <label for="title">제목</label>
+                    <input type="text" id="title" th:field="*{title}" required="required"/>
+                </p>
+                <p>
+                    <label for="content">내용</label>
+                    <textarea id="content" th:field="*{content}" rows="10" required="required"></textarea>
+                </p>
+                <p>
+                    <label for="BN">사업자 번호</label>
+                    <input type="text" id="BN" th:field="*{BN}" required="required"/>
+                </p>
+                <p>
+                    <button type="submit">수정</button>
+                    <button type="button" onclick="location.href='/comboard/list'">취소</button>
+                </p>
+            </form>
         <form method="post">
             <button type="submit" formaction="/comboard/list">목록</button>
         </form>
-
-
+        <div th:replace="~{fragments/footer.html :: fragment-footer}"></div>
 </body>
 </html>

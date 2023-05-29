@@ -7,25 +7,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    body { min-width: 1260px; }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+    }
+    
     .titleArea {
-        position: relative;
-        margin: 60px 0 40px 0;
+        text-align: center;
+        margin-top: 40px;
+        color: #333;
+    }
+
+    .titlelist {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .titlelist th, .titlelist td {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    .titlelist th {
+        background-color: #f2f2f2;
+        font-weight: bold;
         text-align: center;
     }
-    tr {
-    display: table-row;
-    vertical-align: inherit;
-    border-color: inherit;
+
+    .titlelist td {
+        text-align: center;
     }
-    th, td {
-        vertical-align: middle;
+
+    .titlelist a {
+        color: #007bff;
+        text-decoration: none;
     }
-    .titlelist {
-      margin: 100px;
-      padding: 0;
+
+    .titlelist a:hover {
+        text-decoration: underline;
     }
-  </style>
+
+    .titlelist span {
+        font-weight: bold;
+        color: #ff0000;
+    }
+
+    form {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 10px;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
   
 </head>
 <body>
@@ -51,7 +100,7 @@
         <span th:if="${comBoard.answer != null}">(new)</span>
       </td>
       <td th:text="${comBoard.createdBy}"></td>
-      <td th:text="${comBoard.createAt}"></td>
+      <td th:text="${#temporals.format(comBoard.createAt, 'yyyy:MM:dd')}"></td>
     </tr>
     </tbody>
   </div>

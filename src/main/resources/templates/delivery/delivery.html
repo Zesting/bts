@@ -5,47 +5,61 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>배송 조회</title>
+    <style>
+        body .do {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        div {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 40px auto;
+            max-width: 400px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        #statusText {
+            color: #333;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
+    <div class="do">
     <h1>배송 조회</h1>
-    <pre th:each="addr : ${addr}">
-        [[${['zip' + addr.getId()]}]]
-        [[${['str' + addr.getId()]}]]
-        [[${['dlt' + addr.getId()]}]]
-    </pre>
-    <form method="get" th:action="@{/delivery/delivery/{id}}" th:object="${delivery}">
-        <!-- <div>
-            <label for="addrId">받는 사람 주소 :</label>
-            <p>
-                <span th:each="addr : ${delList}">
-                    <input type="hidden" name="addrId" th:value="${addr.addrId}">
-                    <span th:text="${addr.zipCode}">우편번호</span>
-                </span>
-            </p> 
-            <p>
-                <span th:each="addr : ${delList}">
-                    <input type="hidden" name="addrId" th:value="${addr.addrId}">
-                    <span th:text="${addr.streetAddr}">도로명 주소</span>
-                </span>
-            </p>
-            <p>
-                <span th:each="addr : ${delList}">
-                    <input type="hidden" name="addrId" th:value="${addr.addrId}">
-                    <span th:text="${addr.detailAddr}">상세 주소</span>
-                </span>
-            </p>
-        </div>
-        <div>
-            <label for="orderId">주문 정보 :</label>
-            <div id="orderId" name="orderId">
-                <span th:each="order : ${orderList}" th:value="${order.orderId}" th:text="${order.orderInfo}"></span>
-            </div>
-        </div> -->
+    <div>
+        <label>받는 사람 주소</label>
+        <p>우편번호: <span th:text="${zip}"></span></p>
+        <p>도로명 주소: <span th:text="${str}"></span></p>
+        <p><span th:text="${dlt}"></span></p>
+    </div>
+    
         <h4>배송상태</h4>
         <p>
             <span id="statusText"></span>
         </p>
-    </form>
+    </div>
+    
 </body>
 <script>
     // <span> 요소 선택
