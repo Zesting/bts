@@ -18,11 +18,11 @@
       <td th:text="${pay.groupPurchaseId}"></td>
       <td th:text="${pay.memberId}"></td>
       <td th:text="${pay.productName}"></td>
-      <td th:text="${pay.amount}"></td>
+      <td th:text="${pay.amount}" name="amount"></td>
       <td th:text="${pay.approvalDate}"></td>
       <td th:text="${pay.cardName}"></td>
       <td th:text="${pay.paymentType}"></td>
-      <td th:text="${pay.tid}"></td>
+      <td th:text="${pay.tid}" name="tid"></td>
       <br /><br />
     </tr>
 
@@ -30,7 +30,7 @@
 
     <pre>
     [[${orderId}]], [[${order_gpId}]], [[${order_mbId}]] , [[${order_gppoId}]]
-</pre
-    >
+</pre>
+<h1><a href="/paymentCancel">결제취소</a></h1>
   </body>
 </html>

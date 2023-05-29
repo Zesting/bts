@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import ezenstudy.bts.domain.Member;
 import ezenstudy.bts.domain.ReviewBoard;
 import lombok.Data;
 
@@ -20,10 +21,12 @@ public class ReviewBoardDTO {
     private List<MultipartFile> file; // 첨부 파일
 
     // 파일 X
-    public ReviewBoard toSaveReviewBaord() {
+    public ReviewBoard toSaveReviewBaord(Member member,Long productId) {
         ReviewBoard reviewBoard = new ReviewBoard();
+        reviewBoard.setMemberId(member.getId());
+        reviewBoard.setProductId(productId);
         reviewBoard.setTitle(title);
-        reviewBoard.setWriter(writer);
+        reviewBoard.setWriter(member.getName());
         reviewBoard.setContent(content);
         reviewBoard.setCDate(cDate);
         reviewBoard.setStar(star);
@@ -32,10 +35,12 @@ public class ReviewBoardDTO {
     }
 
     // 파일 O
-    public ReviewBoard toSaveFileReviewBaord() {
+    public ReviewBoard toSaveFileReviewBaord(Member member,Long productId) {
         ReviewBoard reviewBoard = new ReviewBoard();
+        reviewBoard.setMemberId(member.getId());
+        reviewBoard.setProductId(productId);
         reviewBoard.setTitle(title);
-        reviewBoard.setWriter(writer);
+        reviewBoard.setWriter(member.getName());
         reviewBoard.setContent(content);
         reviewBoard.setCDate(cDate);
         reviewBoard.setStar(star);

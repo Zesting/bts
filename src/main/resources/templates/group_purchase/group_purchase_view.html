@@ -64,7 +64,8 @@
                             <a th:unless="${session.logInMember}" href="/members/logIn"><button class="form-main-button"
                                     type="button">로그인</button></a>
                             <p th:unless="${session.logInMember}">상품을 구매하려면 로그인이 필요합니다.</p>
-                            <a style="text-decoration: none;" href="#"><button class="form-kakao-button"><img src="/images/kakaotalk.png" />카카오톡 상담</button></a>
+                            <a style="text-decoration: none;" href="#"><button class="form-kakao-button"><img
+                                        src="/images/kakaotalk.png" />카카오톡 상담</button></a>
                             <button th:if="${session.logInMember}" type="submit">바로구매</button>
                         </form>
                     </div>
@@ -81,6 +82,8 @@
             </div>
         </div>
     </div>
+
+    <div th:replace="~{/reviewboard/productReview.html :: fragment-productReview(${reviewSize},${reviewList},${imageList})}"></div>
     <script th:inline="javascript">
         //할인 퍼센테이지 표시
         {
@@ -94,6 +97,7 @@
             }
         }
     </script>
+
 </body>
 
 </html>

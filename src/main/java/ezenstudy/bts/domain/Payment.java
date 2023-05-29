@@ -21,6 +21,4 @@ public class Payment {
     private String paymentType; // 결제방법 카드or현금
     private String tid; // 카카오페이 고유번호
 
-    private Byte paymentApproval; // 결제 승인여부 0승인안됨 1승인됨
-
 }

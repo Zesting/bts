@@ -1,6 +1,5 @@
 package ezenstudy.bts.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,19 +13,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import ezenstudy.bts.DTO.ReviewBoardDTO;
+import ezenstudy.bts.domain.Member;
 import ezenstudy.bts.domain.ReviewBoard;
 import ezenstudy.bts.domain.ReviewImage;
+import ezenstudy.bts.service.GroupPurchaseService;
 import ezenstudy.bts.service.ReviewBoardService;
 import ezenstudy.bts.service.ReviewImageService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ReviewBoardController {
     private final ReviewBoardService reviewBoardService;
     private final ReviewImageService reviewImageService;
+    private final GroupPurchaseService gpService;
 
-    public ReviewBoardController(ReviewImageService reviewImageService, ReviewBoardService reviewBoardService) {
-        this.reviewImageService = reviewImageService;
+    public ReviewBoardController(ReviewBoardService reviewBoardService, ReviewImageService reviewImageService,
+            GroupPurchaseService gpService) {
         this.reviewBoardService = reviewBoardService;
+        this.reviewImageService = reviewImageService;
+        this.gpService = gpService;
     }
 
     @GetMapping("/reviewboard")
@@ -40,17 +45,20 @@ public class ReviewBoardController {
     }
 
     @PostMapping("/reviewboard/save")
-    public String save(ReviewBoardDTO reviewBoardDTO) throws Exception {
+    public String save(ReviewBoardDTO reviewBoardDTO,HttpSession session,@RequestParam("gpid") Long gpid) throws Exception {
         String imgfile = reviewBoardDTO.getFile().get(0).getOriginalFilename();
+        Member member = (Member)session.getAttribute("logInMember");
+        Long productId = gpService.findOnebyId(gpid).get().getProductId();
+        
         if (imgfile != null) {
             if (imgfile.equals("")) {
-                reviewBoardService.save(reviewBoardDTO.toSaveReviewBaord());
+                reviewBoardService.save(reviewBoardDTO.toSaveReviewBaord(member,productId));
                 ReviewImage reviewImage = new ReviewImage();
                 Long reviewBoardId = reviewBoardService.reviewBoardNum();
                 reviewImage.setReviewBoardId(reviewBoardId);
                 reviewImageService.nullSave(reviewImage);
             } else {
-                reviewBoardService.save(reviewBoardDTO.toSaveFileReviewBaord());
+                reviewBoardService.save(reviewBoardDTO.toSaveFileReviewBaord(member,productId));
                 ReviewImage reviewImage;
                 Long reviewBoardId = reviewBoardService.reviewBoardNum();
                 for (MultipartFile file : reviewBoardDTO.getFile()) {
@@ -77,24 +85,23 @@ public class ReviewBoardController {
         return "reviewboard/reviewlist";
     }
 
-
-    // 상품별 리뷰
+    // 공동구매컨트롤러로 이동
+    /*상품별 리뷰
     @GetMapping("/productReview")
     public String productList(@RequestParam("productId") Long productId, Model model) {
-        int reviewSize = reviewBoardService.findByProductId(productId).size();
-        model.addAttribute("reviewSize", reviewSize);
+        model.addAttribute("reviewSize", reviewBoardService.findByProductId(productId).size());
         List<ReviewBoard> reviewList = reviewBoardService.findByProductId(productId);
         model.addAttribute("reviewList", reviewList);
-        List<ReviewImage> imageList = new ArrayList<>();
+        List<ReviewImage> totalImageList = new ArrayList<>();
         for(ReviewBoard reviewBoard : reviewList){
             Long boardId = reviewBoard.getId();
-            ReviewImage img = reviewImageService.findOneImage(boardId);
-            imageList.add(img);
+            List<ReviewImage> imgList = reviewImageService.findByReviewImages(boardId);
+            imgList.stream().forEach(img -> totalImageList.add(img));
         }
-        model.addAttribute("imageList", imageList);
+        model.addAttribute("imageList", totalImageList);
 
         return "reviewboard/productReview";
-    }
+    }*/
 
     @GetMapping("/reviewboard/{id}")
     public String findById(@PathVariable Long id, Model model) {

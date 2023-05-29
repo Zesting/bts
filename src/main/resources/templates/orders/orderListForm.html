@@ -1,25 +1,68 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BTS</title>
-  </head>
-  <body>
-    <header th:replace="~{/fragments/header.html :: fragment-header}"></header>
-    <pre th:each="order : ${orderList}">
-      [[${order.getOrderId()}]]
-      [[${['gp_name' + order.getOrderId()]}]]
-      [[${['gp_color' + order.getOrderId]}]]
-      [[${['gp_size' + order.getOrderId]}]]
-      [[${['gp_price' + order.getOrderId]}]]
-      [[${['gp_image' + order.getOrderId]}]]
-      <img th:src="@{${['gp_image' + order.getOrderId()]}}" alt="" style="height: 200px; height: 200px;">
-      [[${['gp_pay' + order.getOrderId]}]]
-      [[${['gp_del' + order.getOrderId]}]]
-      [[${['gp_sa' + order.getOrderId]}]]
-      [[${['gp_da' + order.getOrderId]}]]
-    </pre>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BTS</title>
+</head>
+
+<body>
+  <header th:replace="~{/fragments/header.html :: fragment-header}"></header>
+  <div th:replace="~{/fragments/headnav.html :: fragment-nav}"></div>
+  <!-- 전체 복붙하고 이아래로 내용 넣어주시면됩니다. -->
+  <!-- 메인 시작 -->
+  <div th:if="${member_orderList.size} == 0">
+    <p style="
+          text-align: center;
+          border: 1px solid black;
+          border-radius: 5px;
+          display: block;
+        ">
+      공동 구매에 참여하신 상품이 존재하지 않습니다.
+    </p>
+  </div>
+  <form action="reviewboard/save" method="post">
+    <div th:if="${member_orderList.size} != 0">
+      <div th:each="orderList : ${member_orderList}">
+        <div th:if="${!#strings.isEmpty(orderList)}">
+          <pre>
+            <input type="hidden" name="gpid" value="${oderList.groupPurchaseId}">
+          <div th:text="${orderList.size}"></div>
+          <div th:text="${orderList.orderId}"></div>
+          <div th:text="${orderList.gp_name}"></div>
+          <div th:text="${orderList.gp_color}"></div>
+          <div th:text="${orderList.gp_size}"></div>
+          <div th:text="${orderList.gp_price}"></div>
+          <img th:src="${orderList.gp_imagePath}" alt="주문 대표 이미지" style="width: 200px; height: 170px;">
+          <div th:if="${orderList.paymentApproval} == null">
+            <p>결제 대기</p>
+          </div>
+          <div th:if="${orderList.paymentApproval} != null">
+            <p>결제 완료</p>
+          </div>
+          <div
+          th:text="${#dates.format(orderList.approvalDate, 'yyyy-MM-dd')}"></div>
+          <div th:text="${#dates.format(orderList.orderCompleteDate, 'yyyy-MM-dd')}"></div>
+        </pre>
+        </div>
+        <hr />
+      </div>
+      <button type="submit" value="리뷰 작성하기"></button>
+    </div>
+  </form>
+
+  <hr style="margin: 30px 0px" />
+  <!-- 정수 배송 조회 -->
+  <!--  <form
+      method="post"
+      th:action="@{/delivery/delivery/{id}(id=${order.getOrderId()})}">
+      <button type="submit">배송 조회</button>
+    </form> -->
+
+  <!-- Footer 부분 -->
+  <div th:replace="~{fragments/footer.html :: fragment-footer}"></div>
+</body>
+
 </html>

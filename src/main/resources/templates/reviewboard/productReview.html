@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="container" th:fragment="fragment-productReview">
+    <div class="reviewcontainer" th:fragment="fragment-productReview(reviewSize, reviewList, imageList)">
         <link rel="stylesheet" th:href="@{/css/reviewlist.css}">
 
         <h2>고객 후기(<span th:text="${reviewSize}"></span>)</h2>
@@ -19,7 +19,7 @@
             <button id="view-all-images-btn">전체 이미지</button>
             <div class="review-images-grid">
                 <div th:each="image:${imageList}" class="review-image">
-                    <img th:if="${image.filePath!=null}" th:src="${image.filePath}">
+                    <img th:unless="${image.filePath}" th:src="${image.filePath}">
                 </div>
             </div>
         </div>

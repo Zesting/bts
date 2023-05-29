@@ -66,6 +66,6 @@ public class ReviewImageService {
     public ReviewImage findOneImage(Long boardId){
         return reviewImageRepository.findByOneReviewBoardId(boardId);
     }
-
+    
 
 }

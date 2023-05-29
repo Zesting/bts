@@ -20,6 +20,7 @@ footer * {
     left: 0;
     bottom: 0;
     width: 100%;
+    
 }
 
 footer {
@@ -96,9 +97,7 @@ footer table {
 
 #snswrapper {
     height: 100%;
-
     display: flex;
-
     margin: 0 auto;
     max-width: 1180px;
     padding: 0;
@@ -109,16 +108,12 @@ footer table {
     height: 35px;
     width: 35px;
     border-radius: 50%;
-
     text-align: center;
     line-height: 35px;
     font-size: 17px;
     color: rgb(240, 240, 240);
-
     background: rgb(0, 0, 0);
-
     margin: 0 4px;
-
     border: 2px solid rgb(254, 254, 254);
     transition: all 0.3s ease;
 }

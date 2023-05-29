@@ -14,6 +14,7 @@ import ezenstudy.bts.domain.ReviewImage;
 public class MemoryReviewImageRepository implements ReviewImageRepository {
     private static final Map<Long,ReviewImage> store = new HashMap<>();
     private static long sequence = 0L;
+
     @Override
     public List<ReviewImage> findAll() {
         return new ArrayList<>(store.values());
@@ -42,6 +43,34 @@ public class MemoryReviewImageRepository implements ReviewImageRepository {
             .filter(rb -> rb.getReviewBoardId() == reviewBoardId)
             .findFirst()
             .orElse(null);
+    }
+
+    public MemoryReviewImageRepository(){
+        ReviewImage ri1=new ReviewImage();
+        ri1.setFilePath("/dummyimage/나이키덩크로우레트로블랙1리뷰.jpg");
+        ri1.setReviewBoardId(1l);
+        save(ri1);
+
+        ReviewImage ri2=new ReviewImage();
+        ri2.setFilePath("/dummyimage/나이키리뷰1.jpg");
+        ri2.setReviewBoardId(1l);
+        save(ri2);
+
+        ReviewImage ri3=new ReviewImage();
+        ri1.setFilePath("/dummyimage/나이키에어페이퍼맥스.jpg");
+        ri1.setId(1l);
+        ri1.setReviewBoardId(2l);
+        save(ri3);
+
+        ReviewImage ri4=new ReviewImage();
+        ri1.setFilePath("/dummyimage/닥터마틴.jpg");
+        ri1.setReviewBoardId(3l);
+        save(ri4);
+
+        ReviewImage ri5=new ReviewImage();
+        ri1.setFilePath("/dummyimage/닥터마틴마일즈1리뷰.jpg");
+        ri1.setReviewBoardId(4l);
+        save(ri5);
     }
 
 }

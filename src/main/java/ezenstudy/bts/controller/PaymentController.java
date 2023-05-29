@@ -26,6 +26,7 @@ public class PaymentController {
     private final ProductService productService;
     private final PaymentService paymentService;
     private final OrderService orderService;
+    
 
     public PaymentController(GroupPurchaseService groupPurchaseService, MemberService memberService,
             KakaoPayService kakaopay, ProductService productService, PaymentService paymentService,
@@ -99,5 +100,22 @@ public class PaymentController {
                     + groupPurchaseProductOptionId);
         }
         model.addAttribute("payment", paymentService.findAll());
+    }
+
+    @GetMapping("/paymentCancel")
+    public void cancel(@RequestParam("tid") String tid,
+    @RequestParam("amount") int amount,Model model) {
+        model.addAttribute("cancelInfo", kakaopay.kakaoCancel(amount,tid));
+        
+    }
+
+    @GetMapping("/paymentStop")
+    public String paymentStop(){
+        return "/payment/paymentStop";
+    }
+
+    @GetMapping("/paymentSuccessFail")
+    public String paymentFail(){
+        return "/payment/paymentSuccessFail";
     }
 }

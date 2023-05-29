@@ -7,6 +7,7 @@ import lombok.Data;
 public class ReviewBoard {
     private Long id;                // 고유번호
     private Long productId;         // 상품 고유번호
+    private Long memberId;          // 멤버 고유번호
     private String title;           // 글제목
     private String content;         // 글내용
     private LocalDateTime cDate;    // 글작성일자
