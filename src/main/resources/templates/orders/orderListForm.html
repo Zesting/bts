@@ -23,12 +23,11 @@
       공동 구매에 참여하신 상품이 존재하지 않습니다.
     </p>
   </div>
-  <form action="reviewboard/save" method="post">
-    <div th:if="${member_orderList.size} != 0">
+  <div th:if="${member_orderList.size} != 0">
+    <form action="/reviewboard/save" method="post">
       <div th:each="orderList : ${member_orderList}">
         <div th:if="${!#strings.isEmpty(orderList)}">
           <pre>
-            <input type="hidden" name="gpid" value="${oderList.groupPurchaseId}">
           <div th:text="${orderList.size}"></div>
           <div th:text="${orderList.orderId}"></div>
           <div th:text="${orderList.gp_name}"></div>
@@ -46,15 +45,23 @@
           th:text="${#dates.format(orderList.approvalDate, 'yyyy-MM-dd')}"></div>
           <div th:text="${#dates.format(orderList.orderCompleteDate, 'yyyy-MM-dd')}"></div>
         </pre>
+          <a th:href="'/delivery/delivery/'+${orderList.orderId}">
+            <button type="button">배송 조회</button>
+          </a>
+          <div th:if="${orderList.gpid != null}">
+            <a th:href="@{/reviewboard/save(gpid=${orderList.gpid})}">
+              <button type="button">리뷰 작성하기</button>
+            </a>
+          </div>
         </div>
         <hr />
       </div>
-      <button type="submit" value="리뷰 작성하기"></button>
-    </div>
-  </form>
+    </form>
+  </div>
 
   <hr style="margin: 30px 0px" />
   <!-- 정수 배송 조회 -->
+
   <!--  <form
       method="post"
       th:action="@{/delivery/delivery/{id}(id=${order.getOrderId()})}">

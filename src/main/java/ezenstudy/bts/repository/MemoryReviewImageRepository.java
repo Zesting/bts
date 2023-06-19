@@ -28,7 +28,6 @@ public class MemoryReviewImageRepository implements ReviewImageRepository {
     public ReviewImage save(ReviewImage reviewImage) {
         reviewImage.setId(++sequence);
         store.put(reviewImage.getId(), reviewImage);
-        System.out.println(reviewImage);
         return reviewImage;
     }
     @Override
@@ -46,30 +45,30 @@ public class MemoryReviewImageRepository implements ReviewImageRepository {
     }
 
     public MemoryReviewImageRepository(){
-        ReviewImage ri1=new ReviewImage();
+        ReviewImage ri1 = new ReviewImage();
         ri1.setFilePath("/dummyimage/나이키덩크로우레트로블랙1리뷰.jpg");
         ri1.setReviewBoardId(1l);
         save(ri1);
 
-        ReviewImage ri2=new ReviewImage();
+        ReviewImage ri2 = new ReviewImage();
         ri2.setFilePath("/dummyimage/나이키리뷰1.jpg");
-        ri2.setReviewBoardId(1l);
+        ri2.setReviewBoardId(2l);
         save(ri2);
 
-        ReviewImage ri3=new ReviewImage();
+        ReviewImage ri3 = new ReviewImage();
         ri1.setFilePath("/dummyimage/나이키에어페이퍼맥스.jpg");
-        ri1.setId(1l);
-        ri1.setReviewBoardId(2l);
+        ri1.setId(1l); 
+        ri1.setReviewBoardId(3l);
         save(ri3);
 
-        ReviewImage ri4=new ReviewImage();
+        ReviewImage ri4 = new ReviewImage();
         ri1.setFilePath("/dummyimage/닥터마틴.jpg");
-        ri1.setReviewBoardId(3l);
+        ri1.setReviewBoardId(4l);
         save(ri4);
 
-        ReviewImage ri5=new ReviewImage();
+        ReviewImage ri5 = new ReviewImage();
         ri1.setFilePath("/dummyimage/닥터마틴마일즈1리뷰.jpg");
-        ri1.setReviewBoardId(4l);
+        ri1.setReviewBoardId(5l);
         save(ri5);
     }
 

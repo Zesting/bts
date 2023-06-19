@@ -40,13 +40,16 @@ public class ReviewBoardController {
     }
 
     @GetMapping("/reviewboard/save")
-    public String saveForm() {
+    public String saveForm(@RequestParam("gpid")Long gpid,Model model) {
+        model.addAttribute("gpid", gpid);
         return "reviewboard/reviewsave";
     }
 
     @PostMapping("/reviewboard/save")
-    public String save(ReviewBoardDTO reviewBoardDTO,HttpSession session,@RequestParam("gpid") Long gpid) throws Exception {
-        String imgfile = reviewBoardDTO.getFile().get(0).getOriginalFilename();
+    public String save(ReviewBoardDTO reviewBoardDTO,HttpSession session,@RequestParam("gpid")Long gpid) throws Exception {
+        System.out.println("dddddddddddddddddddd"+gpid);
+
+        String imgfile = reviewBoardDTO.getFile().get(0).getOriginalFilename(); 
         Member member = (Member)session.getAttribute("logInMember");
         Long productId = gpService.findOnebyId(gpid).get().getProductId();
         
@@ -77,10 +80,11 @@ public class ReviewBoardController {
     public String findAll(Model model) {
         // db전체 게시글 데이터를 가져와서 보여줌
         int reviewSize = reviewBoardService.reviewSize();
-        model.addAttribute("reviewSize", reviewSize);
         List<ReviewBoard> boardList = reviewBoardService.findAll();
-        model.addAttribute("boardList", boardList);
         List<ReviewImage> imageList = reviewImageService.findAll();
+        
+        model.addAttribute("reviewSize", reviewSize);
+        model.addAttribute("boardList", boardList);
         model.addAttribute("imageList", imageList);
         return "reviewboard/reviewlist";
     }
@@ -108,9 +112,11 @@ public class ReviewBoardController {
         // 게시글의 조회수를 하나 올리고 게시글 데이터를 가져와서 detail.html에 출력
         reviewBoardService.updateCount(id);
         Optional<ReviewBoard> reviewBoard = reviewBoardService.findOne(id);
-        model.addAttribute("board", reviewBoard.get());
         List<ReviewImage> reviewImage = reviewImageService.findByReviewImages(id);
+
+        model.addAttribute("board", reviewBoard.get());
         model.addAttribute("images", reviewImage);
+
         return "reviewboard/reviewdetail";
     }
 
@@ -133,5 +139,4 @@ public class ReviewBoardController {
         reviewBoardService.delete(id);
         return "redirect:/reviewboard";
     }
-
 }

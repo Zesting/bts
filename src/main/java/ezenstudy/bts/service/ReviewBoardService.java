@@ -57,7 +57,7 @@ public class ReviewBoardService {
     }
 
     //상품별 평균 별점
-    public double starAverage(Long productId){  
+    public double starAverage(Long productId){
         return boardRepository.findAll().stream().
         filter(pi->pi.getProductId().equals(productId)).
         mapToDouble(ReviewBoard::getStar).average().getAsDouble();

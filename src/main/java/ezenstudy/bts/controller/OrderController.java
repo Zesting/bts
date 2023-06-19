@@ -62,7 +62,6 @@ public class OrderController {
             /** 공동 구매 대상 상품 이미지 경로 */
             String pi = productImageService.findListbyProductId(gp.getProductId()).get(0).getImagePath();
             Payment payment = paymentService.findById(order.getPaymentId()).get();
-
             Date approvalDate = payment.getApprovalDate();
             Byte paymentApproval = payment.getPaymentApproval();
             Date orderCompleteDate = orderService.findOneByOrder(orderId).get().getOrder_completeDate();
@@ -79,12 +78,12 @@ public class OrderController {
             orderMap.put("gp_imagePath", pi);
             orderMap.put("approvalDate", approvalDate);
             orderMap.put("paymentApproval", paymentApproval);
-            orderMap.put("orderCompleteDate", orderCompleteDate);
+            orderMap.put("orderCompleteDate", orderCompleteDate); 
+            orderMap.put("gpid", gpId);
 
             member_orderList.add(orderMap);
 
             /** 오더 리스트 view로 전달(Model) */
-
         });
 
         model.addAttribute("member_orderList", member_orderList);

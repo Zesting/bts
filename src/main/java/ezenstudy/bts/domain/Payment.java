@@ -13,6 +13,7 @@ public class Payment {
     private Long groupPurchaseId; // 공동구매id (FK)
     private Long memberId; // 멤버id(FK)
     private String productName; // 제품명
+    private Byte paymentApproval;
 
     //카카오결제api 에서 받아오는 거
     private Integer amount;   // 결제금액
